@@ -1,0 +1,10 @@
+<Solution>
+  <Configurations>
+    <Platform Name="x64" />
+  </Configurations>
+<<<<<<< HEAD
+  <Project Path="proyecto progra/practica proyecto.vcxproj" Id="406222eb-8597-42ca-b0f2-9c5fb260ffda" />
+=======
+  <Project Path="practica proyecto/practica proyecto.vcxproj" Id="406222eb-8597-42ca-b0f2-9c5fb260ffda" />
+>>>>>>> c091749d376c2d84fce92ce627c6e828525c2103
+</Solution>

@@ -13,5 +13,5 @@ public:
 
 private:
 	void cambiarDatos(); // Función para cambiar los datos del usuario
-    Ui::CambioClass ui;
+    Ui::cambioClass ui;
 };

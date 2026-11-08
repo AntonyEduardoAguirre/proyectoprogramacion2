@@ -12,7 +12,6 @@
 inline QList<Cliente> clientes;
 inline QList<Producto> productos;
 inline Cliente usuarioActual;  // variable global para almacenar el usuario actual
-inline int siguienteIdCliente = 1;   // id que recibirá el próximo usuario
 
 inline QString carpetaDatos()
 {

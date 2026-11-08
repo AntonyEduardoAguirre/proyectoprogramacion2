@@ -6,17 +6,123 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>600</width>
-    <height>446</height>
+    <width>1000</width>
+    <height>700</height>
    </rect>
   </property>
+  <property name="minimumSize">
+   <size>
+    <width>760</width>
+    <height>560</height>
+   </size>
+  </property>
   <property name="windowTitle">
-   <string>practicaproyecto</string>
+   <string>inicio</string>
+  </property>
+  <property name="styleSheet">
+   <string notr="true">QMainWindow, #centralWidget {
+	background-color: #F5F3EE;
+}
+#loginCard {
+	background-color: #FFFFFF;
+	border: 1px solid #EAE8E2;
+	border-radius: 18px;
+}
+QLabel#eyebrow {
+	color: #92918B;
+	font-family: &quot;Segoe UI&quot;;
+	font-size: 11px;
+	font-weight: 600;
+}
+QLabel#title {
+	color: #292A28;
+	font-family: Georgia;
+	font-size: 29px;
+	font-weight: 400;
+}
+QLabel#subtitle, QLabel#copyright {
+	color: #92918B;
+	font-family: &quot;Segoe UI&quot;;
+	font-size: 12px;
+}
+QLabel#lblNombre, QLabel#lblContrasenna {
+	color: #292A28;
+	font-family: &quot;Segoe UI&quot;;
+	font-size: 12px;
+	font-weight: 600;
+	margin-bottom: 6px;
+}
+QLineEdit {
+	background-color: #FAFAF8;
+	color: #292A28;
+	border: 1px solid #E8E7E1;
+	border-radius: 8px;
+	font-family: &quot;Segoe UI&quot;;
+	font-size: 13px;
+	padding: 0 13px;
+	min-height: 46px;
+}
+QLineEdit:focus {
+	border: 1px solid #899B83;
+}
+QCheckBox {
+	color: #92918B;
+	font-family: &quot;Segoe UI&quot;;
+	font-size: 11px;
+}
+QCheckBox::indicator {
+	width: 13px;
+	height: 13px;
+	border: 1px solid #E8E7E1;
+	border-radius: 3px;
+	background: #FAFAF8;
+}
+QCheckBox::indicator:checked {
+	background: #899B83;
+	border-color: #899B83;
+}
+QPushButton#btnIniciarSesion {
+	background-color: #899B83;
+	color: #FFFFFF;
+	border: none;
+	border-radius: 8px;
+	font-family: &quot;Segoe UI&quot;;
+	font-size: 13px;
+	font-weight: 600;
+	min-height: 49px;
+}
+QPushButton#btnIniciarSesion:hover { background-color: #788B72; }
+QPushButton#btnIniciarSesion:pressed { background-color: #6D8067; }
+QPushButton#btnRegistrarse, QPushButton#btnRecuperar, QPushButton#btnSalir {
+	background: transparent;
+	border: none;
+	color: #899B83;
+	font-family: &quot;Segoe UI&quot;;
+	font-size: 11px;
+	padding: 4px;
+}
+QPushButton#btnRegistrarse:hover, QPushButton#btnRecuperar:hover, QPushButton#btnSalir:hover {
+	color: #788B72;
+}
+QLabel#lblError { color: #92918B; font-size: 11px; margin-top: 8px; }
+</string>
   </property>
   <widget class="QWidget" name="centralWidget">
-   <layout class="QVBoxLayout" name="verticalLayout">
+   <layout class="QVBoxLayout" name="layoutExterior">
+    <property name="leftMargin">
+     <number>24</number>
+    </property>
+    <property name="topMargin">
+     <number>24</number>
+    </property>
+    <property name="rightMargin">
+     <number>24</number>
+    </property>
+    <property name="bottomMargin">
+     <number>24</number>
+    </property>
     <item>
-     <spacer name="verticalSpacer_2">
+     <spacer name="spacerSuperior">
       <property name="orientation">
        <enum>Qt::Orientation::Vertical</enum>
       </property>
@@ -29,104 +135,310 @@
      </spacer>
     </item>
     <item>
-     <widget class="QLabel" name="lblNombre">
-      <property name="enabled">
-       <bool>true</bool>
-      </property>
-      <property name="text">
-       <string>Nombre de usuario:</string>
-      </property>
-     </widget>
+     <layout class="QHBoxLayout" name="filaTarjeta">
+      <item>
+       <spacer name="spacerIzquierdo">
+        <property name="orientation">
+         <enum>Qt::Orientation::Horizontal</enum>
+        </property>
+        <property name="sizeHint" stdset="0">
+         <size>
+          <width>40</width>
+          <height>20</height>
+         </size>
+        </property>
+       </spacer>
+      </item>
+      <item>
+       <widget class="QFrame" name="loginCard">
+        <property name="minimumSize">
+         <size>
+          <width>420</width>
+          <height>550</height>
+         </size>
+        </property>
+        <property name="maximumSize">
+         <size>
+          <width>460</width>
+          <height>580</height>
+         </size>
+        </property>
+        <property name="frameShape">
+         <enum>QFrame::Shape::NoFrame</enum>
+        </property>
+        <layout class="QVBoxLayout" name="contenido">
+         <property name="spacing">
+          <number>0</number>
+         </property>
+         <property name="leftMargin">
+          <number>42</number>
+         </property>
+         <property name="topMargin">
+          <number>34</number>
+         </property>
+         <property name="rightMargin">
+          <number>42</number>
+         </property>
+         <property name="bottomMargin">
+          <number>30</number>
+         </property>
+         <item>
+          <widget class="QLabel" name="eyebrow">
+           <property name="text">
+            <string>INICIO SESiÓN</string>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <spacer name="spacerEyebrow">
+           <property name="orientation">
+            <enum>Qt::Orientation::Vertical</enum>
+           </property>
+           <property name="sizeType">
+            <enum>QSizePolicy::Policy::Fixed</enum>
+           </property>
+           <property name="sizeHint" stdset="0">
+            <size>
+             <width>20</width>
+             <height>30</height>
+            </size>
+           </property>
+          </spacer>
+         </item>
+         <item>
+          <widget class="QLabel" name="title">
+           <property name="text">
+            <string>Bienvenido</string>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QLabel" name="subtitle">
+           <property name="text">
+            <string>Por favor, ingrese sus credenciales para continuar.</string>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <spacer name="spacerSubtitulo">
+           <property name="orientation">
+            <enum>Qt::Orientation::Vertical</enum>
+           </property>
+           <property name="sizeType">
+            <enum>QSizePolicy::Policy::Fixed</enum>
+           </property>
+           <property name="sizeHint" stdset="0">
+            <size>
+             <width>20</width>
+             <height>25</height>
+            </size>
+           </property>
+          </spacer>
+         </item>
+         <item>
+          <widget class="QLabel" name="lblNombre">
+           <property name="text">
+            <string>Nombre de cuenta</string>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QLineEdit" name="txtNombre">
+           <property name="text">
+            <string/>
+           </property>
+           <property name="placeholderText">
+            <string>Ingrese su nombre</string>
+           </property>
+           <property name="clearButtonEnabled">
+            <bool>true</bool>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <spacer name="spacerCorreo">
+           <property name="orientation">
+            <enum>Qt::Orientation::Vertical</enum>
+           </property>
+           <property name="sizeType">
+            <enum>QSizePolicy::Policy::Fixed</enum>
+           </property>
+           <property name="sizeHint" stdset="0">
+            <size>
+             <width>20</width>
+             <height>16</height>
+            </size>
+           </property>
+          </spacer>
+         </item>
+         <item>
+          <widget class="QLabel" name="lblContrasenna">
+           <property name="text">
+            <string>Contraseña</string>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QLineEdit" name="txtContrasenna">
+           <property name="echoMode">
+            <enum>QLineEdit::EchoMode::Password</enum>
+           </property>
+           <property name="placeholderText">
+            <string>Ingrese su contraseña</string>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <spacer name="spacerContrasenna">
+           <property name="orientation">
+            <enum>Qt::Orientation::Vertical</enum>
+           </property>
+           <property name="sizeType">
+            <enum>QSizePolicy::Policy::Fixed</enum>
+           </property>
+           <property name="sizeHint" stdset="0">
+            <size>
+             <width>20</width>
+             <height>14</height>
+            </size>
+           </property>
+          </spacer>
+         </item>
+         <item>
+          <layout class="QHBoxLayout" name="filaOpciones">
+           <property name="spacing">
+            <number>0</number>
+           </property>
+           <item>
+            <spacer name="spacerOpciones">
+             <property name="orientation">
+              <enum>Qt::Orientation::Horizontal</enum>
+             </property>
+             <property name="sizeHint" stdset="0">
+              <size>
+               <width>40</width>
+               <height>20</height>
+              </size>
+             </property>
+            </spacer>
+           </item>
+          </layout>
+         </item>
+         <item>
+          <spacer name="spacerOpcionesBoton">
+           <property name="orientation">
+            <enum>Qt::Orientation::Vertical</enum>
+           </property>
+           <property name="sizeType">
+            <enum>QSizePolicy::Policy::Fixed</enum>
+           </property>
+           <property name="sizeHint" stdset="0">
+            <size>
+             <width>20</width>
+             <height>22</height>
+            </size>
+           </property>
+          </spacer>
+         </item>
+         <item>
+          <widget class="QPushButton" name="btnIniciarSesion">
+           <property name="text">
+            <string>Iniciar sesión</string>
+           </property>
+           <property name="default">
+            <bool>true</bool>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <spacer name="spacerBoton">
+           <property name="orientation">
+            <enum>Qt::Orientation::Vertical</enum>
+           </property>
+           <property name="sizeType">
+            <enum>QSizePolicy::Policy::Fixed</enum>
+           </property>
+           <property name="sizeHint" stdset="0">
+            <size>
+             <width>20</width>
+             <height>18</height>
+            </size>
+           </property>
+          </spacer>
+         </item>
+         <item>
+          <widget class="QPushButton" name="btnRegistrarse">
+           <property name="text">
+            <string>¿No tienes cuenta? Crea una aquí</string>
+           </property>
+           <property name="flat">
+            <bool>true</bool>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QLabel" name="lblError">
+           <property name="text">
+            <string/>
+           </property>
+           <property name="alignment">
+            <set>Qt::AlignmentFlag::AlignCenter</set>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <spacer name="spacerInferior">
+           <property name="orientation">
+            <enum>Qt::Orientation::Vertical</enum>
+           </property>
+           <property name="sizeHint" stdset="0">
+            <size>
+             <width>20</width>
+             <height>40</height>
+            </size>
+           </property>
+          </spacer>
+         </item>
+         <item>
+          <widget class="QPushButton" name="btnSalir">
+           <property name="text">
+            <string>Salir</string>
+           </property>
+           <property name="flat">
+            <bool>true</bool>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QLabel" name="copyright">
+           <property name="text">
+            <string>© 2026 UNA Electros</string>
+           </property>
+           <property name="alignment">
+            <set>Qt::AlignmentFlag::AlignCenter</set>
+           </property>
+          </widget>
+         </item>
+        </layout>
+       </widget>
+      </item>
+      <item>
+       <spacer name="spacerDerecho">
+        <property name="orientation">
+         <enum>Qt::Orientation::Horizontal</enum>
+        </property>
+        <property name="sizeHint" stdset="0">
+         <size>
+          <width>40</width>
+          <height>20</height>
+         </size>
+        </property>
+       </spacer>
+      </item>
+     </layout>
     </item>
     <item>
-     <widget class="QLineEdit" name="txtNombre"/>
-    </item>
-    <item>
-     <spacer name="horizontalSpacer">
-      <property name="orientation">
-       <enum>Qt::Orientation::Horizontal</enum>
-      </property>
-      <property name="sizeHint" stdset="0">
-       <size>
-        <width>40</width>
-        <height>20</height>
-       </size>
-      </property>
-     </spacer>
-    </item>
-    <item>
-     <widget class="QLabel" name="lblContrasenna">
-      <property name="text">
-       <string>Contraseña:</string>
-      </property>
-     </widget>
-    </item>
-    <item>
-     <widget class="QLineEdit" name="txtContrasenna">
-      <property name="echoMode">
-       <enum>QLineEdit::EchoMode::Password</enum>
-      </property>
-     </widget>
-    </item>
-    <item>
-     <widget class="QLabel" name="lblError">
-      <property name="styleSheet">
-       <string notr="true"> color: red;</string>
-      </property>
-      <property name="text">
-       <string/>
-      </property>
-     </widget>
-    </item>
-    <item>
-     <widget class="QPushButton" name="btnIniciarSesion">
-      <property name="text">
-       <string>Iniciar Sesión</string>
-      </property>
-     </widget>
-    </item>
-    <item>
-     <spacer name="horizontalSpacer_2">
-      <property name="orientation">
-       <enum>Qt::Orientation::Horizontal</enum>
-      </property>
-      <property name="sizeHint" stdset="0">
-       <size>
-        <width>40</width>
-        <height>20</height>
-       </size>
-      </property>
-     </spacer>
-    </item>
-    <item>
-     <widget class="QPushButton" name="btnRegistrarse">
-      <property name="text">
-       <string>¿No tienes cuenta? ¡Registrate aquí!</string>
-      </property>
-     </widget>
-    </item>
-    <item>
-     <spacer name="horizontalSpacer_3">
-      <property name="orientation">
-       <enum>Qt::Orientation::Horizontal</enum>
-      </property>
-      <property name="sizeHint" stdset="0">
-       <size>
-        <width>40</width>
-        <height>20</height>
-       </size>
-      </property>
-     </spacer>
-    </item>
-    <item>
-     <widget class="QPushButton" name="btnSalir">
-      <property name="text">
-       <string>Salir</string>
-      </property>
-     </widget>
-    </item>
-    <item>
-     <spacer name="verticalSpacer">
+     <spacer name="spacerInferiorExterior">
       <property name="orientation">
        <enum>Qt::Orientation::Vertical</enum>
       </property>
@@ -140,29 +452,7 @@
     </item>
    </layout>
   </widget>
-  <widget class="QMenuBar" name="menuBar">
-   <property name="geometry">
-    <rect>
-     <x>0</x>
-     <y>0</y>
-     <width>600</width>
-     <height>21</height>
-    </rect>
-   </property>
-  </widget>
-  <widget class="QToolBar" name="mainToolBar">
-   <attribute name="toolBarArea">
-    <enum>TopToolBarArea</enum>
-   </attribute>
-   <attribute name="toolBarBreak">
-    <bool>false</bool>
-   </attribute>
-  </widget>
-  <widget class="QStatusBar" name="statusBar"/>
  </widget>
- <layoutdefault spacing="6" margin="11"/>
- <resources>
-  <include location="practicaproyecto.qrc"/>
- </resources>
+ <resources/>
  <connections/>
 </ui>

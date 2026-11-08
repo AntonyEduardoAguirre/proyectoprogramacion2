@@ -6,44 +6,100 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>547</width>
-    <height>435</height>
+    <width>1000</width>
+    <height>700</height>
    </rect>
   </property>
-  <property name="windowTitle">
-   <string>Form</string>
+  <property name="minimumSize">
+   <size>
+    <width>760</width>
+    <height>560</height>
+   </size>
   </property>
-  <layout class="QFormLayout" name="formLayout">
-   <item row="0" column="0">
-    <widget class="QPushButton" name="btnRegresar">
-     <property name="text">
-      <string>Regresar</string>
-     </property>
-    </widget>
-   </item>
-   <item row="1" column="0">
-    <widget class="QLabel" name="lblUsuario">
-     <property name="text">
-      <string>Nombre de usuario:</string>
-     </property>
-    </widget>
-   </item>
-   <item row="2" column="0">
-    <widget class="QLabel" name="lblSaldo">
-     <property name="text">
-      <string>Saldo actual:</string>
-     </property>
-    </widget>
-   </item>
-   <item row="3" column="0">
-    <widget class="QLabel" name="lblId">
-     <property name="text">
-      <string>Mi id:</string>
-     </property>
-    </widget>
-   </item>
-   <item row="4" column="0">
-    <spacer name="verticalSpacer_5">
+  <property name="windowTitle">
+   <string>Cuenta</string>
+  </property>
+  <property name="styleSheet">
+   <string notr="true">#cuentaClass {
+	background-color: #F5F3EE;
+}
+#softCard {
+	background-color: #FFFFFF;
+	border: 1px solid #EAE8E2;
+	border-radius: 18px;
+}
+QLabel#eyebrow {
+	color: #92918B;
+	font-family: &quot;Segoe UI&quot;;
+	font-size: 11px;
+	font-weight: 600;
+}
+QLabel#title {
+	color: #292A28;
+	font-family: Georgia;
+	font-size: 29px;
+}
+QLabel#subtitle, QLabel#copyright {
+	color: #92918B;
+	font-family: &quot;Segoe UI&quot;;
+	font-size: 12px;
+}
+QLabel#lblUsuario, QLabel#lblSaldo, QLabel#lblId {
+	color: #292A28;
+	background: #FAFAF8;
+	border: 1px solid #EAE8E2;
+	border-radius: 8px;
+	padding: 14px;
+	font-size: 13px;
+}
+QPushButton#btnHistorial, QPushButton#btnCambiar {
+	background: #899B83;
+	color: #FFFFFF;
+	border: none;
+	border-radius: 8px;
+	min-height: 43px;
+	font-weight: 600;
+}
+QPushButton#btnHistorial:hover, QPushButton#btnCambiar:hover {
+	background: #788B72;
+}
+QPushButton#btnDesactivar {
+	background: #92918B;
+	color: #FFFFFF;
+	border: none;
+	border-radius: 8px;
+	min-height: 43px;
+	font-weight: 600;
+}
+QPushButton#btnDesactivar:hover {
+	background: #7D7C77;
+}
+QPushButton#btnRegresar {
+	background: transparent;
+	border: none;
+	color: #899B83;
+	padding: 5px;
+}
+QPushButton#btnRegresar:hover {
+	color: #788B72;
+}
+</string>
+  </property>
+  <layout class="QVBoxLayout" name="layoutExterior">
+   <property name="leftMargin">
+    <number>24</number>
+   </property>
+   <property name="topMargin">
+    <number>24</number>
+   </property>
+   <property name="rightMargin">
+    <number>24</number>
+   </property>
+   <property name="bottomMargin">
+    <number>24</number>
+   </property>
+   <item>
+    <spacer name="spacerSuperior">
      <property name="orientation">
       <enum>Qt::Orientation::Vertical</enum>
      </property>
@@ -55,8 +111,279 @@
      </property>
     </spacer>
    </item>
-   <item row="5" column="0">
-    <spacer name="verticalSpacer_4">
+   <item>
+    <layout class="QHBoxLayout" name="filaTarjeta">
+     <item>
+      <spacer name="spacerIzquierdo">
+       <property name="orientation">
+        <enum>Qt::Orientation::Horizontal</enum>
+       </property>
+       <property name="sizeHint" stdset="0">
+        <size>
+         <width>40</width>
+         <height>20</height>
+        </size>
+       </property>
+      </spacer>
+     </item>
+     <item>
+      <widget class="QFrame" name="softCard">
+       <property name="minimumSize">
+        <size>
+         <width>460</width>
+         <height>520</height>
+        </size>
+       </property>
+       <property name="maximumSize">
+        <size>
+         <width>520</width>
+         <height>560</height>
+        </size>
+       </property>
+       <property name="frameShape">
+        <enum>QFrame::Shape::NoFrame</enum>
+       </property>
+       <layout class="QVBoxLayout" name="contenido">
+        <property name="spacing">
+         <number>0</number>
+        </property>
+        <property name="leftMargin">
+         <number>42</number>
+        </property>
+        <property name="topMargin">
+         <number>34</number>
+        </property>
+        <property name="rightMargin">
+         <number>42</number>
+        </property>
+        <property name="bottomMargin">
+         <number>30</number>
+        </property>
+        <item>
+         <widget class="QLabel" name="eyebrow">
+          <property name="text">
+           <string>CUENTA</string>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <spacer name="spacerEyebrow">
+          <property name="orientation">
+           <enum>Qt::Orientation::Vertical</enum>
+          </property>
+          <property name="sizeType">
+           <enum>QSizePolicy::Policy::Fixed</enum>
+          </property>
+          <property name="sizeHint" stdset="0">
+           <size>
+            <width>20</width>
+            <height>30</height>
+           </size>
+          </property>
+         </spacer>
+        </item>
+        <item>
+         <widget class="QLabel" name="title">
+          <property name="text">
+           <string>Tu cuenta.</string>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QLabel" name="subtitle">
+          <property name="text">
+           <string>Un resumen de los datos de tu cuenta.</string>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <spacer name="spacerSubtitulo">
+          <property name="orientation">
+           <enum>Qt::Orientation::Vertical</enum>
+          </property>
+          <property name="sizeType">
+           <enum>QSizePolicy::Policy::Fixed</enum>
+          </property>
+          <property name="sizeHint" stdset="0">
+           <size>
+            <width>20</width>
+            <height>30</height>
+           </size>
+          </property>
+         </spacer>
+        </item>
+        <item>
+         <widget class="QLabel" name="lblUsuario">
+          <property name="text">
+           <string>Usuario:</string>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <spacer name="spacerUsuario">
+          <property name="orientation">
+           <enum>Qt::Orientation::Vertical</enum>
+          </property>
+          <property name="sizeType">
+           <enum>QSizePolicy::Policy::Fixed</enum>
+          </property>
+          <property name="sizeHint" stdset="0">
+           <size>
+            <width>20</width>
+            <height>14</height>
+           </size>
+          </property>
+         </spacer>
+        </item>
+        <item>
+         <widget class="QLabel" name="lblSaldo">
+          <property name="text">
+           <string>Saldo:</string>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <spacer name="spacerSaldo">
+          <property name="orientation">
+           <enum>Qt::Orientation::Vertical</enum>
+          </property>
+          <property name="sizeType">
+           <enum>QSizePolicy::Policy::Fixed</enum>
+          </property>
+          <property name="sizeHint" stdset="0">
+           <size>
+            <width>20</width>
+            <height>14</height>
+           </size>
+          </property>
+         </spacer>
+        </item>
+        <item>
+         <widget class="QLabel" name="lblId">
+          <property name="text">
+           <string>ID:</string>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <spacer name="spacerId">
+          <property name="orientation">
+           <enum>Qt::Orientation::Vertical</enum>
+          </property>
+          <property name="sizeType">
+           <enum>QSizePolicy::Policy::Fixed</enum>
+          </property>
+          <property name="sizeHint" stdset="0">
+           <size>
+            <width>20</width>
+            <height>30</height>
+           </size>
+          </property>
+         </spacer>
+        </item>
+        <item>
+         <widget class="QPushButton" name="btnHistorial">
+          <property name="text">
+           <string>Ver historial de compras</string>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <spacer name="spacerHistorial">
+          <property name="orientation">
+           <enum>Qt::Orientation::Vertical</enum>
+          </property>
+          <property name="sizeType">
+           <enum>QSizePolicy::Policy::Fixed</enum>
+          </property>
+          <property name="sizeHint" stdset="0">
+           <size>
+            <width>20</width>
+            <height>10</height>
+           </size>
+          </property>
+         </spacer>
+        </item>
+        <item>
+         <widget class="QPushButton" name="btnCambiar">
+          <property name="text">
+           <string>Cambiar contraseña</string>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <spacer name="spacerCambiar">
+          <property name="orientation">
+           <enum>Qt::Orientation::Vertical</enum>
+          </property>
+          <property name="sizeType">
+           <enum>QSizePolicy::Policy::Fixed</enum>
+          </property>
+          <property name="sizeHint" stdset="0">
+           <size>
+            <width>20</width>
+            <height>10</height>
+           </size>
+          </property>
+         </spacer>
+        </item>
+        <item>
+         <widget class="QPushButton" name="btnDesactivar">
+          <property name="text">
+           <string>Desactivar cuenta</string>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <spacer name="spacerInferior">
+          <property name="orientation">
+           <enum>Qt::Orientation::Vertical</enum>
+          </property>
+          <property name="sizeHint" stdset="0">
+           <size>
+            <width>20</width>
+            <height>40</height>
+           </size>
+          </property>
+         </spacer>
+        </item>
+        <item>
+         <widget class="QPushButton" name="btnRegresar">
+          <property name="text">
+           <string>Volver a iniciar sesión</string>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QLabel" name="copyright">
+          <property name="text">
+           <string>© 2026 UNA Electros</string>
+          </property>
+          <property name="alignment">
+           <set>Qt::AlignmentFlag::AlignCenter</set>
+          </property>
+         </widget>
+        </item>
+       </layout>
+      </widget>
+     </item>
+     <item>
+      <spacer name="spacerDerecho">
+       <property name="orientation">
+        <enum>Qt::Orientation::Horizontal</enum>
+       </property>
+       <property name="sizeHint" stdset="0">
+        <size>
+         <width>40</width>
+         <height>20</height>
+        </size>
+       </property>
+      </spacer>
+     </item>
+    </layout>
+   </item>
+   <item>
+    <spacer name="spacerInferiorExterior">
      <property name="orientation">
       <enum>Qt::Orientation::Vertical</enum>
      </property>
@@ -67,66 +394,6 @@
       </size>
      </property>
     </spacer>
-   </item>
-   <item row="6" column="0">
-    <spacer name="verticalSpacer_3">
-     <property name="orientation">
-      <enum>Qt::Orientation::Vertical</enum>
-     </property>
-     <property name="sizeHint" stdset="0">
-      <size>
-       <width>20</width>
-       <height>40</height>
-      </size>
-     </property>
-    </spacer>
-   </item>
-   <item row="7" column="0">
-    <spacer name="verticalSpacer_2">
-     <property name="orientation">
-      <enum>Qt::Orientation::Vertical</enum>
-     </property>
-     <property name="sizeHint" stdset="0">
-      <size>
-       <width>20</width>
-       <height>40</height>
-      </size>
-     </property>
-    </spacer>
-   </item>
-   <item row="8" column="0">
-    <spacer name="verticalSpacer">
-     <property name="orientation">
-      <enum>Qt::Orientation::Vertical</enum>
-     </property>
-     <property name="sizeHint" stdset="0">
-      <size>
-       <width>20</width>
-       <height>40</height>
-      </size>
-     </property>
-    </spacer>
-   </item>
-   <item row="9" column="0" colspan="2">
-    <widget class="QPushButton" name="btnHistorial">
-     <property name="text">
-      <string>Ver historial de compras</string>
-     </property>
-    </widget>
-   </item>
-   <item row="10" column="0" colspan="2">
-    <widget class="QPushButton" name="btnCambiar">
-     <property name="text">
-      <string>Modificar detalles de cuenta</string>
-     </property>
-    </widget>
-   </item>
-   <item row="11" column="0" colspan="2">
-    <widget class="QPushButton" name="btnDesactivar">
-     <property name="text">
-      <string>Desactivar cuenta</string>
-     </property>
-    </widget>
    </item>
   </layout>
  </widget>

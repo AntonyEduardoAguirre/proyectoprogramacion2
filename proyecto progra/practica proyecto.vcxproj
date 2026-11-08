@@ -104,6 +104,7 @@
   <ItemGroup>
     <ClCompile Include="cambio.cpp" />
     <ClCompile Include="cuenta.cpp" />
+    <ClCompile Include="menuPaginacion.cpp" />
     <ClCompile Include="producto.h" />
     <ClCompile Include="registro.cpp" />
     <ClCompile Include="Seguro.cpp" />
@@ -114,11 +115,13 @@
     <QtMoc Include="Inicio.h" />
     <ClCompile Include="inicio.cpp" />
     <ClCompile Include="main.cpp" />
+    <QtUic Include="menuPaginacion.ui" />
     <QtUic Include="registro.ui" />
     <QtUic Include="cuenta.ui" />
     <QtUic Include="Seguro.ui" />
   </ItemGroup>
   <ItemGroup>
+    <QtMoc Include="menuPaginacion.h" />
     <QtMoc Include="Seguro.h" />
     <QtMoc Include="Cambio.h" />
     <ClInclude Include="cliente.h" />

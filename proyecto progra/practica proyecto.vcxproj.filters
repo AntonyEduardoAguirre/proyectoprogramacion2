@@ -58,6 +58,9 @@
     <ClCompile Include="Seguro.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="menuPaginacion.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="cliente.h">
@@ -83,6 +86,9 @@
     <QtMoc Include="Seguro.h">
       <Filter>Header Files\Paginas</Filter>
     </QtMoc>
+    <QtMoc Include="menuPaginacion.h">
+      <Filter>Header Files\Paginas</Filter>
+    </QtMoc>
   </ItemGroup>
   <ItemGroup>
     <QtUic Include="registro.ui">
@@ -95,6 +101,9 @@
       <Filter>Form Files</Filter>
     </QtUic>
     <QtUic Include="Seguro.ui">
+      <Filter>Form Files</Filter>
+    </QtUic>
+    <QtUic Include="menuPaginacion.ui">
       <Filter>Form Files</Filter>
     </QtUic>
   </ItemGroup>

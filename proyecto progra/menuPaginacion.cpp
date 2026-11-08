@@ -1,5 +1,6 @@
 #include "menuPaginacion.h"
 #include "ui_menuPaginacion.h"  // generado por uic a partir de menuPaginacion.ui
+#include "datos.h"            
 
 #include <algorithm>
 
@@ -7,15 +8,26 @@
 #include <QSignalBlocker>
 #include <QSlider>
 #include <QtMath>
+#include <QFrame>
+#include <QGraphicsDropShadowEffect>
 
 MenuPaginacion::MenuPaginacion(QWidget* parent)
     : QMainWindow(parent), ui(new Ui::MenuPaginacion)
 {
     ui->setupUi(this);
+	// La sombra suave no se puede definir en el .ui
+    for (QFrame* tarjeta : { ui->cardFiltros, ui->cardCatalogo, ui->cardDetalle }) {
+        auto* sombra = new QGraphicsDropShadowEffect(tarjeta);
+        sombra->setBlurRadius(28);
+        sombra->setOffset(0, 8);
+        sombra->setColor(QColor(41, 42, 40, 22));
+        tarjeta->setGraphicsEffect(sombra);
+    }
 
     // --- 6 botones de producto en la cuadrícula (2 filas x 3 columnas) ---
     for (int i = 0; i < PRODUCTOS_POR_PAGINA; ++i) {
         auto* b = new QPushButton(this);
+        b->setObjectName("btnProducto");         
         b->setMinimumSize(160, 90);
         b->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
         ui->gridProductos->addWidget(b, i / 3, i % 3);
@@ -48,7 +60,7 @@ MenuPaginacion::MenuPaginacion(QWidget* parent)
     connect(ui->leCategoria,  &QLineEdit::textChanged, this, &MenuPaginacion::aplicarFiltros);
     connect(ui->leId,         &QLineEdit::textChanged, this, &MenuPaginacion::aplicarFiltros);
     connect(ui->sldPrecio,    &QSlider::valueChanged, this, [this](int v) {
-        ui->lblPrecio->setText(QString::number(v));
+        ui->lblPrecio->setText(QString("$%1").arg(v));
         aplicarFiltros();
     });
 
@@ -57,11 +69,12 @@ MenuPaginacion::MenuPaginacion(QWidget* parent)
     connect(ui->btnSiguiente, &QPushButton::clicked, this, &MenuPaginacion::paginaSiguiente);
 
     // --- Detalle ---
-    connect(ui->btnComprar, &QPushButton::clicked, this, &MenuPaginacion::volverAlMenu);
-    // btnSalir: sin conexión por ahora (según el planteamiento del ejercicio)
+    connect(ui->btnSalir, &QPushButton::clicked, this, &MenuPaginacion::volverAlMenu);
+    // btnComprar: sin conexión por ahora 
 
     actualizarCatalogo();
 }
+
 
 MenuPaginacion::~MenuPaginacion()
 {
@@ -70,7 +83,9 @@ MenuPaginacion::~MenuPaginacion()
 
 void MenuPaginacion::actualizarCatalogo()
 {
-    productos = obtenerProductos();   // datos.h: la lista de productos del catálogo
+    if (::productos.isEmpty())
+        cargarProductos();      // carga productos.json o lo crea con el catálogo inicial
+
     configurarSlider();
     aplicarFiltros();
 }
@@ -91,7 +106,7 @@ void MenuPaginacion::configurarSlider()
     const QSignalBlocker bloqueo(ui->sldPrecio);   // evita disparar el filtro aquí
     ui->sldPrecio->setRange(static_cast<int>(qFloor(minP)), static_cast<int>(qCeil(maxP)));
     ui->sldPrecio->setValue(static_cast<int>(qCeil(maxP)));   // por defecto: sin recortar nada
-    ui->lblPrecio->setText(QString::number(ui->sldPrecio->value()));
+    ui->lblPrecio->setText(QString("$%1").arg(ui->sldPrecio->value()));
 }
 
 // Los filtros activos se combinan con AND.

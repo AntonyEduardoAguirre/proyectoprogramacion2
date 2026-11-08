@@ -3,6 +3,7 @@
 #include "cliente.h"
 #include "datos.h"
 #include "Cuenta.h"
+#include "MenuPrincipal.h"
 
 #include <QPushButton>
 #include <QString>
@@ -60,7 +61,8 @@ void inicio::validarSesion() {//FUNCION AUXILIAR
     for (const auto& usuario : clientes) {
         if (convertirMinuscula(usuario.getNombre()) == convertirMinuscula(nombre) && contrasenna == usuario.getContrasenna()) {
             usuarioActual = usuario; // Almacena el usuario actual en la variable global
-            cuenta* ventanaMenu = new cuenta();
+            // TODO: cambiar según el rol del usuario cuando se implemente la validación de administradores.
+            MenuPrincipal* ventanaMenu = new MenuPrincipal(usuarioActual.nombre, false);
             ventanaMenu->setAttribute(Qt::WA_DeleteOnClose); // libera memoria al cerrarla
             ventanaMenu->show();
             this->close();   // cierra inicio

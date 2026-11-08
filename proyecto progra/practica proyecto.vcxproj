@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <Project DefaultTargets="Build" ToolsVersion="18.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup Label="ProjectConfigurations">
     <ProjectConfiguration Include="Debug|x64">
@@ -105,6 +105,13 @@
     <ClCompile Include="cambio.cpp" />
     <ClCompile Include="cuenta.cpp" />
     <ClCompile Include="menuPaginacion.cpp" />
+    <ClCompile Include="CalculadoraCambio.cpp" />
+    <ClCompile Include="MenuPrincipal.cpp" />
+    <ClCompile Include="VentanaCobro.cpp" />
+    <ClCompile Include="placeholders\VentanaAdmin.cpp" />
+    <ClCompile Include="placeholders\VentanaCarrito.cpp" />
+    <ClCompile Include="placeholders\VentanaCatalogo.cpp" />
+    <ClCompile Include="placeholders\VentanaCuenta.cpp" />
     <ClCompile Include="producto.h" />
     <ClCompile Include="registro.cpp" />
     <ClCompile Include="Seguro.cpp" />
@@ -124,7 +131,15 @@
     <QtMoc Include="menuPaginacion.h" />
     <QtMoc Include="Seguro.h" />
     <QtMoc Include="Cambio.h" />
+    <QtMoc Include="MenuPrincipal.h" />
+    <QtMoc Include="VentanaCobro.h" />
+    <QtMoc Include="placeholders\VentanaAdmin.h" />
+    <QtMoc Include="placeholders\VentanaCarrito.h" />
+    <QtMoc Include="placeholders\VentanaCatalogo.h" />
+    <QtMoc Include="placeholders\VentanaCuenta.h" />
     <ClInclude Include="cliente.h" />
+    <ClInclude Include="CalculadoraCambio.h" />
+    <ClInclude Include="EstiloPulpe.h" />
     <QtMoc Include="Cuenta.h" />
     <ClInclude Include="datos.h" />
   </ItemGroup>

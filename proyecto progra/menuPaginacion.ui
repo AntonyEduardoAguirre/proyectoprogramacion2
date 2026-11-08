@@ -1,0 +1,123 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>MenuPaginacion</class>
+ <widget class="QMainWindow" name="MenuPaginacion">
+  <property name="geometry">
+   <rect><x>0</x><y>0</y><width>980</width><height>620</height></rect>
+  </property>
+  <property name="windowTitle">
+   <string>La Pulpe · Catálogo</string>
+  </property>
+  <widget class="QWidget" name="centralwidget">
+   <layout class="QVBoxLayout" name="verticalLayoutMain">
+    <item>
+     <widget class="QStackedWidget" name="stackedWidget">
+      <widget class="QWidget" name="paginaMenu">
+       <layout class="QHBoxLayout" name="horizontalLayoutMenu">
+        <item>
+         <layout class="QVBoxLayout" name="layoutFiltros">
+          <item>
+           <widget class="QCheckBox" name="chkNombre">
+            <property name="text"><string>Filtrar por nombre</string></property>
+           </widget>
+          </item>
+          <item><widget class="QLineEdit" name="leNombre"/></item>
+          <item>
+           <widget class="QCheckBox" name="chkCategoria">
+            <property name="text"><string>Filtrar por categoría</string></property>
+           </widget>
+          </item>
+          <item><widget class="QLineEdit" name="leCategoria"/></item>
+          <item>
+           <widget class="QCheckBox" name="chkId">
+            <property name="text"><string>Filtrar por ID</string></property>
+           </widget>
+          </item>
+          <item><widget class="QLineEdit" name="leId"/></item>
+          <item>
+           <widget class="QCheckBox" name="chkPrecio">
+            <property name="text"><string>Precio máximo</string></property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QSlider" name="sldPrecio">
+            <property name="orientation"><enum>Qt::Horizontal</enum></property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QLabel" name="lblPrecio">
+            <property name="text"><string>0</string></property>
+           </widget>
+          </item>
+          <item>
+           <spacer name="spacerFiltros">
+            <property name="orientation"><enum>Qt::Vertical</enum></property>
+           </spacer>
+          </item>
+         </layout>
+        </item>
+        <item>
+         <layout class="QVBoxLayout" name="layoutCatalogo">
+          <item>
+           <layout class="QGridLayout" name="gridProductos"/>
+          </item>
+          <item>
+           <layout class="QHBoxLayout" name="layoutPaginacion">
+            <item>
+             <widget class="QPushButton" name="btnAnterior">
+              <property name="text"><string>◀ Anterior</string></property>
+             </widget>
+            </item>
+            <item>
+             <widget class="QLabel" name="lblPagina">
+              <property name="alignment"><set>Qt::AlignCenter</set></property>
+              <property name="text"><string>Página 1 de 1</string></property>
+             </widget>
+            </item>
+            <item>
+             <widget class="QPushButton" name="btnSiguiente">
+              <property name="text"><string>Siguiente ▶</string></property>
+             </widget>
+            </item>
+           </layout>
+          </item>
+         </layout>
+        </item>
+       </layout>
+      </widget>
+      <widget class="QWidget" name="paginaDetalle">
+       <layout class="QVBoxLayout" name="layoutDetalle">
+        <item><widget class="QLabel" name="lblDetNombre"/></item>
+        <item><widget class="QLabel" name="lblDetCategoria"/></item>
+        <item><widget class="QLabel" name="lblDetPrecio"/></item>
+        <item><widget class="QLabel" name="lblDetId"/></item>
+        <item><widget class="QLabel" name="lblDetStock"/></item>
+        <item>
+         <layout class="QHBoxLayout" name="layoutBotonesDetalle">
+          <item>
+           <widget class="QPushButton" name="btnComprar">
+            <property name="text"><string>Comprar</string></property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QPushButton" name="btnSalir">
+            <property name="text"><string>Salir</string></property>
+           </widget>
+          </item>
+         </layout>
+        </item>
+        <item>
+         <spacer name="spacerDetalle">
+          <property name="orientation"><enum>Qt::Vertical</enum></property>
+         </spacer>
+        </item>
+       </layout>
+      </widget>
+     </widget>
+    </item>
+   </layout>
+  </widget>
+ </widget>
+ <resources/>
+ <connections/>
+</ui>

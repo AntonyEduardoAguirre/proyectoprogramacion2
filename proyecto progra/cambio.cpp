@@ -2,19 +2,32 @@
 #include "cuenta.h"
 #include "datos.h"
 #include "iostream"
+#include <QFrame>
+#include <QGraphicsDropShadowEffect>
+#include <QLayout>
+#include <QLabel>
+#include <QVBoxLayout>
+#include <QHBoxLayout>
 
 cambio::cambio(QWidget* parent)
-    : QWidget(parent)
+	: QWidget(parent)
 {
-    ui.setupUi(this);
+	ui.setupUi(this);
+	setAttribute(Qt::WA_StyledBackground, true); // para que el QSS pinte el fondo
+
+	// La sombra suave no se puede definir en el .ui
+	auto* sombra = new QGraphicsDropShadowEffect(ui.softCard);
+	sombra->setBlurRadius(28);
+	sombra->setOffset(0, 8);
+	sombra->setColor(QColor(41, 42, 40, 22));
+	ui.softCard->setGraphicsEffect(sombra);
 
 	connect(ui.btnRegresar, &QPushButton::clicked, this, [this]() {
 		cuenta* ventanaCuenta = new cuenta();
-		ventanaCuenta->setAttribute(Qt::WA_DeleteOnClose); // libera memoria al cerrarla
+		ventanaCuenta->setAttribute(Qt::WA_DeleteOnClose);
 		ventanaCuenta->show();
-		this->close();   // cierra registro
+		this->close();
 		});
-
 
 	connect(ui.btnConfirmar, &QPushButton::clicked, this, &cambio::cambiarDatos);
 }

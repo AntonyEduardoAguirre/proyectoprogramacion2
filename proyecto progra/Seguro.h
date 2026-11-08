@@ -13,5 +13,5 @@ public:
 
 private:
     void desactivarCuenta();
-    Ui::SeguroClass ui;
+    Ui::seguroClass ui;
 };

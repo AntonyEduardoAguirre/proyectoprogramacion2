@@ -48,14 +48,23 @@ void registro::crearUsuario() {
 		ui.lblError->setText("Por favor, complete todos los campos.");
 		return;
 	}
+	else if (contrasenna.length() < 6 || contrasenna.length() > 20) {
+		ui.lblError->setText("La nueva contraseña debe tener entre 6 y 20 caracteres");
+		return;
+	}
+	else if (nombre.length() < 3 || nombre.length() > 20) {
+		ui.lblError->setText("El nuevo nombre debe tener entre 3 y 20 caracteres");
+		return;
+	}
 	for (const auto& usuario : clientes) { // Verificar si el usuario ya existe
 		if (usuario.getNombre() == nombre) {
 			ui.lblError->setText("El usuario ya existe.");	// Mostrar mensaje de error si el usuario ya existe
 			return;
 		}
 	}
-	Cliente nuevo;
 
+
+	Cliente nuevo;
 	int idMaximo = 0;
 	for (const auto& usuario : clientes) {
 		if (usuario.getId() > idMaximo) {

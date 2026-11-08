@@ -6,6 +6,7 @@
 #include <QJsonObject>
 #include <QStandardPaths>
 #include <QDir>
+#include <QCoreApplication>
 #include "Cliente.h"
 #include "Producto.h"
 

@@ -7,10 +7,10 @@
 class Producto
 {
 public:
-    QString nombre;
     QString categoria;
-    double precio;
     int id;
+    QString nombre;
+    double precio;
     int stock;
 
     Producto() : precio(0.0), stock(0), id(0) {}
@@ -18,21 +18,23 @@ public:
     QJsonObject toJson() const
     {
         QJsonObject json;
-        json["nombre"] = nombre;
         json["categoria"] = categoria;
+        json["id"] = id;
+        json["nombre"] = nombre;
         json["precio"] = precio;
 		json["stock"] = stock;
-		json["id"] = id;
+		
         return json;
     }
 
     void fromJson(const QJsonObject& json)
     {
+        categoria = json["categoria"].toString();
+        id = json["id"].toInt();
         nombre = json["nombre"].toString();
-		categoria = json["categoria"].toString();   
         precio = json["precio"].toDouble();
 		stock = json["stock"].toInt();
-		id = json["id"].toInt();
+		
     }
 };
 

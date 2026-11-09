@@ -1,6 +1,7 @@
 #include "menuPaginacion.h"
 #include "ui_menuPaginacion.h"  // generado por uic a partir de menuPaginacion.ui
-#include "datos.h"            
+#include "datos.h"
+#include "Carrito.h"
 
 #include <algorithm>
 
@@ -10,6 +11,7 @@
 #include <QtMath>
 #include <QFrame>
 #include <QGraphicsDropShadowEffect>
+#include <QMessageBox>
 
 MenuPaginacion::MenuPaginacion(QWidget* parent)
     : QMainWindow(parent), ui(new Ui::MenuPaginacion)
@@ -70,9 +72,13 @@ MenuPaginacion::MenuPaginacion(QWidget* parent)
 
     // --- Detalle ---
     connect(ui->btnSalir, &QPushButton::clicked, this, &MenuPaginacion::volverAlMenu);
-    // btnComprar: sin conexión por ahora 
+    connect(ui->btnComprar, &QPushButton::clicked, this, &MenuPaginacion::comprarActual);
+
+    // --- Carrito ---
+    connect(ui->btnCarrito, &QPushButton::clicked, this, &MenuPaginacion::mostrarCarrito);
 
     actualizarCatalogo();
+    actualizarBotonCarrito();
 }
 
 
@@ -172,6 +178,7 @@ void MenuPaginacion::paginaSiguiente() { ++paginaActual; mostrarPagina(); }
 
 void MenuPaginacion::abrirDetalle(int indiceProducto)
 {
+    detalleIndice = indiceProducto;
     const Producto& p = productos[indiceProducto];
 
     ui->lblDetNombre->setText(tr("Nombre: %1").arg(p.nombre));
@@ -186,4 +193,50 @@ void MenuPaginacion::abrirDetalle(int indiceProducto)
 void MenuPaginacion::volverAlMenu()
 {
     ui->stackedWidget->setCurrentIndex(0);   // Comprar: por ahora solo regresa al menú
+}
+
+// Agrega el producto del detalle al carrito (1 unidad)
+void MenuPaginacion::comprarActual()
+{
+    if (detalleIndice < 0 || detalleIndice >= productos.size())
+        return;
+
+    const Producto& p = productos[detalleIndice];
+
+    if (usuarioActual.saldo < p.precio) {
+        QMessageBox::warning(this, "Carrito",
+            "No tienes saldo suficiente para agregar este producto.");
+        return;
+    }
+
+    if (!agregarAlCarrito(p.id, 1)) {
+        QMessageBox::warning(this, "Carrito",
+            "No hay más stock disponible de este producto.");
+        return;
+    }
+
+    volverAlMenu();            // regresa al catálogo
+    actualizarBotonCarrito();  // "Carrito (n)"
+}
+
+// Abre la ventana del carrito sobre el catálogo
+void MenuPaginacion::mostrarCarrito()
+{
+    Carrito* ventanaCarrito = new Carrito();
+    ventanaCarrito->setAttribute(Qt::WA_DeleteOnClose);
+    connect(ventanaCarrito, &Carrito::carritoModificado, this, [this]() {
+        actualizarCatalogo();      // refresca stock y filtros tras pagar
+        actualizarBotonCarrito();
+        });
+    ventanaCarrito->setWindowModality(Qt::ApplicationModal);
+    ventanaCarrito->show();
+}
+
+void MenuPaginacion::actualizarBotonCarrito()
+{
+    const int cantidad = carritoCantidadTotal();
+    if (cantidad > 0)
+        ui->btnCarrito->setText(tr("Carrito (%1)").arg(cantidad));
+    else
+        ui->btnCarrito->setText(tr("Carrito"));
 }

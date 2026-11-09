@@ -8,7 +8,7 @@ class QPushButton;
 
 namespace Ui { class MenuPaginacion; }
 
-// MENÚ DE PAGINACIÓN (ventana de catálogo). 
+// MENÚ DE PAGINACIÓN (ventana de catálogo).
 // muestra 6 productos por página y abre una pantalla de detalle al elegir uno.
 class MenuPaginacion : public QMainWindow
 {
@@ -26,10 +26,13 @@ private slots:
     void paginaSiguiente();
     void abrirDetalle(int indiceProducto);
     void volverAlMenu();
+    void comprarActual();        // agrega el producto del detalle al carrito
+    void mostrarCarrito();       // abre la ventana del carrito
 
 private:
     void configurarSlider();
     void mostrarPagina();
+    void actualizarBotonCarrito();
 
     Ui::MenuPaginacion* ui;
 
@@ -39,4 +42,5 @@ private:
     QList<int> filtrados;               // índices de "productos" que pasan los filtros
     QList<QPushButton*> botones;        // los 6 botones de la página
     int paginaActual = 0;
+    int detalleIndice = -1;             // producto mostrado en la pantalla de detalle
 };

@@ -103,7 +103,9 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="cambio.cpp" />
+    <ClCompile Include="carrito.cpp" />
     <ClCompile Include="cuenta.cpp" />
+    <ClCompile Include="historial.cpp" />
     <ClCompile Include="menuPaginacion.cpp" />
     <ClCompile Include="producto.h" />
     <ClCompile Include="registro.cpp" />
@@ -111,6 +113,8 @@
     <QtMoc Include="Registro.h" />
     <QtRcc Include="practicaproyecto.qrc" />
     <QtUic Include="Cambio.ui" />
+    <QtUic Include="carrito.ui" />
+    <QtUic Include="historial.ui" />
     <QtUic Include="inicio.ui" />
     <QtMoc Include="Inicio.h" />
     <ClCompile Include="inicio.cpp" />
@@ -122,11 +126,14 @@
   </ItemGroup>
   <ItemGroup>
     <QtMoc Include="menuPaginacion.h" />
+    <QtMoc Include="Carrito.h" />
+    <QtMoc Include="Historial.h" />
     <QtMoc Include="Seguro.h" />
     <QtMoc Include="Cambio.h" />
     <ClInclude Include="cliente.h" />
     <QtMoc Include="Cuenta.h" />
     <ClInclude Include="datos.h" />
+    <ClInclude Include="compra.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Condition="Exists('$(QtMsBuild)\qt.targets')">

@@ -1,8 +1,8 @@
 
-#include "inicio.h"
-#include "Cliente.h"
-#include "Producto.h"
-#include "datos.h"
+#include "clases/Inicio.h"
+#include "clases/cliente.h"
+#include "clases/producto.h"
+#include "clases/datos.h"
 
 #include <QCloseEvent>
 #include <QtWidgets/QApplication>

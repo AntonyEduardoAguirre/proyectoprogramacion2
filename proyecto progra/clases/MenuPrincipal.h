@@ -2,6 +2,11 @@
 
 #include <QWidget>
 
+namespace Ui
+{
+class MenuPrincipalClass;
+}
+
 class MenuPrincipal : public QWidget
 {
 	Q_OBJECT
@@ -9,6 +14,7 @@ class MenuPrincipal : public QWidget
 public:
 	explicit MenuPrincipal(const QString& usuario, bool esAdmin = false,
 						   QWidget* parent = nullptr);
+	~MenuPrincipal() override;
 
 signals:
 	void sesionCerrada();
@@ -17,13 +23,12 @@ private slots:
 	void abrirCuenta();
 	void abrirCobro();
 	void abrirCatalogo();
-	void abrirCarrito();
-	void abrirAdmin();
 	void salir();
 
 private:
+  void conectarSenales();
 	void abrirSubmenu(QWidget* ventana);
 
 	QString usuario_;
-	bool esAdmin_;
+	Ui::MenuPrincipalClass* ui;
 };

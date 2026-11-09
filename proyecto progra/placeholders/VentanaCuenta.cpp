@@ -1,4 +1,4 @@
-﻿#include "VentanaCuenta.h"
+﻿#include "../clases/VentanaCuenta.h"
 
 #include <QLabel>
 

@@ -1,4 +1,4 @@
-﻿#include "MenuPrincipal.h"
+﻿#include "clases/MenuPrincipal.h"
 
 #include <QApplication>
 

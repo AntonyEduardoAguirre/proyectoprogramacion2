@@ -12,23 +12,40 @@ QWidget#menuPrincipal, QWidget#ventanaCobro {
 	background-color: #F5F3EE;
 }
 
-QFrame#tarjeta {
+QFrame#tarjeta, QFrame#softCard {
 	background-color: #FFFFFF;
 	border: 1px solid #EAE8E2;
 	border-radius: 18px;
 }
 
-QLabel#tituloPrincipal, QLabel#tituloCobro {
+QLabel#tituloPrincipal, QLabel#tituloCobro, QLabel#lblTitulo, QLabel#title {
 	color: #292A28;
 	font-family: Georgia;
 	font-size: 29px;
 	font-weight: 400;
 }
 
-QLabel#subtitulo, QLabel#etiquetaUsuario {
+QLabel#subtitulo, QLabel#etiquetaUsuario, QLabel#lblSubtitulo, QLabel#subtitle, QLabel#copyright {
 	color: #92918B;
 	font-family: "Segoe UI";
 	font-size: 12px;
+}
+
+QLabel#lblSeccion, QLabel#eyebrow {
+	color: #92918B;
+	font-family: "Segoe UI";
+	font-size: 11px;
+	font-weight: 600;
+}
+
+QLabel#lblUsuario {
+	color: #292A28;
+	background: #FAFAF8;
+	border: 1px solid #EAE8E2;
+	border-radius: 8px;
+	padding: 14px;
+	font-family: "Segoe UI";
+	font-size: 13px;
 }
 
 QLabel#etiquetaFormulario {
@@ -36,6 +53,31 @@ QLabel#etiquetaFormulario {
 	font-family: "Segoe UI";
 	font-size: 12px;
 	font-weight: 600;
+}
+
+QPushButton#btnCatalogo, QPushButton#btnCarrito,
+QPushButton#btnCobro, QPushButton#btnCuenta,
+QPushButton#btnAdmin, QPushButton#btnSalir {
+	background: #899B83;
+	color: #FFFFFF;
+	border: none;
+	border-radius: 8px;
+	min-height: 43px;
+	font-family: "Segoe UI";
+	font-size: 13px;
+	font-weight: 600;
+}
+
+QPushButton#btnCatalogo:hover, QPushButton#btnCarrito:hover,
+QPushButton#btnCobro:hover, QPushButton#btnCuenta:hover,
+QPushButton#btnAdmin:hover, QPushButton#btnSalir:hover {
+	background: #788B72;
+}
+
+QPushButton#btnCatalogo:pressed, QPushButton#btnCarrito:pressed,
+QPushButton#btnCobro:pressed, QPushButton#btnCuenta:pressed,
+QPushButton#btnAdmin:pressed, QPushButton#btnSalir:pressed {
+	background: #6D8067;
 }
 
 QPushButton {

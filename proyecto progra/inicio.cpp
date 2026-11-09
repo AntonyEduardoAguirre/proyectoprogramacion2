@@ -1,9 +1,9 @@
-#include "inicio.h"
-#include "Registro.h"
-#include "cliente.h"
-#include "datos.h"
-#include "Cuenta.h"
-#include "MenuPrincipal.h"
+#include "clases/Inicio.h"
+#include "clases/Registro.h"
+#include "clases/cliente.h"
+#include "clases/datos.h"
+#include "clases/Cuenta.h"
+#include "clases/MenuPrincipal.h"
 
 #include <QPushButton>
 #include <QString>

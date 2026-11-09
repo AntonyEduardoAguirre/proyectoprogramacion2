@@ -1,7 +1,7 @@
-﻿#include "VentanaCobro.h"
+﻿#include "clases/VentanaCobro.h"
 
-#include "CalculadoraCambio.h"
-#include "EstiloPulpe.h"
+#include "clases/CalculadoraCambio.h"
+#include "clases/EstiloPulpe.h"
 
 #include <QDoubleSpinBox>
 #include <QFrame>

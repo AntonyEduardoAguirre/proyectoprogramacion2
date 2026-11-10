@@ -1,8 +1,8 @@
-#include "Cuenta.h"
-#include "inicio.h"
-#include "datos.h"
-#include "cambio.h"
-#include "seguro.h"
+#include "clases/Cuenta.h"
+#include "clases/Inicio.h"
+#include "clases/datos.h"
+#include "clases/Cambio.h"
+#include "clases/Seguro.h"
 
 #include <QCloseEvent>
 #include <QFrame>

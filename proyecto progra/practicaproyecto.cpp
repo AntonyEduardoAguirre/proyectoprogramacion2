@@ -1,4 +1,4 @@
-#include "practicaproyecto.h"
+#include "clases/practicaproyecto.h"
 #include <QPushButton>
 #include <QString>
 #include  <vector>

@@ -1,6 +1,6 @@
-#include "cambio.h"
-#include "cuenta.h"
-#include "datos.h"
+#include "clases/Cambio.h"
+#include "clases/Cuenta.h"
+#include "clases/datos.h"
 #include "iostream"
 #include <QFrame>
 #include <QGraphicsDropShadowEffect>

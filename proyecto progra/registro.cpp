@@ -1,8 +1,8 @@
 // registro.cpp
-#include "Registro.h"
-#include "Inicio.h"
-#include "cliente.h"
-#include "datos.h"
+#include "clases/Registro.h"
+#include "clases/Inicio.h"
+#include "clases/cliente.h"
+#include "clases/datos.h"
 
 #include <QCloseEvent>
 #include <QPushButton>

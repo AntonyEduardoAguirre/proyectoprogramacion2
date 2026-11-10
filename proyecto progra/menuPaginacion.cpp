@@ -1,6 +1,6 @@
-#include "menuPaginacion.h"
+#include "clases/menuPaginacion.h"
 #include "ui_menuPaginacion.h"  // generado por uic a partir de menuPaginacion.ui
-#include "datos.h"            
+#include "clases/datos.h"
 
 #include <algorithm>
 

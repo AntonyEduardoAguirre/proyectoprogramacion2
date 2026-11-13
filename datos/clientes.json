@@ -16,5 +16,17 @@
         "id": 3,
         "nombre": "ivans",
         "saldo": 0
+    },
+    {
+        "contrasenna": "123456",
+        "id": 4,
+        "nombre": "anderson",
+        "saldo": 0
+    },
+    {
+        "contrasenna": "Diego12345",
+        "id": 5,
+        "nombre": "Diego",
+        "saldo": 0
     }
 ]

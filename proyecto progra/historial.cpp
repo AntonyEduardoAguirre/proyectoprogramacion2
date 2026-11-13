@@ -1,5 +1,5 @@
 #include "Historial.h"
-#include "datos.h"
+#include "clases/datos.h"
 
 #include <QPushButton>
 #include <QLabel>

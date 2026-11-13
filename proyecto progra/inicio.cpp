@@ -1,8 +1,10 @@
-#include "inicio.h"
-#include "Registro.h"
-#include "cliente.h"
-#include "datos.h"
-#include "Cuenta.h"
+#include "clases/Inicio.h"
+#include "clases/Registro.h"
+#include "clases/cliente.h"
+#include "clases/datos.h"
+#include "clases/Cuenta.h"
+#include "clases/MenuPrincipal.h"
+#include "clases/Administracion.h"
 
 #include <QPushButton>
 #include <QString>
@@ -37,6 +39,13 @@ inicio::inicio(QWidget* parent)
         this->close();
         });
 
+    connect(ui.btnCuentaAdmin, &QPushButton::clicked, this, [this]() {
+        auto* ventanaAdmin = new AccesoAdmin();
+        ventanaAdmin->setAttribute(Qt::WA_DeleteOnClose);
+        ventanaAdmin->show();
+        close();
+        });
+
     connect(ui.btnSalir, &QPushButton::clicked, this, [this]() {
         this->close();
         });
@@ -60,7 +69,8 @@ void inicio::validarSesion() {//FUNCION AUXILIAR
     for (const auto& usuario : clientes) {
         if (convertirMinuscula(usuario.getNombre()) == convertirMinuscula(nombre) && contrasenna == usuario.getContrasenna()) {
             usuarioActual = usuario; // Almacena el usuario actual en la variable global
-            cuenta* ventanaMenu = new cuenta();
+            // TODO: cambiar según el rol del usuario cuando se implemente la validación de administradores.
+            MenuPrincipal* ventanaMenu = new MenuPrincipal(usuarioActual.nombre, false);
             ventanaMenu->setAttribute(Qt::WA_DeleteOnClose); // libera memoria al cerrarla
             ventanaMenu->show();
             this->close();   // cierra inicio

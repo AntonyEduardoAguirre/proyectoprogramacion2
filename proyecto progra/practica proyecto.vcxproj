@@ -107,8 +107,6 @@
     <ClCompile Include="menuPaginacion.cpp" />
     <ClCompile Include="CalculadoraCambio.cpp" />
     <ClCompile Include="MenuPrincipal.cpp" />
-    <ClCompile Include="VentanaCobro.cpp" />
-    <ClCompile Include="placeholders\VentanaCuenta.cpp" />
     <ClCompile Include="clases\producto.h" />
     <ClCompile Include="registro.cpp" />
     <ClCompile Include="Seguro.cpp" />
@@ -131,8 +129,6 @@
     <QtMoc Include="clases\Seguro.h" />
     <QtMoc Include="clases\Cambio.h" />
     <QtMoc Include="clases\MenuPrincipal.h" />
-    <QtMoc Include="clases\VentanaCobro.h" />
-    <QtMoc Include="clases\VentanaCuenta.h" />
     <ClInclude Include="clases\cliente.h" />
     <ClInclude Include="clases\CalculadoraCambio.h" />
     <ClInclude Include="clases\EstiloPulpe.h" />

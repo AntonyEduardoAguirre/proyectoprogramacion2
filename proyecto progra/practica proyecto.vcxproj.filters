@@ -58,6 +58,15 @@
     <ClCompile Include="menuPaginacion.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="carrito.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="historial.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="compra.h">
+      <Filter>Header Files\Clases</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="clases\cliente.h">
@@ -86,6 +95,12 @@
     <QtMoc Include="clases\menuPaginacion.h">
       <Filter>Header Files\Clases</Filter>
     </QtMoc>
+    <QtMoc Include="Carrito.h">
+      <Filter>Header Files\Paginas</Filter>
+    </QtMoc>
+    <QtMoc Include="Historial.h">
+      <Filter>Header Files\Paginas</Filter>
+    </QtMoc>
   </ItemGroup>
   <ItemGroup>
     <QtUic Include="registro.ui">
@@ -101,6 +116,12 @@
       <Filter>Form Files</Filter>
     </QtUic>
     <QtUic Include="menuPaginacion.ui">
+      <Filter>Form Files</Filter>
+    </QtUic>
+    <QtUic Include="carrito.ui">
+      <Filter>Form Files</Filter>
+    </QtUic>
+    <QtUic Include="historial.ui">
       <Filter>Form Files</Filter>
     </QtUic>
     <QtUic Include="MenuPrincipal.ui">

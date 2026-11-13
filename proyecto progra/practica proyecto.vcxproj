@@ -103,7 +103,9 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="cambio.cpp" />
+    <ClCompile Include="carrito.cpp" />
     <ClCompile Include="cuenta.cpp" />
+    <ClCompile Include="historial.cpp" />
     <ClCompile Include="menuPaginacion.cpp" />
     <ClCompile Include="CalculadoraCambio.cpp" />
     <ClCompile Include="MenuPrincipal.cpp" />
@@ -116,6 +118,8 @@
     <QtMoc Include="clases\Registro.h" />
     <QtRcc Include="practicaproyecto.qrc" />
     <QtUic Include="Cambio.ui" />
+    <QtUic Include="carrito.ui" />
+    <QtUic Include="historial.ui" />
     <QtUic Include="inicio.ui" />
     <QtMoc Include="clases\Inicio.h" />
     <ClCompile Include="inicio.cpp" />
@@ -127,6 +131,9 @@
     <QtUic Include="Seguro.ui" />
   </ItemGroup>
   <ItemGroup>
+    <QtMoc Include="Carrito.h" />
+    <QtMoc Include="Historial.h" />
+    <ClInclude Include="compra.h" />
     <QtMoc Include="clases\menuPaginacion.h" />
     <QtMoc Include="clases\Seguro.h" />
     <QtMoc Include="clases\Cambio.h" />

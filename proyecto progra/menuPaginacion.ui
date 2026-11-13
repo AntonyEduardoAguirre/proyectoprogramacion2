@@ -131,7 +131,7 @@ QPushButton#btnProducto:hover {
 	background-color: #F4F7F3;
 	border-color: #899B83;
 }
-QPushButton#btnAnterior, QPushButton#btnSiguiente, QPushButton#btnSalir {
+QPushButton#btnAnterior, QPushButton#btnSiguiente, QPushButton#btnSalir, QPushButton#btnCarrito {
 	background: #FAFAF8;
 	color: #292A28;
 	border: 1px solid #E8E7E1;
@@ -141,7 +141,7 @@ QPushButton#btnAnterior, QPushButton#btnSiguiente, QPushButton#btnSalir {
 	font-family: "Segoe UI";
 	font-weight: 600;
 }
-QPushButton#btnAnterior:hover, QPushButton#btnSiguiente:hover, QPushButton#btnSalir:hover {
+QPushButton#btnAnterior:hover, QPushButton#btnSiguiente:hover, QPushButton#btnSalir:hover, QPushButton#btnCarrito:hover {
 	border-color: #899B83;
 	color: #899B83;
 }
@@ -625,15 +625,38 @@ QLabel#lblDetId, QLabel#lblDetStock {
                  </property>
                 </widget>
                </item>
-               <item>
-                <widget class="QPushButton" name="btnSiguiente">
-                 <property name="text">
-                  <string>Siguiente  →</string>
-                 </property>
-                </widget>
-               </item>
-              </layout>
-             </item>
+              <item>
+               <widget class="QPushButton" name="btnSiguiente">
+                <property name="text">
+                 <string>Siguiente  →</string>
+                </property>
+               </widget>
+              </item>
+              <item>
+               <spacer name="spacerBotonCarrito">
+                <property name="orientation">
+                 <enum>Qt::Horizontal</enum>
+                </property>
+                <property name="sizeType">
+                 <enum>QSizePolicy::Fixed</enum>
+                </property>
+                <property name="sizeHint" stdset="0">
+                 <size>
+                  <width>10</width>
+                  <height>20</height>
+                 </size>
+                </property>
+               </spacer>
+              </item>
+              <item>
+               <widget class="QPushButton" name="btnCarrito">
+                <property name="text">
+                 <string>Carrito</string>
+                </property>
+               </widget>
+              </item>
+             </layout>
+            </item>
             </layout>
            </widget>
           </item>

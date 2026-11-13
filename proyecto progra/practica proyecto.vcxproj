@@ -102,41 +102,29 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="cambio.cpp" />
-    <ClCompile Include="cuenta.cpp" />
     <ClCompile Include="menuPaginacion.cpp" />
     <ClCompile Include="CalculadoraCambio.cpp" />
     <ClCompile Include="MenuPrincipal.cpp" />
     <ClCompile Include="VentanaCobro.cpp" />
     <ClCompile Include="placeholders\VentanaCuenta.cpp" />
     <ClCompile Include="clases\producto.h" />
-    <ClCompile Include="registro.cpp" />
-    <ClCompile Include="Seguro.cpp" />
     <ClCompile Include="Administracion.cpp" />
-    <QtMoc Include="clases\Registro.h" />
     <QtRcc Include="practicaproyecto.qrc" />
-    <QtUic Include="Cambio.ui" />
     <QtUic Include="inicio.ui" />
     <QtMoc Include="clases\Inicio.h" />
     <ClCompile Include="inicio.cpp" />
     <ClCompile Include="main.cpp" />
     <QtUic Include="menuPaginacion.ui" />
     <QtUic Include="MenuPrincipal.ui" />
-    <QtUic Include="registro.ui" />
-    <QtUic Include="cuenta.ui" />
-    <QtUic Include="Seguro.ui" />
   </ItemGroup>
   <ItemGroup>
     <QtMoc Include="clases\menuPaginacion.h" />
-    <QtMoc Include="clases\Seguro.h" />
-    <QtMoc Include="clases\Cambio.h" />
     <QtMoc Include="clases\MenuPrincipal.h" />
     <QtMoc Include="clases\VentanaCobro.h" />
     <QtMoc Include="clases\VentanaCuenta.h" />
     <ClInclude Include="clases\cliente.h" />
     <ClInclude Include="clases\CalculadoraCambio.h" />
     <ClInclude Include="clases\EstiloPulpe.h" />
-    <QtMoc Include="clases\Cuenta.h" />
     <ClInclude Include="clases\datos.h" />
     <ClInclude Include="clases\Administracion.h" />
   </ItemGroup>

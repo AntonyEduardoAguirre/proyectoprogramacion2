@@ -20,7 +20,6 @@ signals:
 	void sesionCerrada();
 
 private slots:
-	void abrirCuenta();
 	void abrirCobro();
 	void abrirCatalogo();
 	void salir();

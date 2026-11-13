@@ -26,6 +26,9 @@ historial::historial(QWidget* parent)
         this->close();
         });
 
+    // la flecha de arriba hace lo mismo que el botón de volver
+    connect(ui.btnFlecha, &QPushButton::clicked, ui.btnRegresar, &QPushButton::click);
+
     actualizarHistorial();
 }
 
@@ -55,6 +58,11 @@ void historial::actualizarHistorial()
         QString texto = QString("%1  —  Total: $%2")
             .arg(compra.fecha)
             .arg(compra.total, 0, 'f', 2);
+
+        if (compra.meses > 0)
+            texto += QString("\n   A %1 meses  —  cuota mensual $%2")
+                .arg(compra.meses)
+                .arg(compra.cuotaMensual, 0, 'f', 2);
 
         for (const ItemCompra& item : compra.items)
             texto += QString("\n   %1 × %2  —  $%3")

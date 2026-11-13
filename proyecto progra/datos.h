@@ -171,17 +171,25 @@ inline int carritoCantidadTotal()
 inline void vaciarCarrito() { carrito.clear(); }
 
 // cierra la compra: descuenta saldo y stock, guarda el historial
-inline bool pagarCarrito()
+// si meses > 0, la compra se hace a plazos (12 o 24 meses):
+//   solo se cobra la primera cuota (total / meses, sin interés)
+inline bool pagarCarrito(int meses = 0)
 {
     if (carrito.isEmpty())
         return false;
 
     const double total = carritoTotal();
-    if (usuarioActual.saldo < total)
+
+    // el cobro es el total de contado, o solo la primera cuota
+    double cobro = total;
+    if (meses > 0)
+        cobro = total / meses;
+
+    if (usuarioActual.saldo < cobro)
         return false;   // saldo insuficiente
 
     // descuenta el saldo del usuario actual (y de la lista de clientes)
-    usuarioActual.saldo -= static_cast<float>(total);
+    usuarioActual.saldo -= static_cast<float>(cobro);
     for (Cliente& cliente : clientes) {
         if (cliente.getId() == usuarioActual.getId()) {
             cliente.setSaldo(usuarioActual.saldo);
@@ -206,6 +214,8 @@ inline bool pagarCarrito()
     compra.clienteId = usuarioActual.getId();
     compra.fecha = QDateTime::currentDateTime().toString("dd/MM/yyyy hh:mm");
     compra.total = total;
+    compra.meses = (meses > 0) ? meses : 0;
+    compra.cuotaMensual = (meses > 0) ? total / meses : 0.0;
     compra.items = carrito;
     historialCompras.append(compra);
     guardarHistorial();

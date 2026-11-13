@@ -37,12 +37,16 @@ public:
 };
 
 // Una compra completa: cliente + fecha + líneas + total
+// (si meses > 0, la compra se hizo a plazos y cuotaMensual
+//  guarda el valor de cada cuota, total / meses)
 class Compra
 {
 public:
     int clienteId = 0;
     QString fecha;        // texto "dd/MM/yyyy hh:mm"
     double total = 0.0;
+    int meses = 0;             // 0 = pago de contado
+    double cuotaMensual = 0.0;
     QList<ItemCompra> items;
 
     QJsonObject toJson() const
@@ -51,6 +55,8 @@ public:
         json["clienteId"] = clienteId;
         json["fecha"] = fecha;
         json["total"] = total;
+        json["meses"] = meses;
+        json["cuotaMensual"] = cuotaMensual;
 
         QJsonArray arregloItems;
         for (const ItemCompra& item : items)
@@ -65,6 +71,8 @@ public:
         clienteId = json["clienteId"].toInt(0);
         fecha = json["fecha"].toString();
         total = json["total"].toDouble(0.0);
+        meses = json["meses"].toInt(0);
+        cuotaMensual = json["cuotaMensual"].toDouble(0.0);
 
         items.clear();
         for (const QJsonValue& valor : json["items"].toArray()) {

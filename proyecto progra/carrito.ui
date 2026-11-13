@@ -97,6 +97,35 @@ QPushButton#btnRegresar {
 QPushButton#btnRegresar:hover {
 	color: #788B72;
 }
+QPushButton#btnFlecha {
+	background: transparent;
+	border: none;
+	color: #292A28;
+	font-family: &quot;Segoe UI&quot;;
+	font-size: 20px;
+	font-weight: 600;
+	padding: 2px 8px;
+	border-radius: 8px;
+}
+QPushButton#btnFlecha:hover {
+	background: #EAE8E2;
+}
+QLabel#lblFormaPago {
+	color: #92918B;
+	font-family: &quot;Segoe UI&quot;;
+	font-size: 12px;
+}
+QComboBox#cmbCuotas {
+	background: #FAFAF8;
+	border: 1px solid #EAE8E2;
+	border-radius: 8px;
+	padding: 8px 12px;
+	font-size: 12px;
+	color: #292A28;
+}
+QComboBox#cmbCuotas::drop-down {
+	border: none;
+}
 QScrollArea {
 	background: transparent;
 	border: none;
@@ -177,6 +206,30 @@ QScrollArea {
         <property name="bottomMargin">
          <number>30</number>
         </property>
+        <item>
+         <layout class="QHBoxLayout" name="layoutFlecha">
+          <item>
+           <widget class="QPushButton" name="btnFlecha">
+            <property name="text">
+             <string>←</string>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <spacer name="spacerFlecha">
+            <property name="orientation">
+             <enum>Qt::Orientation::Horizontal</enum>
+            </property>
+            <property name="sizeHint" stdset="0">
+             <size>
+              <width>40</width>
+              <height>20</height>
+             </size>
+            </property>
+           </spacer>
+          </item>
+         </layout>
+        </item>
         <item>
          <widget class="QLabel" name="eyebrow">
           <property name="text">
@@ -315,6 +368,39 @@ QScrollArea {
            </size>
           </property>
          </spacer>
+        </item>
+        <item>
+         <layout class="QHBoxLayout" name="layoutCuotas">
+          <property name="spacing">
+           <number>10</number>
+          </property>
+          <item>
+           <widget class="QLabel" name="lblFormaPago">
+            <property name="text">
+             <string>Forma de pago:</string>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QComboBox" name="cmbCuotas">
+            <item>
+             <property name="text">
+              <string>Pago de contado</string>
+             </property>
+            </item>
+            <item>
+             <property name="text">
+              <string>A 12 meses</string>
+             </property>
+            </item>
+            <item>
+             <property name="text">
+              <string>A 24 meses</string>
+             </property>
+            </item>
+           </widget>
+          </item>
+         </layout>
         </item>
         <item>
          <layout class="QHBoxLayout" name="layoutBotones">

@@ -18,5 +18,6 @@ signals:
 
 private:
     void actualizarCarrito();
+    void mostrarTotal();
     Ui::carritoClass ui;
 };

@@ -4,6 +4,7 @@
 #include <QPushButton>
 #include <QLabel>
 #include <QVBoxLayout>
+#include <QComboBox>
 #include <QGraphicsDropShadowEffect>
 #include <QColor>
 
@@ -20,15 +21,23 @@ Carrito::Carrito(QWidget* parent)
     sombra->setColor(QColor(41, 42, 40, 22));
     ui.softCard->setGraphicsEffect(sombra);
 
+    // meses de cada opción del combo (contado / 12 / 24)
+    ui.cmbCuotas->setItemData(0, 0);
+    ui.cmbCuotas->setItemData(1, 12);
+    ui.cmbCuotas->setItemData(2, 24);
+
     connect(ui.btnPagar, &QPushButton::clicked, this, [this]() {
         if (carrito.isEmpty()) {
             ui.lblMensaje->setText("Tu carrito está vacío.");
             return;
         }
-        if (pagarCarrito()) {
+        const int meses = ui.cmbCuotas->currentData().toInt();
+        if (pagarCarrito(meses)) {
             ui.lblMensaje->setText("");
             emit carritoModificado();
             actualizarCarrito();
+        } else if (meses > 0) {
+            ui.lblMensaje->setText("No tienes saldo suficiente para la primera cuota.");
         } else {
             ui.lblMensaje->setText("No tienes saldo suficiente para pagar todo el carrito.");
         }
@@ -48,6 +57,13 @@ Carrito::Carrito(QWidget* parent)
     connect(ui.btnRegresar, &QPushButton::clicked, this, [this]() {
         emit carritoModificado();
         this->close();
+        });
+
+    // la flecha de arriba hace lo mismo que el botón de volver
+    connect(ui.btnFlecha, &QPushButton::clicked, ui.btnRegresar, &QPushButton::click);
+
+    connect(ui.cmbCuotas, &QComboBox::currentIndexChanged, this, [this](int) {
+        mostrarTotal();
         });
 
     actualizarCarrito();
@@ -85,6 +101,23 @@ void Carrito::actualizarCarrito()
     }
     ui.layoutItems->addStretch();
 
-    ui.lblTotal->setText("Total: $" + QString::number(carritoTotal(), 'f', 2)
-        + "   (Saldo: $" + QString::number(usuarioActual.saldo, 'f', 2) + ")");
+    mostrarTotal();
+}
+
+void Carrito::mostrarTotal()
+{
+    const double total = carritoTotal();
+    const int meses = ui.cmbCuotas->currentData().toInt();
+
+    if (!carrito.isEmpty() && meses > 0) {
+        // a plazos: el total no cambia, pero se cobra por cuotas mensuales
+        ui.lblTotal->setText(QString("Total: $%1  —  %2 cuotas de $%3  (Saldo: $%4)")
+            .arg(total, 0, 'f', 2)
+            .arg(meses)
+            .arg(total / meses, 0, 'f', 2)
+            .arg(usuarioActual.saldo, 0, 'f', 2));
+    } else {
+        ui.lblTotal->setText("Total: $" + QString::number(total, 'f', 2)
+            + "   (Saldo: $" + QString::number(usuarioActual.saldo, 'f', 2) + ")");
+    }
 }

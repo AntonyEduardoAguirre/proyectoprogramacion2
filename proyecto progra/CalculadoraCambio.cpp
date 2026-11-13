@@ -4,12 +4,15 @@
 
 CalculadoraCambio::Resultado CalculadoraCambio::calcular(double total, double recibido)
 {
+	const QString totalInvalido = QStringLiteral("El total a pagar debe ser mayor que cero.");
+	const QString recibidoInvalido = QStringLiteral("El efectivo recibido debe ser mayor que cero.");
+
 	if (!std::isfinite(total) || total <= 0.0) {
-		return {false, 0.0, QStringLiteral("El total a pagar debe ser mayor que cero.")};
+		return {false, 0.0, totalInvalido};
 	}
 
 	if (!std::isfinite(recibido) || recibido <= 0.0) {
-		return {false, 0.0, QStringLiteral("El efectivo recibido debe ser mayor que cero.")};
+		return {false, 0.0, recibidoInvalido};
 	}
 
 	const qint64 totalCentimos = qRound64(total * 100.0);
@@ -17,11 +20,11 @@ CalculadoraCambio::Resultado CalculadoraCambio::calcular(double total, double re
 	const qint64 diferenciaCentimos = recibidoCentimos - totalCentimos;
 
 	if (totalCentimos <= 0) {
-		return {false, 0.0, QStringLiteral("El total a pagar debe ser mayor que cero.")};
+		return {false, 0.0, totalInvalido};
 	}
 
 	if (recibidoCentimos <= 0) {
-		return {false, 0.0, QStringLiteral("El efectivo recibido debe ser mayor que cero.")};
+		return {false, 0.0, recibidoInvalido};
 	}
 
 	if (diferenciaCentimos < 0) {

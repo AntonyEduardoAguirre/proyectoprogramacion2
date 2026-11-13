@@ -109,8 +109,8 @@
   </ItemGroup>
   <ItemGroup>
     <QtMoc Include="clases\MenuPrincipal.h"><Filter>Header Files\Clases</Filter></QtMoc>
-    <QtMoc Include="clases\VentanaCobro.h"><Filter>Header Files\Clases</Filter></QtMoc>
-    <QtMoc Include="clases\VentanaCuenta.h"><Filter>Header Files\Clases</Filter></QtMoc>
+
+
     <ClInclude Include="clases\CalculadoraCambio.h"><Filter>Header Files\Clases</Filter></ClInclude>
     <ClInclude Include="clases\EstiloPulpe.h"><Filter>Header Files\Clases</Filter></ClInclude>
   </ItemGroup>

@@ -1,5 +1,4 @@
 ﻿#include "clases/MenuPrincipal.h"
-
 #include "ui_MenuPrincipal.h"
 #include "clases/menuPaginacion.h"
 

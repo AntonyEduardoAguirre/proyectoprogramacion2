@@ -1,4 +1,3 @@
-
 #include "clases/Inicio.h"
 #include "clases/cliente.h"
 #include "clases/producto.h"
@@ -18,7 +17,7 @@ int main(int argc, char* argv[])
     QCoreApplication::setApplicationName("practica proyecto");
 
     cargarClientes();
-    // cargarProductos();
+    cargarProductos();
 
     inicio w;
     w.show();

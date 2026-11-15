@@ -49,6 +49,9 @@
     <ClCompile Include="cuenta.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="saldo.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
     <ClCompile Include="cambio.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -57,6 +60,21 @@
     </ClCompile>
     <ClCompile Include="menuPaginacion.cpp">
       <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="carrito.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="pagoefectivo.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="recibo.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="historial.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="compra.h">
+      <Filter>Header Files\Clases</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -77,6 +95,9 @@
     <QtMoc Include="clases\Cuenta.h">
       <Filter>Header Files\Clases</Filter>
     </QtMoc>
+    <QtMoc Include="clases\Saldo.h">
+      <Filter>Header Files\Clases</Filter>
+    </QtMoc>
     <QtMoc Include="clases\Cambio.h">
       <Filter>Header Files\Clases</Filter>
     </QtMoc>
@@ -84,6 +105,18 @@
       <Filter>Header Files\Clases</Filter>
     </QtMoc>
     <QtMoc Include="clases\menuPaginacion.h">
+      <Filter>Header Files\Clases</Filter>
+    </QtMoc>
+    <QtMoc Include="Carrito.h">
+      <Filter>Header Files\Paginas</Filter>
+    </QtMoc>
+    <QtMoc Include="Historial.h">
+      <Filter>Header Files\Paginas</Filter>
+    </QtMoc>
+    <QtMoc Include="clases\PagoEfectivo.h">
+      <Filter>Header Files\Clases</Filter>
+    </QtMoc>
+    <QtMoc Include="clases\Recibo.h">
       <Filter>Header Files\Clases</Filter>
     </QtMoc>
   </ItemGroup>
@@ -94,6 +127,9 @@
     <QtUic Include="cuenta.ui">
       <Filter>Form Files</Filter>
     </QtUic>
+    <QtUic Include="Saldo.ui">
+      <Filter>Form Files</Filter>
+    </QtUic>
     <QtUic Include="Cambio.ui">
       <Filter>Form Files</Filter>
     </QtUic>
@@ -101,6 +137,12 @@
       <Filter>Form Files</Filter>
     </QtUic>
     <QtUic Include="menuPaginacion.ui">
+      <Filter>Form Files</Filter>
+    </QtUic>
+    <QtUic Include="carrito.ui">
+      <Filter>Form Files</Filter>
+    </QtUic>
+    <QtUic Include="historial.ui">
       <Filter>Form Files</Filter>
     </QtUic>
     <QtUic Include="MenuPrincipal.ui">

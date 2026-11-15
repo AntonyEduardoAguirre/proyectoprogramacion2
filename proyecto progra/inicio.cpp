@@ -4,6 +4,7 @@
 #include "clases/datos.h"
 #include "clases/Cuenta.h"
 #include "clases/MenuPrincipal.h"
+#include "clases/Administracion.h"
 
 #include <QPushButton>
 #include <QString>
@@ -36,6 +37,13 @@ inicio::inicio(QWidget* parent)
         ventanaRegistro->setAttribute(Qt::WA_DeleteOnClose);
         ventanaRegistro->show();
         this->close();
+        });
+
+    connect(ui.btnCuentaAdmin, &QPushButton::clicked, this, [this]() {
+        auto* ventanaAdmin = new AccesoAdmin();
+        ventanaAdmin->setAttribute(Qt::WA_DeleteOnClose);
+        ventanaAdmin->show();
+        close();
         });
 
     connect(ui.btnSalir, &QPushButton::clicked, this, [this]() {

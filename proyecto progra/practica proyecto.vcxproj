@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <Project DefaultTargets="Build" ToolsVersion="18.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup Label="ProjectConfigurations">
     <ProjectConfiguration Include="Debug|x64">
@@ -66,11 +66,13 @@
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <ClCompile>
       <PreprocessorDefinitions>QT_NO_DEPRECATED_WARNINGS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <LanguageStandard>stdcpp17</LanguageStandard>
     </ClCompile>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <ClCompile>
       <PreprocessorDefinitions>QT_NO_DEPRECATED_WARNINGS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <LanguageStandard>stdcpp17</LanguageStandard>
     </ClCompile>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x64'" Label="Configuration">
@@ -102,26 +104,36 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="carrito.cpp" />
+    <ClCompile Include="pagoefectivo.cpp" />
+    <ClCompile Include="recibo.cpp" />
+    <ClCompile Include="saldo.cpp" />
+    <ClCompile Include="historial.cpp" />
     <ClCompile Include="menuPaginacion.cpp" />
     <ClCompile Include="CalculadoraCambio.cpp" />
     <ClCompile Include="MenuPrincipal.cpp" />
-    <ClCompile Include="VentanaCobro.cpp" />
-    <ClCompile Include="placeholders\VentanaCuenta.cpp" />
     <ClCompile Include="clases\producto.h" />
     <ClCompile Include="Administracion.cpp" />
     <QtRcc Include="practicaproyecto.qrc" />
+    <QtUic Include="carrito.ui" />
+    <QtUic Include="historial.ui" />
     <QtUic Include="inicio.ui" />
     <QtMoc Include="clases\Inicio.h" />
     <ClCompile Include="inicio.cpp" />
     <ClCompile Include="main.cpp" />
     <QtUic Include="menuPaginacion.ui" />
     <QtUic Include="MenuPrincipal.ui" />
+    <QtUic Include="Saldo.ui" />
   </ItemGroup>
   <ItemGroup>
+    <QtMoc Include="Carrito.h" />
+    <QtMoc Include="Historial.h" />
+    <QtMoc Include="clases\PagoEfectivo.h" />
+    <QtMoc Include="clases\Recibo.h" />
+    <ClInclude Include="compra.h" />
     <QtMoc Include="clases\menuPaginacion.h" />
+    <QtMoc Include="clases\Saldo.h" />
     <QtMoc Include="clases\MenuPrincipal.h" />
-    <QtMoc Include="clases\VentanaCobro.h" />
-    <QtMoc Include="clases\VentanaCuenta.h" />
     <ClInclude Include="clases\cliente.h" />
     <ClInclude Include="clases\CalculadoraCambio.h" />
     <ClInclude Include="clases\EstiloPulpe.h" />

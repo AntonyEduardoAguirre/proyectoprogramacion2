@@ -4,7 +4,7 @@
         "id": 1,
         "nombre": "Laptop Lenovo IdeaPad 15",
         "precio": 8499,
-        "stock": 12
+        "stock": 11
     },
     {
         "categoria": "Computación",
@@ -18,14 +18,14 @@
         "id": 3,
         "nombre": "Monitor Samsung 24 pulgadas",
         "precio": 2899,
-        "stock": 20
+        "stock": 19
     },
     {
         "categoria": "Computación",
         "id": 4,
         "nombre": "Teclado mecánico Redragon",
         "precio": 699,
-        "stock": 35
+        "stock": 34
     },
     {
         "categoria": "Computación",
@@ -46,14 +46,14 @@
         "id": 7,
         "nombre": "Memoria RAM 16GB DDR4",
         "precio": 899,
-        "stock": 30
+        "stock": 29
     },
     {
         "categoria": "Computación",
         "id": 8,
         "nombre": "Webcam Full HD",
         "precio": 549,
-        "stock": 18
+        "stock": 17
     },
     {
         "categoria": "Celulares",

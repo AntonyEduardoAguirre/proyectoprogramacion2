@@ -39,6 +39,7 @@ public:
 // Una compra completa: cliente + fecha + líneas + total
 // (si meses > 0, la compra se hizo a plazos y cuotaMensual
 //  guarda el valor de cada cuota, total / meses)
+// metodo: "Efectivo", "Tarjeta" o "Tarjeta (cuotas)"
 class Compra
 {
 public:
@@ -47,6 +48,7 @@ public:
     double total = 0.0;
     int meses = 0;             // 0 = pago de contado
     double cuotaMensual = 0.0;
+    QString metodo;            // forma de pago usada
     QList<ItemCompra> items;
 
     QJsonObject toJson() const
@@ -57,6 +59,7 @@ public:
         json["total"] = total;
         json["meses"] = meses;
         json["cuotaMensual"] = cuotaMensual;
+        json["metodo"] = metodo;
 
         QJsonArray arregloItems;
         for (const ItemCompra& item : items)
@@ -73,6 +76,7 @@ public:
         total = json["total"].toDouble(0.0);
         meses = json["meses"].toInt(0);
         cuotaMensual = json["cuotaMensual"].toDouble(0.0);
+        metodo = json["metodo"].toString();
 
         items.clear();
         for (const QJsonValue& valor : json["items"].toArray()) {

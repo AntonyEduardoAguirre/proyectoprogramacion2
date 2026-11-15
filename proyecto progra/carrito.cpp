@@ -1,5 +1,7 @@
 #include "Carrito.h"
 #include "clases/datos.h"
+#include "clases/PagoEfectivo.h"
+#include "clases/Recibo.h"
 
 #include <QPushButton>
 #include <QLabel>
@@ -41,15 +43,25 @@ Carrito::Carrito(QWidget* parent)
             return;
         }
         const bool esTarjeta = (ui.cmbMetodo->currentIndex() == 1);
-        const int meses = esTarjeta ? ui.cmbCuotas->currentData().toInt() : 0;
-        if (pagarCarrito(meses)) {
-            ui.lblMensaje->setText("");
-            emit carritoModificado();
-            actualizarCarrito();
-        } else if (meses > 0) {
-            ui.lblMensaje->setText("No tienes saldo suficiente para la primera cuota.");
+
+        if (esTarjeta) {
+            // tarjeta: el pago es inmediato (total o primera cuota según el combo)
+            const int meses = ui.cmbCuotas->currentData().toInt();
+            Compra recibo;
+            if (pagarCarrito(meses, &recibo)) {
+                ui.lblMensaje->setText("");
+                emit carritoModificado();
+                actualizarCarrito();
+                mostrarRecibo(recibo, 0.0, 0.0);
+            } else if (meses > 0) {
+                ui.lblMensaje->setText("No tienes saldo suficiente para la primera cuota.");
+            } else {
+                ui.lblMensaje->setText("No tienes saldo suficiente para pagar todo el carrito.");
+            }
         } else {
-            ui.lblMensaje->setText("No tienes saldo suficiente para pagar todo el carrito.");
+            // efectivo: se abre la calculadora del vuelto y el pago se
+            // confirma ahí mismo; el recibo sale después de confirmar
+            abrirPagoEfectivo();
         }
         });
 
@@ -81,6 +93,42 @@ Carrito::Carrito(QWidget* parent)
 
 Carrito::~Carrito()
 {
+}
+
+// abre la calculadora del pago en efectivo sobre el carrito
+void Carrito::abrirPagoEfectivo()
+{
+    PagoEfectivo* pago = new PagoEfectivo(carritoTotal());
+    pago->setAttribute(Qt::WA_DeleteOnClose);
+    pago->setWindowModality(Qt::ApplicationModal);
+
+    connect(pago, &PagoEfectivo::pagoConfirmado, this,
+            [this](double efectivoRecibido, double) {
+        Compra recibo;
+        double vuelto = 0.0;
+        if (pagarCarritoEfectivo(efectivoRecibido, &vuelto, &recibo)) {
+            ui.lblMensaje->setText("");
+            emit carritoModificado();
+            mostrarRecibo(recibo, efectivoRecibido, vuelto);
+        }
+        });
+
+    pago->show();
+}
+
+// muestra el recibo de la compra; al cerrarlo, se cierra también el carrito
+void Carrito::mostrarRecibo(const Compra& compra, double efectivoRecibido, double vuelto)
+{
+    Recibo* recibo = new Recibo(compra, efectivoRecibido, vuelto);
+    recibo->setAttribute(Qt::WA_DeleteOnClose);
+    recibo->setWindowModality(Qt::ApplicationModal);
+
+    connect(recibo, &Recibo::reciboCerrado, this, [this]() {
+        actualizarCarrito();
+        this->close();
+        });
+
+    recibo->show();
 }
 
 void Carrito::actualizarCarrito()
@@ -127,8 +175,13 @@ void Carrito::mostrarTotal()
             .arg(meses)
             .arg(total / meses, 0, 'f', 2)
             .arg(usuarioActual.saldo, 0, 'f', 2));
-    } else {
+    } else if (esTarjeta) {
+        // de contado con tarjeta: pago inmediato con el saldo de la cuenta
         ui.lblTotal->setText("Total: $" + QString::number(total, 'f', 2)
             + "   (Saldo: $" + QString::number(usuarioActual.saldo, 'f', 2) + ")");
+    } else {
+        // efectivo: el pago no usa el saldo; el vuelto se calcula al pagar
+        ui.lblTotal->setText("Total: $" + QString::number(total, 'f', 2)
+            + "   (Se calculará el vuelto del efectivo)");
     }
 }

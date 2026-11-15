@@ -187,10 +187,43 @@ inline bool depositarSaldo(double monto)
     return true;
 }
 
-// cierra la compra: descuenta saldo y stock, guarda el historial
+// cierra la compra: descuenta stock, guarda el historial y vacía el
+// carrito (no toca el saldo del usuario). Devuelve la compra registrada.
+inline Compra finalizarCompra(double total, int meses, const QString& metodo)
+{
+    // descuenta el stock de cada producto
+    for (const ItemCompra& item : carrito) {
+        for (Producto& p : productos) {
+            if (p.id == item.idProducto) {
+                p.stock -= item.cantidad;
+                break;
+            }
+        }
+    }
+    guardarProductos();
+
+    // registra la compra en el historial
+    Compra compra;
+    compra.clienteId = usuarioActual.getId();
+    compra.fecha = QDateTime::currentDateTime().toString("dd/MM/yyyy hh:mm");
+    compra.total = total;
+    compra.meses = (meses > 0) ? meses : 0;
+    compra.cuotaMensual = (meses > 0) ? total / meses : 0.0;
+    compra.metodo = metodo;
+    compra.items = carrito;
+    historialCompras.append(compra);
+    guardarHistorial();
+
+    vaciarCarrito();
+    return compra;
+}
+
+// pago con tarjeta (de contado o a plazos): el pago es inmediato y se
+// descuenta del saldo de la cuenta.
 // si meses > 0, la compra se hace a plazos (12 o 24 meses):
 //   solo se cobra la primera cuota (total / meses, sin interés)
-inline bool pagarCarrito(int meses = 0)
+// si recibo != nullptr, devuelve la compra registrada para mostrarla en el recibo
+inline bool pagarCarrito(int meses = 0, Compra* recibo = nullptr)
 {
     if (carrito.isEmpty())
         return false;
@@ -215,28 +248,37 @@ inline bool pagarCarrito(int meses = 0)
     }
     guardarClientes();
 
-    // descuenta el stock de cada producto
-    for (const ItemCompra& item : carrito) {
-        for (Producto& p : productos) {
-            if (p.id == item.idProducto) {
-                p.stock -= item.cantidad;
-                break;
-            }
-        }
-    }
-    guardarProductos();
+    const QString metodo = (meses > 0) ? "Tarjeta (cuotas)" : "Tarjeta";
+    if (recibo)
+        *recibo = finalizarCompra(total, meses, metodo);
+    else
+        finalizarCompra(total, meses, metodo);
+    return true;
+}
 
-    // registra la compra en el historial
-    Compra compra;
-    compra.clienteId = usuarioActual.getId();
-    compra.fecha = QDateTime::currentDateTime().toString("dd/MM/yyyy hh:mm");
-    compra.total = total;
-    compra.meses = (meses > 0) ? meses : 0;
-    compra.cuotaMensual = (meses > 0) ? total / meses : 0.0;
-    compra.items = carrito;
-    historialCompras.append(compra);
-    guardarHistorial();
+// pago en efectivo: el cliente entrega dinero físico y se calcula el
+// vuelto (efectivo dado - total). No usa el saldo de la cuenta.
+// devuelve false si el efectivo no alcanza (saldo insuficiente).
+// si recibo != nullptr, devuelve la compra registrada para mostrarla en el recibo
+inline bool pagarCarritoEfectivo(double efectivoRecibido, double* vuelto = nullptr, Compra* recibo = nullptr)
+{
+    if (carrito.isEmpty())
+        return false;
+    if (vuelto)
+        *vuelto = 0.0;
 
-    vaciarCarrito();
+    const double total = carritoTotal();
+    const qint64 diferencia = qRound64(efectivoRecibido * 100.0) - qRound64(total * 100.0);
+
+    if (diferencia < 0)
+        return false;   // efectivo insuficiente
+
+    if (vuelto)
+        *vuelto = diferencia / 100.0;
+
+    if (recibo)
+        *recibo = finalizarCompra(total, 0, "Efectivo");
+    else
+        finalizarCompra(total, 0, "Efectivo");
     return true;
 }

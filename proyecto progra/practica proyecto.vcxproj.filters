@@ -64,6 +64,12 @@
     <ClCompile Include="carrito.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="pagoefectivo.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="recibo.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
     <ClCompile Include="historial.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -106,6 +112,12 @@
     </QtMoc>
     <QtMoc Include="Historial.h">
       <Filter>Header Files\Paginas</Filter>
+    </QtMoc>
+    <QtMoc Include="clases\PagoEfectivo.h">
+      <Filter>Header Files\Clases</Filter>
+    </QtMoc>
+    <QtMoc Include="clases\Recibo.h">
+      <Filter>Header Files\Clases</Filter>
     </QtMoc>
   </ItemGroup>
   <ItemGroup>

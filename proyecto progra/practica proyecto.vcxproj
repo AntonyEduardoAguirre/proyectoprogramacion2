@@ -104,6 +104,8 @@
   <ItemGroup>
     <ClCompile Include="cambio.cpp" />
     <ClCompile Include="carrito.cpp" />
+    <ClCompile Include="pagoefectivo.cpp" />
+    <ClCompile Include="recibo.cpp" />
     <ClCompile Include="cuenta.cpp" />
     <ClCompile Include="saldo.cpp" />
     <ClCompile Include="historial.cpp" />
@@ -135,6 +137,8 @@
   <ItemGroup>
     <QtMoc Include="Carrito.h" />
     <QtMoc Include="Historial.h" />
+    <QtMoc Include="clases\PagoEfectivo.h" />
+    <QtMoc Include="clases\Recibo.h" />
     <ClInclude Include="compra.h" />
     <QtMoc Include="clases\menuPaginacion.h" />
     <QtMoc Include="clases\Seguro.h" />

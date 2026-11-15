@@ -110,12 +110,13 @@ QPushButton#btnFlecha {
 QPushButton#btnFlecha:hover {
 	background: #EAE8E2;
 }
-QLabel#lblFormaPago {
-	color: #92918B;
+QLabel#lblFormaPago, QLabel#lblMetodo {
+	color: #292A28;
 	font-family: &quot;Segoe UI&quot;;
 	font-size: 12px;
+	font-weight: 600;
 }
-QComboBox#cmbCuotas {
+QComboBox#cmbCuotas, QComboBox#cmbMetodo {
 	background: #FAFAF8;
 	border: 1px solid #EAE8E2;
 	border-radius: 8px;
@@ -123,8 +124,18 @@ QComboBox#cmbCuotas {
 	font-size: 12px;
 	color: #292A28;
 }
-QComboBox#cmbCuotas::drop-down {
+QComboBox#cmbCuotas::drop-down, QComboBox#cmbMetodo::drop-down {
 	border: none;
+}
+QComboBox#cmbCuotas:disabled, QComboBox#cmbMetodo:disabled {
+	color: #92918B;
+	background: #F5F3EE;
+}
+QComboBox QAbstractItemView {
+	background: #FFFFFF;
+	color: #292A28;
+	selection-background-color: #E5EAE2;
+	selection-color: #292A28;
 }
 QScrollArea {
 	background: transparent;
@@ -370,6 +381,50 @@ QScrollArea {
          </spacer>
         </item>
         <item>
+         <layout class="QHBoxLayout" name="layoutMetodo">
+          <property name="spacing">
+           <number>10</number>
+          </property>
+          <item>
+           <widget class="QLabel" name="lblMetodo">
+            <property name="text">
+             <string>Método de pago:</string>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QComboBox" name="cmbMetodo">
+            <item>
+             <property name="text">
+              <string>Efectivo (de contado)</string>
+             </property>
+            </item>
+            <item>
+             <property name="text">
+              <string>Tarjeta</string>
+             </property>
+            </item>
+           </widget>
+          </item>
+         </layout>
+        </item>
+        <item>
+         <spacer name="spacerMetodo">
+          <property name="orientation">
+           <enum>Qt::Orientation::Vertical</enum>
+          </property>
+          <property name="sizeType">
+           <enum>QSizePolicy::Policy::Fixed</enum>
+          </property>
+          <property name="sizeHint" stdset="0">
+           <size>
+            <width>20</width>
+            <height>10</height>
+           </size>
+          </property>
+         </spacer>
+        </item>
+        <item>
          <layout class="QHBoxLayout" name="layoutCuotas">
           <property name="spacing">
            <number>10</number>
@@ -377,7 +432,7 @@ QScrollArea {
           <item>
            <widget class="QLabel" name="lblFormaPago">
             <property name="text">
-             <string>Forma de pago:</string>
+             <string>Cuotas:</string>
             </property>
            </widget>
           </item>

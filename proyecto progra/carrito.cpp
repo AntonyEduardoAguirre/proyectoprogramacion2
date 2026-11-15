@@ -26,12 +26,22 @@ Carrito::Carrito(QWidget* parent)
     ui.cmbCuotas->setItemData(1, 12);
     ui.cmbCuotas->setItemData(2, 24);
 
+    // el método de pago decide si se permiten cuotas:
+    // efectivo => solo de contado, tarjeta => contado o a plazos
+    connect(ui.cmbMetodo, &QComboBox::currentIndexChanged, this, [this](int indice) {
+        const bool esTarjeta = (indice == 1);
+        ui.cmbCuotas->setEnabled(esTarjeta);
+        mostrarTotal();
+        });
+    ui.cmbCuotas->setEnabled(false);   // arranca en efectivo: solo contado
+
     connect(ui.btnPagar, &QPushButton::clicked, this, [this]() {
         if (carrito.isEmpty()) {
             ui.lblMensaje->setText("Tu carrito está vacío.");
             return;
         }
-        const int meses = ui.cmbCuotas->currentData().toInt();
+        const bool esTarjeta = (ui.cmbMetodo->currentIndex() == 1);
+        const int meses = esTarjeta ? ui.cmbCuotas->currentData().toInt() : 0;
         if (pagarCarrito(meses)) {
             ui.lblMensaje->setText("");
             emit carritoModificado();
@@ -107,7 +117,8 @@ void Carrito::actualizarCarrito()
 void Carrito::mostrarTotal()
 {
     const double total = carritoTotal();
-    const int meses = ui.cmbCuotas->currentData().toInt();
+    const bool esTarjeta = (ui.cmbMetodo->currentIndex() == 1);
+    const int meses = esTarjeta ? ui.cmbCuotas->currentData().toInt() : 0;
 
     if (!carrito.isEmpty() && meses > 0) {
         // a plazos: el total no cambia, pero se cobra por cuotas mensuales

@@ -170,6 +170,23 @@ inline int carritoCantidadTotal()
 
 inline void vaciarCarrito() { carrito.clear(); }
 
+// agrega dinero ficticio al saldo del usuario actual y lo guarda en clientes.json
+inline bool depositarSaldo(double monto)
+{
+    if (monto <= 0.0)
+        return false;
+
+    usuarioActual.saldo += static_cast<float>(monto);
+    for (Cliente& cliente : clientes) {
+        if (cliente.getId() == usuarioActual.getId()) {
+            cliente.setSaldo(usuarioActual.saldo);
+            break;
+        }
+    }
+    guardarClientes();
+    return true;
+}
+
 // cierra la compra: descuenta saldo y stock, guarda el historial
 // si meses > 0, la compra se hace a plazos (12 o 24 meses):
 //   solo se cobra la primera cuota (total / meses, sin interés)

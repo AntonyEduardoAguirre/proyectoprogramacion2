@@ -203,12 +203,6 @@ void MenuPaginacion::comprarActual()
 
     const Producto& p = productos[detalleIndice];
 
-    if (usuarioActual.saldo < p.precio) {
-        QMessageBox::warning(this, "Carrito",
-            "No tienes saldo suficiente para agregar este producto.");
-        return;
-    }
-
     if (!agregarAlCarrito(p.id, 1)) {
         QMessageBox::warning(this, "Carrito",
             "No hay más stock disponible de este producto.");

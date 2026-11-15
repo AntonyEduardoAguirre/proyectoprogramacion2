@@ -3,6 +3,7 @@
 #include "ui_MenuPrincipal.h"
 #include "clases/VentanaCobro.h"
 #include "clases/Cuenta.h"
+#include "clases/Saldo.h"
 #include "clases/menuPaginacion.h"
 
 #include <QMessageBox>
@@ -22,6 +23,7 @@ MenuPrincipal::MenuPrincipal(const QString& usuario, bool esAdmin, QWidget* pare
 void MenuPrincipal::conectarSenales()
 {
 	connect(ui->btnCuenta, &QPushButton::clicked, this, &MenuPrincipal::abrirCuenta);
+	connect(ui->btnSaldo, &QPushButton::clicked, this, &MenuPrincipal::abrirSaldo);
 	connect(ui->btnCobro, &QPushButton::clicked, this, &MenuPrincipal::abrirCobro);
 	connect(ui->btnCatalogo, &QPushButton::clicked, this, &MenuPrincipal::abrirCatalogo);
 	connect(ui->btnSalir, &QPushButton::clicked, this, &MenuPrincipal::salir);
@@ -35,6 +37,11 @@ MenuPrincipal::~MenuPrincipal()
 void MenuPrincipal::abrirCuenta()
 {
 	abrirSubmenu(new cuenta());
+}
+
+void MenuPrincipal::abrirSaldo()
+{
+	abrirSubmenu(new Saldo());
 }
 
 void MenuPrincipal::abrirCobro()

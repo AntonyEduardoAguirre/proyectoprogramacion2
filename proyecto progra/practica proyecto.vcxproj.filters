@@ -49,6 +49,9 @@
     <ClCompile Include="cuenta.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="saldo.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
     <ClCompile Include="cambio.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -86,6 +89,9 @@
     <QtMoc Include="clases\Cuenta.h">
       <Filter>Header Files\Clases</Filter>
     </QtMoc>
+    <QtMoc Include="clases\Saldo.h">
+      <Filter>Header Files\Clases</Filter>
+    </QtMoc>
     <QtMoc Include="clases\Cambio.h">
       <Filter>Header Files\Clases</Filter>
     </QtMoc>
@@ -107,6 +113,9 @@
       <Filter>Form Files</Filter>
     </QtUic>
     <QtUic Include="cuenta.ui">
+      <Filter>Form Files</Filter>
+    </QtUic>
+    <QtUic Include="Saldo.ui">
       <Filter>Form Files</Filter>
     </QtUic>
     <QtUic Include="Cambio.ui">

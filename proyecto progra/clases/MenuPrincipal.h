@@ -21,6 +21,7 @@ signals:
 
 private slots:
 	void abrirCuenta();
+	void abrirSaldo();
 	void abrirCobro();
 	void abrirCatalogo();
 	void salir();

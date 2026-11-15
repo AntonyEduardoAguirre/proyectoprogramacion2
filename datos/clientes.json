@@ -28,5 +28,11 @@
         "id": 5,
         "nombre": "Diego",
         "saldo": 0
+    },
+    {
+        "contrasenna": "123456",
+        "id": 6,
+        "nombre": "ivan1",
+        "saldo": 6853
     }
 ]

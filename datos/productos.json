@@ -4,7 +4,7 @@
         "id": 1,
         "nombre": "Laptop Lenovo IdeaPad 15",
         "precio": 8499,
-        "stock": 12
+        "stock": 11
     },
     {
         "categoria": "Computación",
@@ -18,7 +18,7 @@
         "id": 3,
         "nombre": "Monitor Samsung 24 pulgadas",
         "precio": 2899,
-        "stock": 20
+        "stock": 19
     },
     {
         "categoria": "Computación",

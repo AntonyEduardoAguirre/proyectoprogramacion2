@@ -145,6 +145,9 @@ QScrollArea {
         detallesPago += QStringLiteral("\nEfectivo recibido: $%1   —   Vuelto: $%2")
                             .arg(efectivoRecibido, 0, 'f', 2)
                             .arg(vuelto, 0, 'f', 2);
+    } else if (compra.metodo == QStringLiteral("Efectivo (saldo)")) {
+        detallesPago += QStringLiteral("\nPagado con el saldo de la cuenta: $%1")
+                            .arg(compra.total, 0, 'f', 2);
     } else if (compra.meses > 0) {
         detallesPago += QStringLiteral("\n%1 cuotas mensuales de $%2 (primera cuota cobrada hoy)")
                             .arg(compra.meses)

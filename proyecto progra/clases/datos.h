@@ -170,6 +170,18 @@ inline int carritoCantidadTotal()
 
 inline void vaciarCarrito() { carrito.clear(); }
 
+// sincroniza usuarioActual con la lista de clientes para que el saldo
+// mostrado y cobrado esté siempre al día (p. ej. tras un depósito)
+inline void refrescarUsuarioActual()
+{
+    for (const Cliente& cliente : clientes) {
+        if (cliente.getId() == usuarioActual.getId()) {
+            usuarioActual = cliente;
+            break;
+        }
+    }
+}
+
 // agrega dinero ficticio al saldo del usuario actual y lo guarda en clientes.json
 inline bool depositarSaldo(double monto)
 {
@@ -223,7 +235,9 @@ inline Compra finalizarCompra(double total, int meses, const QString& metodo)
 // si meses > 0, la compra se hace a plazos (12 o 24 meses):
 //   solo se cobra la primera cuota (total / meses, sin interés)
 // si recibo != nullptr, devuelve la compra registrada para mostrarla en el recibo
-inline bool pagarCarrito(int meses = 0, Compra* recibo = nullptr)
+// metodoPersonalizado: nombre alternativo del método de pago (p. ej. "Efectivo (saldo)")
+inline bool pagarCarrito(int meses = 0, Compra* recibo = nullptr,
+                         const QString& metodoPersonalizado = QString())
 {
     if (carrito.isEmpty())
         return false;
@@ -248,7 +262,10 @@ inline bool pagarCarrito(int meses = 0, Compra* recibo = nullptr)
     }
     guardarClientes();
 
-    const QString metodo = (meses > 0) ? "Tarjeta (cuotas)" : "Tarjeta";
+    QString metodo = metodoPersonalizado;
+    if (metodo.isEmpty())
+        metodo = (meses > 0) ? "Tarjeta (cuotas)" : "Tarjeta";
+
     if (recibo)
         *recibo = finalizarCompra(total, meses, metodo);
     else

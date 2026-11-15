@@ -2,28 +2,23 @@
     {
         "clienteId": 6,
         "cuotaMensual": 0,
-        "fecha": "14/11/2026 19:25",
+        "fecha": "14/11/2026 21:37",
         "items": [
             {
                 "cantidad": 1,
-                "idProducto": 4,
-                "nombre": "Teclado mecánico Redragon",
-                "precio": 699
+                "idProducto": 1,
+                "nombre": "Laptop Lenovo IdeaPad 15",
+                "precio": 8499
             },
             {
                 "cantidad": 1,
-                "idProducto": 7,
-                "nombre": "Memoria RAM 16GB DDR4",
-                "precio": 899
-            },
-            {
-                "cantidad": 1,
-                "idProducto": 8,
-                "nombre": "Webcam Full HD",
-                "precio": 549
+                "idProducto": 3,
+                "nombre": "Monitor Samsung 24 pulgadas",
+                "precio": 2899
             }
         ],
         "meses": 0,
-        "total": 2147
+        "metodo": "Efectivo (saldo)",
+        "total": 11398
     }
 ]

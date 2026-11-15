@@ -401,7 +401,17 @@ QScrollArea {
             </item>
             <item>
              <property name="text">
-              <string>Tarjeta</string>
+              <string>Tarjeta (de contado)</string>
+             </property>
+            </item>
+            <item>
+             <property name="text">
+              <string>Tarjeta a 12 meses</string>
+             </property>
+            </item>
+            <item>
+             <property name="text">
+              <string>Tarjeta a 24 meses</string>
              </property>
             </item>
            </widget>
@@ -423,39 +433,6 @@ QScrollArea {
            </size>
           </property>
          </spacer>
-        </item>
-        <item>
-         <layout class="QHBoxLayout" name="layoutCuotas">
-          <property name="spacing">
-           <number>10</number>
-          </property>
-          <item>
-           <widget class="QLabel" name="lblFormaPago">
-            <property name="text">
-             <string>Cuotas:</string>
-            </property>
-           </widget>
-          </item>
-          <item>
-           <widget class="QComboBox" name="cmbCuotas">
-            <item>
-             <property name="text">
-              <string>Pago de contado</string>
-             </property>
-            </item>
-            <item>
-             <property name="text">
-              <string>A 12 meses</string>
-             </property>
-            </item>
-            <item>
-             <property name="text">
-              <string>A 24 meses</string>
-             </property>
-            </item>
-           </widget>
-          </item>
-         </layout>
         </item>
         <item>
          <layout class="QHBoxLayout" name="layoutBotones">

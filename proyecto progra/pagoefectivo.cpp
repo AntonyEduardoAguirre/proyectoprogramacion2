@@ -7,15 +7,18 @@
 #include <QHBoxLayout>
 #include <QLabel>
 #include <QPushButton>
+#include <QScrollArea>
 #include <QStyle>
 #include <QVBoxLayout>
+#include <QWidget>
 #include <QtGlobal>
 
-PagoEfectivo::PagoEfectivo(double total, QWidget* parent)
+PagoEfectivo::PagoEfectivo(double total, double saldoCuenta,
+                           const QList<ItemCompra>& items, QWidget* parent)
     : QWidget(parent)
 {
-    setWindowTitle(QStringLiteral("Pago en efectivo"));
-    setMinimumSize(460, 420);
+    setWindowTitle(QStringLiteral("Cobro en efectivo"));
+    setMinimumSize(460, 620);
     setObjectName(QStringLiteral("ventanaPagoEfectivo"));
     setStyleSheet(QStringLiteral(R"(
 QWidget#ventanaPagoEfectivo {
@@ -43,6 +46,14 @@ QLabel#etiquetaFormulario {
 	font-size: 12px;
 	font-weight: 600;
 }
+QLabel#lblItem {
+	color: #292A28;
+	background: #FAFAF8;
+	border: 1px solid #EAE8E2;
+	border-radius: 8px;
+	padding: 14px;
+	font-size: 13px;
+}
 QLabel#lblTotal {
 	color: #292A28;
 	background: #FAFAF8;
@@ -51,6 +62,10 @@ QLabel#lblTotal {
 	padding: 14px;
 	font-size: 14px;
 	font-weight: 600;
+}
+QScrollArea {
+	background: transparent;
+	border: none;
 }
 QDoubleSpinBox {
 	background-color: #FAFAF8;
@@ -124,14 +139,38 @@ QLabel#resultado {
     sombra->setColor(QColor(41, 42, 40, 22));
     tarjeta->setGraphicsEffect(sombra);
 
-    auto* eyebrow = new QLabel(QStringLiteral("PAGO EN EFECTIVO"), tarjeta);
+    auto* eyebrow = new QLabel(QStringLiteral("CAJA REGISTRADORA"), tarjeta);
     eyebrow->setObjectName(QStringLiteral("eyebrow"));
-    auto* titulo = new QLabel(QStringLiteral("Calculadora de vuelto."), tarjeta);
+    auto* titulo = new QLabel(QStringLiteral("Cobro en efectivo."), tarjeta);
     titulo->setObjectName(QStringLiteral("titulo"));
+
+    // ticket con los artículos seleccionados, como en una caja registradora
+    auto* areaItems = new QScrollArea(tarjeta);
+    areaItems->setWidgetResizable(true);
+    areaItems->setFrameShape(QFrame::NoFrame);
+    auto* contenedorItems = new QWidget(areaItems);
+    auto* layoutItems = new QVBoxLayout(contenedorItems);
+    layoutItems->setContentsMargins(0, 0, 6, 0);
+    layoutItems->setSpacing(10);
+    for (const ItemCompra& item : items) {
+        auto* fila = new QLabel(
+            QStringLiteral("%1 × %2\n$%3 c/u  —  $%4")
+                .arg(item.cantidad)
+                .arg(item.nombre)
+                .arg(item.precio, 0, 'f', 2)
+                .arg(item.precio * item.cantidad, 0, 'f', 2),
+            contenedorItems);
+        fila->setObjectName(QStringLiteral("lblItem"));
+        layoutItems->addWidget(fila);
+    }
+    layoutItems->addStretch();
+    areaItems->setWidget(contenedorItems);
 
     auto* lblTotal = new QLabel(this);
     lblTotal->setObjectName(QStringLiteral("lblTotal"));
-    lblTotal->setText(QStringLiteral("Total a pagar: $%1").arg(total, 0, 'f', 2));
+    lblTotal->setText(QStringLiteral("Total a pagar: $%1   (Saldo de la cuenta: $%2)")
+                          .arg(total, 0, 'f', 2)
+                          .arg(saldoCuenta, 0, 'f', 2));
 
     auto* efectivo = new QDoubleSpinBox(tarjeta);
     efectivo->setDecimals(2);
@@ -155,18 +194,27 @@ QLabel#resultado {
     btnCancelar->setProperty("rol", "secundario");
 
     // recalcula el vuelto con cada cambio del efectivo recibido
-    connect(efectivo, &QDoubleSpinBox::valueChanged, this,
-            [this, total, efectivo, resultado, btnConfirmar]() {
+    auto actualizar = [this, total, saldoCuenta, efectivo, resultado, btnConfirmar]() {
         // se compara en centavos para evitar errores de redondeo
         const qint64 diferencia = qRound64(efectivo->value() * 100.0)
                                  - qRound64(total * 100.0);
 
         if (diferencia < 0) {
-            const double faltante = -diferencia / 100.0;
-            resultado->setProperty("estado", "error");
-            resultado->setText(QStringLiteral("Saldo insuficiente. Faltan $%1")
-                                   .arg(faltante, 0, 'f', 2));
-            btnConfirmar->setEnabled(false);
+            if (qRound64(saldoCuenta * 100.0) >= qRound64(total * 100.0)) {
+                // el efectivo físico no alcanza, pero el saldo de la
+                // cuenta del cliente sí cubre el total: se permite pagar
+                resultado->setProperty("estado", "exito");
+                resultado->setText(
+                    QStringLiteral("El efectivo no alcanza, pero tu saldo de $%1 cubre el pago.")
+                        .arg(saldoCuenta, 0, 'f', 2));
+                btnConfirmar->setEnabled(true);
+            } else {
+                const double faltante = -diferencia / 100.0;
+                resultado->setProperty("estado", "error");
+                resultado->setText(QStringLiteral("Saldo insuficiente. Faltan $%1")
+                                       .arg(faltante, 0, 'f', 2));
+                btnConfirmar->setEnabled(false);
+            }
         } else if (diferencia == 0) {
             resultado->setProperty("estado", "exito");
             resultado->setText(QStringLiteral("Pago completo. Sin vuelto."));
@@ -180,13 +228,20 @@ QLabel#resultado {
         // el QSS se recalcula al cambiar una propiedad dinámica
         style()->unpolish(resultado);
         style()->polish(resultado);
-    });
+    };
+
+    connect(efectivo, &QDoubleSpinBox::valueChanged, this, actualizar);
+    actualizar();   // muestra desde el arranque por qué se puede (o no) confirmar
 
     connect(btnConfirmar, &QPushButton::clicked, this,
-            [this, total, efectivo]() {
+            [this, total, saldoCuenta, efectivo]() {
         const qint64 diferencia = qRound64(efectivo->value() * 100.0)
                                  - qRound64(total * 100.0);
-        emit pagoConfirmado(efectivo->value(), diferencia / 100.0);
+        // si el efectivo no alcanza, el pago se hace con el saldo de la cuenta
+        const bool conSaldo = diferencia < 0;
+        emit pagoConfirmado(efectivo->value(),
+                            conSaldo ? 0.0 : diferencia / 100.0,
+                            conSaldo);
         close();
     });
 
@@ -212,7 +267,9 @@ QLabel#resultado {
     contenidoTarjeta->addWidget(eyebrow);
     contenidoTarjeta->addSpacing(8);
     contenidoTarjeta->addWidget(titulo);
-    contenidoTarjeta->addSpacing(24);
+    contenidoTarjeta->addSpacing(18);
+    contenidoTarjeta->addWidget(areaItems, 1);
+    contenidoTarjeta->addSpacing(14);
     contenidoTarjeta->addWidget(lblTotal);
     contenidoTarjeta->addSpacing(18);
     contenidoTarjeta->addLayout(formulario);

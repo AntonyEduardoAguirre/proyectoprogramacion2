@@ -14,7 +14,6 @@
 #include "Cliente.h"
 #include "Producto.h"
 #include "compra.h"
-#include "Carrito.h"
 
 inline QList<Cliente> clientes;
 inline QList<Producto> productos;
@@ -300,6 +299,7 @@ inline bool pagarCarritoEfectivo(double efectivoRecibido, double* vuelto = nullp
     else
         finalizarCompra(total, 0, "Efectivo");
     return true;
+}
 
 // ---------------------------------------------------------------
 // Códigos de producto (6 dígitos, únicos)

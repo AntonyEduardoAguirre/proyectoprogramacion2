@@ -82,12 +82,8 @@
     <ClCompile Include="historial.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="VentanaCobro.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="placeholders\VentanaCuenta.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
+    <ClCompile Include="compra.h">
+      <Filter>Header Files\Clases</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -144,18 +140,14 @@
       <Filter>Form Files</Filter>
     </QtUic>
     <QtUic Include="historial.ui">
+      <Filter>Form Files</Filter>
+    </QtUic>
     <QtUic Include="MenuPrincipal.ui">
       <Filter>Form Files</Filter>
     </QtUic>
   </ItemGroup>
   <ItemGroup>
     <QtMoc Include="clases\MenuPrincipal.h">
-      <Filter>Header Files\Clases</Filter>
-    </QtMoc>
-    <QtMoc Include="clases\VentanaCobro.h">
-      <Filter>Header Files\Clases</Filter>
-    </QtMoc>
-    <QtMoc Include="clases\VentanaCuenta.h">
       <Filter>Header Files\Clases</Filter>
     </QtMoc>
     <ClInclude Include="clases\CalculadoraCambio.h">

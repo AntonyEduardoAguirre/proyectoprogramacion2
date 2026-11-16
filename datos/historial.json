@@ -1,18 +1,18 @@
 [
     {
-        "clienteId": 6,
-        "cuotaMensual": 236.49499999999998,
-        "fecha": "16/11/2026 00:03",
+        "clienteId": 4,
+        "cuotaMensual": 396.62000000000006,
+        "fecha": "16/11/2026 16:38",
         "items": [
             {
                 "cantidad": 1,
-                "idProducto": 4,
-                "nombre": "Teclado mecánico Redragon",
-                "precio": 699
+                "idProducto": 1,
+                "nombre": "Laptop Lenovo IdeaPad 15",
+                "precio": 8499
             }
         ],
-        "meses": 3,
+        "meses": 24,
         "metodo": "Tarjeta (cuotas)",
-        "total": 709.4849999999999
+        "total": 9518.880000000001
     }
 ]

@@ -3,7 +3,6 @@
 #include "clases/datos.h"
 #include "clases/Cambio.h"
 #include "clases/Seguro.h"
-#include "Historial.h"
 
 #include <QCloseEvent>
 #include <QFrame>
@@ -46,12 +45,6 @@ cuenta::cuenta(QWidget* parent)
 		ventanaCambio->setAttribute(Qt::WA_DeleteOnClose);
 		ventanaCambio->show();
 		this->close();
-		});
-
-	connect(ui.btnHistorial, &QPushButton::clicked, this, [this]() {
-		historial* ventanaHistorial = new historial();
-		ventanaHistorial->setAttribute(Qt::WA_DeleteOnClose);
-		ventanaHistorial->show();
 		});
 }
 

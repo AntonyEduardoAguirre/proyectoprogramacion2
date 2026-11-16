@@ -66,6 +66,32 @@ QScrollArea {
 	background: transparent;
 	border: none;
 }
+QScrollArea > QWidget > QWidget {
+	background: transparent;
+}
+QScrollBar:vertical {
+	background: transparent;
+	width: 8px;
+	margin: 0;
+}
+QScrollBar::handle:vertical {
+	background: #D8DED5;
+	border-radius: 4px;
+	min-height: 30px;
+}
+QScrollBar::handle:vertical:hover {
+	background: #B9C2B4;
+}
+QScrollBar::add-line:vertical, QScrollBar::sub-line:vertical {
+	height: 0;
+}
+QScrollBar::add-page:vertical, QScrollBar::sub-page:vertical {
+	background: transparent;
+}
+QScrollBar:horizontal {
+	background: transparent;
+	height: 0;
+}
 QDoubleSpinBox {
 	background-color: #FAFAF8;
 	color: #292A28;

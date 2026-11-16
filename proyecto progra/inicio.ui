@@ -93,7 +93,7 @@ QPushButton#btnIniciarSesion {
 }
 QPushButton#btnIniciarSesion:hover { background-color: #788B72; }
 QPushButton#btnIniciarSesion:pressed { background-color: #6D8067; }
-QPushButton#btnRegistrarse, QPushButton#btnRecuperar, QPushButton#btnSalir {
+QPushButton#btnRegistrarse, QPushButton#btnCuentaAdmin, QPushButton#btnRecuperar, QPushButton#btnSalir {
 	background: transparent;
 	border: none;
 	color: #899B83;
@@ -101,7 +101,7 @@ QPushButton#btnRegistrarse, QPushButton#btnRecuperar, QPushButton#btnSalir {
 	font-size: 11px;
 	padding: 4px;
 }
-QPushButton#btnRegistrarse:hover, QPushButton#btnRecuperar:hover, QPushButton#btnSalir:hover {
+QPushButton#btnRegistrarse:hover, QPushButton#btnCuentaAdmin:hover, QPushButton#btnRecuperar:hover, QPushButton#btnSalir:hover {
 	color: #788B72;
 }
 QLabel#lblError { color: #92918B; font-size: 11px; margin-top: 8px; }
@@ -370,6 +370,16 @@ QLabel#lblError { color: #92918B; font-size: 11px; margin-top: 8px; }
           <widget class="QPushButton" name="btnRegistrarse">
            <property name="text">
             <string>¿No tienes cuenta? Crea una aquí</string>
+           </property>
+           <property name="flat">
+            <bool>true</bool>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QPushButton" name="btnCuentaAdmin">
+           <property name="text">
+            <string>Cuenta admin</string>
            </property>
            <property name="flat">
             <bool>true</bool>

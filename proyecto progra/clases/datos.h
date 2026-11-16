@@ -1,5 +1,7 @@
 #pragma once
+#pragma once
 #include <QList>
+#include <QSet>
 #include <QFile>
 #include <QJsonArray>
 #include <QJsonDocument>
@@ -8,6 +10,7 @@
 #include <QDir>
 #include <QDateTime>
 #include <QCoreApplication>
+#include <QRandomGenerator>
 #include "Cliente.h"
 #include "Producto.h"
 #include "compra.h"

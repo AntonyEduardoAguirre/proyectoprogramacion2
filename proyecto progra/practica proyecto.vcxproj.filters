@@ -84,6 +84,9 @@
     <ClInclude Include="clases\datos.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="clases\Administracion.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <QtMoc Include="clases\Inicio.h">
@@ -136,7 +139,7 @@
     <QtUic Include="Seguro.ui">
       <Filter>Form Files</Filter>
     </QtUic>
-    <QtUic Include="menuPaginacion.ui">
+    <QtUic Include="MenuPrincipal.ui">
       <Filter>Form Files</Filter>
     </QtUic>
     <QtUic Include="carrito.ui">

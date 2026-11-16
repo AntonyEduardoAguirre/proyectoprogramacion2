@@ -6,14 +6,14 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>1100</width>
-    <height>740</height>
+    <width>1280</width>
+    <height>700</height>
    </rect>
   </property>
   <property name="minimumSize">
    <size>
     <width>1000</width>
-    <height>680</height>
+    <height>600</height>
    </size>
   </property>
   <property name="windowTitle">
@@ -21,42 +21,24 @@
   </property>
   <property name="styleSheet">
    <string notr="true">QMainWindow, #centralwidget {
-	background-color: #F5F3EE;
+	background-color: #FFFFFF;
 }
 #cardCarrito, #cardCatalogo {
-	background-color: #FFFFFF;
-	border: 1px solid #EAE8E2;
-	border-radius: 18px;
+	background: transparent;
+	border: none;
 }
-QLabel#eyebrowCarrito, QLabel#eyebrowCatalogo {
-	color: #92918B;
-	font-family: "Segoe UI";
-	font-size: 11px;
-	font-weight: 600;
-}
-QLabel#titleCarrito {
-	color: #292A28;
-	font-family: Georgia;
-	font-size: 24px;
-}
-QLabel#titleCatalogo {
-	color: #292A28;
-	font-family: Georgia;
-	font-size: 29px;
-}
-QLabel#subtitleCarrito, QLabel#subtitleCatalogo, QLabel#copyrightMenu,
 QLabel#lblPagina, QLabel#lblCarritoVacio {
 	color: #92918B;
 	font-family: "Segoe UI";
-	font-size: 12px;
+	font-size: 11px;
 }
 QLineEdit {
 	background-color: #FAFAF8;
 	color: #292A28;
 	border: 1px solid #E8E7E1;
-	border-radius: 12px;
-	padding: 0 14px;
-	min-height: 44px;
+	border-radius: 8px;
+	padding: 0 12px;
+	min-height: 36px;
 	font-family: "Segoe UI";
 	font-size: 13px;
 }
@@ -66,7 +48,7 @@ QLineEdit:focus {
 QPushButton#btnProducto {
 	background-color: #FAFAF8;
 	border: 1px solid #EAE8E2;
-	border-radius: 14px;
+	border-radius: 12px;
 	padding: 0;
 }
 QPushButton#btnProducto:hover {
@@ -78,34 +60,25 @@ QPushButton#btnProducto QLabel {
 	border: none;
 	font-family: "Segoe UI";
 }
-QLabel#prodNombre {
+QLabel#prodNombre, QLabel#prodPrecio, QLabel#prodCodigo {
 	color: #292A28;
-	font-size: 13px;
-	font-weight: 600;
-}
-QLabel#prodPrecio {
-	color: #292A28;
-	font-size: 13px;
-}
-QLabel#prodCodigo {
-	color: #92918B;
 	font-size: 12px;
 }
-QPushButton#btnAnterior, QPushButton#btnSiguiente, QPushButton#btnVaciar {
+QPushButton#btnAnterior, QPushButton#btnSiguiente {
 	background: #FFFFFF;
 	color: #292A28;
 	border: 1px solid #E8E7E1;
-	border-radius: 10px;
-	min-height: 38px;
+	border-radius: 8px;
+	min-height: 34px;
 	padding: 0 16px;
 	font-family: "Segoe UI";
 	font-weight: 600;
 }
-QPushButton#btnAnterior:hover, QPushButton#btnSiguiente:hover, QPushButton#btnVaciar:hover {
+QPushButton#btnAnterior:hover, QPushButton#btnSiguiente:hover {
 	border-color: #899B83;
 	color: #899B83;
 }
-QPushButton#btnAnterior:disabled, QPushButton#btnSiguiente:disabled, QPushButton#btnVaciar:disabled {
+QPushButton#btnAnterior:disabled, QPushButton#btnSiguiente:disabled {
 	background: #FAFAF8;
 	color: #B5B4AE;
 	border-color: #EFEEE9;
@@ -114,11 +87,11 @@ QPushButton#btnPagar {
 	background: #2F5243;
 	color: #FFFFFF;
 	border: none;
-	border-radius: 10px;
-	min-height: 44px;
+	border-radius: 8px;
+	min-height: 36px;
 	font-family: "Segoe UI";
-	font-size: 14px;
-	font-weight: 600;
+	font-size: 13px;
+	font-weight: 700;
 }
 QPushButton#btnPagar:hover {
 	background: #264135;
@@ -201,15 +174,10 @@ QPushButton#btnQuitar {
 QPushButton#btnQuitar:hover {
 	color: #292A28;
 }
-QFrame#lineaTotal {
-	background-color: #EAE8E2;
-	border: none;
-	max-height: 1px;
-}
 QLabel#lblTotalTexto {
 	color: #6B6A65;
 	font-family: "Segoe UI";
-	font-size: 15px;
+	font-size: 13px;
 }
 QLabel#lblTotal {
 	color: #292A28;
@@ -219,483 +187,161 @@ QLabel#lblTotal {
 </string>
   </property>
   <widget class="QWidget" name="centralwidget">
-   <layout class="QVBoxLayout" name="verticalLayoutMain" stretch="1,0">
-    <property name="spacing">
-     <number>14</number>
-    </property>
-    <property name="leftMargin">
-     <number>24</number>
-    </property>
-    <property name="topMargin">
-     <number>24</number>
-    </property>
-    <property name="rightMargin">
-     <number>24</number>
-    </property>
-    <property name="bottomMargin">
-     <number>16</number>
-    </property>
+   <layout class="QHBoxLayout" name="horizontalLayoutMenu" stretch="0,1">
+    <property name="spacing"><number>20</number></property>
+    <property name="leftMargin"><number>20</number></property>
+    <property name="topMargin"><number>20</number></property>
+    <property name="rightMargin"><number>20</number></property>
+    <property name="bottomMargin"><number>20</number></property>
     <item>
-     <layout class="QHBoxLayout" name="horizontalLayoutMenu" stretch="0,1">
-      <property name="spacing">
-       <number>20</number>
-      </property>
-      <item>
-       <widget class="QFrame" name="cardCarrito">
-        <property name="minimumSize">
-         <size>
-          <width>310</width>
-          <height>0</height>
-         </size>
-        </property>
-        <property name="maximumSize">
-         <size>
-          <width>340</width>
-          <height>16777215</height>
-         </size>
-        </property>
-        <property name="frameShape">
-         <enum>QFrame::NoFrame</enum>
-        </property>
-        <layout class="QVBoxLayout" name="layoutCarrito">
-         <property name="spacing">
-          <number>0</number>
-         </property>
-         <property name="leftMargin">
-          <number>28</number>
-         </property>
-         <property name="topMargin">
-          <number>28</number>
-         </property>
-         <property name="rightMargin">
-          <number>28</number>
-         </property>
-         <property name="bottomMargin">
-          <number>24</number>
-         </property>
-         <item>
-          <widget class="QLabel" name="eyebrowCarrito">
-           <property name="text">
-            <string>COMPRAS</string>
-           </property>
-          </widget>
-         </item>
-         <item>
-          <spacer name="spacerEyebrowCarrito">
-           <property name="orientation">
-            <enum>Qt::Vertical</enum>
-           </property>
-           <property name="sizeType">
-            <enum>QSizePolicy::Fixed</enum>
-           </property>
-           <property name="sizeHint" stdset="0">
-            <size>
-             <width>20</width>
-             <height>6</height>
-            </size>
-           </property>
-          </spacer>
-         </item>
-         <item>
-          <widget class="QLabel" name="titleCarrito">
-           <property name="text">
-            <string>Tu carrito.</string>
-           </property>
-          </widget>
-         </item>
-         <item>
-          <widget class="QLabel" name="subtitleCarrito">
-           <property name="text">
-            <string>Haz clic en un producto para agregarlo.</string>
-           </property>
-           <property name="wordWrap">
-            <bool>true</bool>
-           </property>
-          </widget>
-         </item>
-         <item>
-          <spacer name="spacerSubtituloCarrito">
-           <property name="orientation">
-            <enum>Qt::Vertical</enum>
-           </property>
-           <property name="sizeType">
-            <enum>QSizePolicy::Fixed</enum>
-           </property>
-           <property name="sizeHint" stdset="0">
-            <size>
-             <width>20</width>
-             <height>14</height>
-            </size>
-           </property>
-          </spacer>
-         </item>
-         <item>
-          <widget class="QScrollArea" name="scrollCarrito">
-           <property name="frameShape">
-            <enum>QFrame::NoFrame</enum>
-           </property>
-           <property name="horizontalScrollBarPolicy">
-            <enum>Qt::ScrollBarAlwaysOff</enum>
-           </property>
-           <property name="widgetResizable">
-            <bool>true</bool>
-           </property>
-           <widget class="QWidget" name="contenedorCarrito">
-            <layout class="QVBoxLayout" name="layoutItemsCarrito">
-             <property name="spacing">
-              <number>10</number>
-             </property>
-             <property name="leftMargin">
-              <number>0</number>
-             </property>
-             <property name="topMargin">
-              <number>0</number>
-             </property>
-             <property name="rightMargin">
-              <number>6</number>
-             </property>
-             <property name="bottomMargin">
-              <number>0</number>
-             </property>
-             <item>
-              <widget class="QLabel" name="lblCarritoVacio">
-               <property name="text">
-                <string>Tu carrito está vacío.</string>
-               </property>
-               <property name="alignment">
-                <set>Qt::AlignHCenter|Qt::AlignTop</set>
-               </property>
-               <property name="wordWrap">
-                <bool>true</bool>
-               </property>
-              </widget>
-             </item>
-             <item>
-              <spacer name="spacerItemsCarrito">
-               <property name="orientation">
-                <enum>Qt::Vertical</enum>
-               </property>
-               <property name="sizeHint" stdset="0">
-                <size>
-                 <width>20</width>
-                 <height>40</height>
-                </size>
-               </property>
-              </spacer>
-             </item>
-            </layout>
-           </widget>
-          </widget>
-         </item>
-         <item>
-          <spacer name="spacerAntesLinea">
-           <property name="orientation">
-            <enum>Qt::Vertical</enum>
-           </property>
-           <property name="sizeType">
-            <enum>QSizePolicy::Fixed</enum>
-           </property>
-           <property name="sizeHint" stdset="0">
-            <size>
-             <width>20</width>
-             <height>12</height>
-            </size>
-           </property>
-          </spacer>
-         </item>
-         <item>
-          <widget class="QFrame" name="lineaTotal">
-           <property name="maximumSize">
-            <size>
-             <width>16777215</width>
-             <height>1</height>
-            </size>
-           </property>
-           <property name="frameShape">
-            <enum>QFrame::NoFrame</enum>
-           </property>
-          </widget>
-         </item>
-         <item>
-          <spacer name="spacerDespuesLinea">
-           <property name="orientation">
-            <enum>Qt::Vertical</enum>
-           </property>
-           <property name="sizeType">
-            <enum>QSizePolicy::Fixed</enum>
-           </property>
-           <property name="sizeHint" stdset="0">
-            <size>
-             <width>20</width>
-             <height>14</height>
-            </size>
-           </property>
-          </spacer>
-         </item>
-         <item>
-          <layout class="QHBoxLayout" name="layoutTotal">
+     <widget class="QFrame" name="cardCarrito">
+      <property name="minimumSize"><size><width>220</width><height>0</height></size></property>
+      <property name="maximumSize"><size><width>260</width><height>16777215</height></size></property>
+      <property name="frameShape"><enum>QFrame::NoFrame</enum></property>
+      <layout class="QVBoxLayout" name="layoutCarrito">
+       <property name="spacing"><number>0</number></property>
+       <property name="leftMargin"><number>0</number></property>
+       <property name="topMargin"><number>0</number></property>
+       <property name="rightMargin"><number>0</number></property>
+       <property name="bottomMargin"><number>0</number></property>
+       <item>
+        <widget class="QScrollArea" name="scrollCarrito">
+         <property name="frameShape"><enum>QFrame::NoFrame</enum></property>
+         <property name="horizontalScrollBarPolicy"><enum>Qt::ScrollBarAlwaysOff</enum></property>
+         <property name="widgetResizable"><bool>true</bool></property>
+         <widget class="QWidget" name="contenedorCarrito">
+          <layout class="QVBoxLayout" name="layoutItemsCarrito">
+           <property name="spacing"><number>10</number></property>
+           <property name="leftMargin"><number>0</number></property>
+           <property name="topMargin"><number>0</number></property>
+           <property name="rightMargin"><number>6</number></property>
+           <property name="bottomMargin"><number>0</number></property>
            <item>
-            <widget class="QLabel" name="lblTotalTexto">
-             <property name="text">
-              <string>Total</string>
-             </property>
+            <widget class="QLabel" name="lblCarritoVacio">
+             <property name="text"><string>Tu carrito está vacío.</string></property>
+             <property name="alignment"><set>Qt::AlignHCenter|Qt::AlignTop</set></property>
+             <property name="wordWrap"><bool>true</bool></property>
             </widget>
            </item>
            <item>
-            <spacer name="spacerTotal">
-             <property name="orientation">
-              <enum>Qt::Horizontal</enum>
-             </property>
-             <property name="sizeHint" stdset="0">
-              <size>
-               <width>40</width>
-               <height>20</height>
-              </size>
-             </property>
+            <spacer name="spacerItemsCarrito">
+             <property name="orientation"><enum>Qt::Vertical</enum></property>
+             <property name="sizeHint" stdset="0"><size><width>20</width><height>40</height></size></property>
             </spacer>
            </item>
-           <item>
-            <widget class="QLabel" name="lblTotal">
-             <property name="text">
-              <string>$0.00</string>
-             </property>
-            </widget>
-           </item>
           </layout>
-         </item>
+         </widget>
+        </widget>
+       </item>
+       <item>
+ <spacer name="spacerAntesTotal">
+  <property name="orientation"><enum>Qt::Vertical</enum></property>
+  <property name="sizeType"><enum>QSizePolicy::Fixed</enum></property>
+  <property name="sizeHint" stdset="0"><size><width>20</width><height>12</height></size></property>
+ </spacer>
+</item>
+       <item>
+        <layout class="QHBoxLayout" name="layoutTotal">
          <item>
-          <spacer name="spacerAntesPagar">
-           <property name="orientation">
-            <enum>Qt::Vertical</enum>
-           </property>
-           <property name="sizeType">
-            <enum>QSizePolicy::Fixed</enum>
-           </property>
-           <property name="sizeHint" stdset="0">
-            <size>
-             <width>20</width>
-             <height>12</height>
-            </size>
-           </property>
-          </spacer>
-         </item>
-         <item>
-          <widget class="QPushButton" name="btnPagar">
-           <property name="text">
-            <string>Pagar</string>
-           </property>
+          <widget class="QLabel" name="lblTotalTexto">
+           <property name="text"><string>Total</string></property>
           </widget>
          </item>
          <item>
-          <spacer name="spacerAntesVaciar">
-           <property name="orientation">
-            <enum>Qt::Vertical</enum>
-           </property>
-           <property name="sizeType">
-            <enum>QSizePolicy::Fixed</enum>
-           </property>
-           <property name="sizeHint" stdset="0">
-            <size>
-             <width>20</width>
-             <height>8</height>
-            </size>
-           </property>
+          <spacer name="spacerTotal">
+           <property name="orientation"><enum>Qt::Horizontal</enum></property>
+           <property name="sizeHint" stdset="0"><size><width>40</width><height>20</height></size></property>
           </spacer>
          </item>
          <item>
-          <widget class="QPushButton" name="btnVaciar">
-           <property name="text">
-            <string>Vaciar carrito</string>
-           </property>
+          <widget class="QLabel" name="lblTotal">
+           <property name="text"><string>$0.00</string></property>
           </widget>
          </item>
         </layout>
-       </widget>
-      </item>
-      <item>
-       <widget class="QFrame" name="cardCatalogo">
-        <property name="frameShape">
-         <enum>QFrame::NoFrame</enum>
-        </property>
-        <layout class="QVBoxLayout" name="layoutCatalogo">
-         <property name="spacing">
-          <number>0</number>
-         </property>
-         <property name="leftMargin">
-          <number>28</number>
-         </property>
-         <property name="topMargin">
-          <number>28</number>
-         </property>
-         <property name="rightMargin">
-          <number>28</number>
-         </property>
-         <property name="bottomMargin">
-          <number>24</number>
-         </property>
-         <item>
-          <layout class="QHBoxLayout" name="layoutBuscadores">
-           <property name="spacing">
-            <number>12</number>
-           </property>
-           <item>
-            <widget class="QLineEdit" name="leNombre">
-             <property name="clearButtonEnabled">
-              <bool>true</bool>
-             </property>
-             <property name="placeholderText">
-              <string>Buscar por nombre...</string>
-             </property>
-            </widget>
-           </item>
-           <item>
-            <widget class="QLineEdit" name="leCodigo">
-             <property name="maxLength">
-              <number>6</number>
-             </property>
-             <property name="clearButtonEnabled">
-              <bool>true</bool>
-             </property>
-             <property name="placeholderText">
-              <string>Buscar por código (6 dígitos)...</string>
-             </property>
-            </widget>
-           </item>
-          </layout>
-         </item>
-         <item>
-          <spacer name="spacerBuscadores">
-           <property name="orientation">
-            <enum>Qt::Vertical</enum>
-           </property>
-           <property name="sizeType">
-            <enum>QSizePolicy::Fixed</enum>
-           </property>
-           <property name="sizeHint" stdset="0">
-            <size>
-             <width>20</width>
-             <height>22</height>
-            </size>
-           </property>
-          </spacer>
-         </item>
-         <item>
-          <widget class="QLabel" name="eyebrowCatalogo">
-           <property name="text">
-            <string>CATÁLOGO</string>
-           </property>
-          </widget>
-         </item>
-         <item>
-          <spacer name="spacerEyebrowCatalogo">
-           <property name="orientation">
-            <enum>Qt::Vertical</enum>
-           </property>
-           <property name="sizeType">
-            <enum>QSizePolicy::Fixed</enum>
-           </property>
-           <property name="sizeHint" stdset="0">
-            <size>
-             <width>20</width>
-             <height>6</height>
-            </size>
-           </property>
-          </spacer>
-         </item>
-         <item>
-          <widget class="QLabel" name="titleCatalogo">
-           <property name="text">
-            <string>Nuestros productos.</string>
-           </property>
-          </widget>
-         </item>
-         <item>
-          <widget class="QLabel" name="subtitleCatalogo">
-           <property name="text">
-            <string>Elige un producto para agregarlo al carrito.</string>
-           </property>
-          </widget>
-         </item>
-         <item>
-          <spacer name="spacerSubtituloCatalogo">
-           <property name="orientation">
-            <enum>Qt::Vertical</enum>
-           </property>
-           <property name="sizeType">
-            <enum>QSizePolicy::Fixed</enum>
-           </property>
-           <property name="sizeHint" stdset="0">
-            <size>
-             <width>20</width>
-             <height>18</height>
-            </size>
-           </property>
-          </spacer>
-         </item>
-         <item>
-          <layout class="QGridLayout" name="gridProductos">
-           <property name="spacing">
-            <number>12</number>
-           </property>
-          </layout>
-         </item>
-         <item>
-          <spacer name="spacerGrid">
-           <property name="orientation">
-            <enum>Qt::Vertical</enum>
-           </property>
-           <property name="sizeType">
-            <enum>QSizePolicy::Fixed</enum>
-           </property>
-           <property name="sizeHint" stdset="0">
-            <size>
-             <width>20</width>
-             <height>16</height>
-            </size>
-           </property>
-          </spacer>
-         </item>
-         <item>
-          <layout class="QHBoxLayout" name="layoutPaginacion">
-           <item>
-            <widget class="QPushButton" name="btnAnterior">
-             <property name="text">
-              <string>←  Anterior</string>
-             </property>
-            </widget>
-           </item>
-           <item>
-            <widget class="QLabel" name="lblPagina">
-             <property name="text">
-              <string>Página 1 de 1</string>
-             </property>
-             <property name="alignment">
-              <set>Qt::AlignCenter</set>
-             </property>
-            </widget>
-           </item>
-           <item>
-            <widget class="QPushButton" name="btnSiguiente">
-             <property name="text">
-              <string>Siguiente  →</string>
-             </property>
-            </widget>
-           </item>
-          </layout>
-         </item>
-        </layout>
-       </widget>
-      </item>
-     </layout>
+       </item>
+       <item>
+ <spacer name="spacerAntesPagar">
+  <property name="orientation"><enum>Qt::Vertical</enum></property>
+  <property name="sizeType"><enum>QSizePolicy::Fixed</enum></property>
+  <property name="sizeHint" stdset="0"><size><width>20</width><height>10</height></size></property>
+ </spacer>
+</item>
+       <item>
+        <widget class="QPushButton" name="btnPagar">
+         <property name="text"><string>Pagar</string></property>
+        </widget>
+       </item>
+      </layout>
+     </widget>
     </item>
     <item>
-     <widget class="QLabel" name="copyrightMenu">
-      <property name="text">
-       <string>© 2026 UNA Electros</string>
-      </property>
-      <property name="alignment">
-       <set>Qt::AlignCenter</set>
-      </property>
+     <widget class="QFrame" name="cardCatalogo">
+      <property name="frameShape"><enum>QFrame::NoFrame</enum></property>
+      <layout class="QVBoxLayout" name="layoutCatalogo">
+       <property name="spacing"><number>0</number></property>
+       <property name="leftMargin"><number>0</number></property>
+       <property name="topMargin"><number>0</number></property>
+       <property name="rightMargin"><number>0</number></property>
+       <property name="bottomMargin"><number>0</number></property>
+       <item>
+        <layout class="QHBoxLayout" name="layoutBuscadores" stretch="1,1">
+         <property name="spacing"><number>10</number></property>
+         <item>
+          <widget class="QLineEdit" name="leNombre">
+           <property name="clearButtonEnabled"><bool>true</bool></property>
+           <property name="placeholderText"><string>Buscar por nombre...</string></property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QLineEdit" name="leCodigo">
+           <property name="maxLength"><number>6</number></property>
+           <property name="clearButtonEnabled"><bool>true</bool></property>
+           <property name="placeholderText"><string>Buscar por código (6 dígitos)...</string></property>
+          </widget>
+         </item>
+        </layout>
+       </item>
+       <item>
+ <spacer name="spacerBuscadores">
+  <property name="orientation"><enum>Qt::Vertical</enum></property>
+  <property name="sizeType"><enum>QSizePolicy::Fixed</enum></property>
+  <property name="sizeHint" stdset="0"><size><width>20</width><height>14</height></size></property>
+ </spacer>
+</item>
+       <item>
+        <layout class="QGridLayout" name="gridProductos">
+         <property name="spacing"><number>10</number></property>
+        </layout>
+       </item>
+       <item>
+ <spacer name="spacerGrid">
+  <property name="orientation"><enum>Qt::Vertical</enum></property>
+  <property name="sizeType"><enum>QSizePolicy::Fixed</enum></property>
+  <property name="sizeHint" stdset="0"><size><width>20</width><height>12</height></size></property>
+ </spacer>
+</item>
+       <item>
+        <layout class="QHBoxLayout" name="layoutPaginacion" stretch="1,1,1">
+         <item>
+          <widget class="QPushButton" name="btnAnterior">
+           <property name="text"><string>←  Anterior</string></property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QLabel" name="lblPagina">
+           <property name="text"><string>Página 1 de 1</string></property>
+           <property name="alignment"><set>Qt::AlignCenter</set></property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QPushButton" name="btnSiguiente">
+           <property name="text"><string>Siguiente  →</string></property>
+          </widget>
+         </item>
+        </layout>
+       </item>
+      </layout>
      </widget>
     </item>
    </layout>

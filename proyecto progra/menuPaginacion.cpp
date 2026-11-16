@@ -3,7 +3,6 @@
 #include "clases/datos.h"
 
 #include <QFrame>
-#include <QGraphicsDropShadowEffect>
 #include <QHBoxLayout>
 #include <QLabel>
 #include <QMessageBox>
@@ -17,25 +16,16 @@ MenuPaginacion::MenuPaginacion(QWidget* parent)
 {
     ui->setupUi(this);
 
-    // La sombra suave no se puede definir en el .ui
-    for (QFrame* tarjeta : { ui->cardCarrito, ui->cardCatalogo }) {
-        auto* sombra = new QGraphicsDropShadowEffect(tarjeta);
-        sombra->setBlurRadius(28);
-        sombra->setOffset(0, 8);
-        sombra->setColor(QColor(41, 42, 40, 22));
-        tarjeta->setGraphicsEffect(sombra);
-    }
-
     // La cuadrícula de productos ocupa todo el espacio libre de la tarjeta
     ui->layoutCatalogo->setStretchFactor(ui->gridProductos, 1);
 
-    // --- 6 botones de producto en la cuadrícula (2 filas x 3 columnas) ---
+    // --- 9 botones de producto en la cuadrícula (3 filas x 3 columnas) ---
     // Cada botón lleva tres etiquetas (nombre, precio, código) para poder
     // ajustar el texto largo y dar al código un color más suave.
     for (int i = 0; i < PRODUCTOS_POR_PAGINA; ++i) {
         auto* b = new QPushButton(this);
         b->setObjectName("btnProducto");
-        b->setMinimumSize(150, 120);
+        b->setMinimumSize(150, 90);
         b->setCursor(Qt::PointingHandCursor);
 
         QSizePolicy politica(QSizePolicy::Expanding, QSizePolicy::Expanding);
@@ -43,7 +33,7 @@ MenuPaginacion::MenuPaginacion(QWidget* parent)
         b->setSizePolicy(politica);
 
         auto* capa = new QVBoxLayout(b);
-        capa->setContentsMargins(10, 10, 10, 10);
+        capa->setContentsMargins(8, 8, 8, 8);
         capa->setSpacing(2);
 
         auto crearEtiqueta = [b, capa](const char* objeto, bool ajustar) {
@@ -72,13 +62,15 @@ MenuPaginacion::MenuPaginacion(QWidget* parent)
             });
     }
 
-    // --- Buscadores: se filtra mientras se escribe ---
+    // --- Buscadores ---
+    // Nombre: filtra el catálogo mientras se escribe.
+    // Código: NO filtra; al presionar Enter agrega al carrito el producto con ese código.
     // El código solo admite hasta 6 dígitos.
     ui->leCodigo->setValidator(
         new QRegularExpressionValidator(QRegularExpression("\\d{0,6}"), this));
 
     connect(ui->leNombre, &QLineEdit::textChanged, this, &MenuPaginacion::aplicarFiltros);
-    connect(ui->leCodigo, &QLineEdit::textChanged, this, &MenuPaginacion::aplicarFiltros);
+    connect(ui->leCodigo, &QLineEdit::returnPressed, this, &MenuPaginacion::agregarPorCodigo);
 
     // --- Paginación ---
     connect(ui->btnAnterior, &QPushButton::clicked, this, &MenuPaginacion::paginaAnterior);
@@ -86,7 +78,6 @@ MenuPaginacion::MenuPaginacion(QWidget* parent)
 
     // --- Carrito ---
     connect(ui->btnPagar, &QPushButton::clicked, this, &MenuPaginacion::pagar);
-    connect(ui->btnVaciar, &QPushButton::clicked, this, &MenuPaginacion::vaciarCarrito);
 
     actualizarCatalogo();
 }
@@ -116,13 +107,13 @@ int MenuPaginacion::indiceDeCodigo(const QString& codigo) const
     return -1;
 }
 
-// Los dos buscadores se combinan con AND; si están vacíos no filtran nada.
+// Solo el buscador por nombre filtra el catálogo (si está vacío no filtra nada).
+// El buscador por código se maneja aparte, en agregarPorCodigo().
 void MenuPaginacion::aplicarFiltros()
 {
     filtrados.clear();
 
     const QString nombre = ui->leNombre->text().trimmed();
-    const QString codigo = ui->leCodigo->text().trimmed();
 
     for (int i = 0; i < productos.size(); ++i) {
         const Producto& p = productos[i];
@@ -130,9 +121,6 @@ void MenuPaginacion::aplicarFiltros()
         if (!admin && p.stock <= 0) continue;   // regla de stock
 
         if (!nombre.isEmpty() && !p.nombre.contains(nombre, Qt::CaseInsensitive)) continue;
-
-        // Con el código basta escribir una parte (por ejemplo "439")
-        if (!codigo.isEmpty() && !p.codigo.contains(codigo)) continue;
 
         filtrados.append(i);
     }
@@ -164,13 +152,35 @@ void MenuPaginacion::mostrarPagina()
         }
     }
 
-    ui->subtitleCatalogo->setText(filtrados.isEmpty()
-        ? tr("No hay productos que coincidan con tu búsqueda.")
-        : tr("Elige un producto para agregarlo al carrito."));
-
     ui->lblPagina->setText(tr("Página %1 de %2").arg(paginaActual + 1).arg(totalPaginas));
     ui->btnAnterior->setEnabled(paginaActual > 0);
     ui->btnSiguiente->setEnabled(paginaActual < totalPaginas - 1);
+}
+
+// Enter en el buscador por código: el producto con ese código se agrega al carrito.
+void MenuPaginacion::agregarPorCodigo()
+{
+    const QString codigo = ui->leCodigo->text().trimmed();
+    if (codigo.isEmpty())
+        return;
+
+    const int idx = indiceDeCodigo(codigo);
+    if (idx < 0) {
+        QMessageBox::warning(this, tr("Producto no encontrado"),
+            tr("No existe ningún producto con el código %1.").arg(codigo));
+        ui->leCodigo->selectAll();
+        return;
+    }
+    if (productos[idx].stock <= 0) {
+        QMessageBox::information(this, tr("Sin existencias"),
+            tr("«%1» está agotado.").arg(productos[idx].nombre));
+        ui->leCodigo->selectAll();
+        return;
+    }
+
+    agregarAlCarrito(idx);
+    ui->leCodigo->clear();      // listo para escanear/escribir el siguiente código
+    ui->leCodigo->setFocus();
 }
 
 void MenuPaginacion::paginaAnterior() { --paginaActual; mostrarPagina(); }
@@ -324,7 +334,6 @@ void MenuPaginacion::reconstruirCarrito()
     ui->lblCarritoVacio->setVisible(carrito.isEmpty());
     ui->lblTotal->setText(QString("$%1").arg(total, 0, 'f', 2));
     ui->btnPagar->setEnabled(!carrito.isEmpty());
-    ui->btnVaciar->setEnabled(!carrito.isEmpty());
 }
 
 void MenuPaginacion::pagar()

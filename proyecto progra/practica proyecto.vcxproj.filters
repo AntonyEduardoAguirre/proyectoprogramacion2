@@ -49,9 +49,6 @@
     <ClCompile Include="cuenta.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="saldo.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="cambio.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -61,20 +58,20 @@
     <ClCompile Include="menuPaginacion.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="carrito.cpp">
+    <ClCompile Include="CalculadoraCambio.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="pagoefectivo.cpp">
+    <ClCompile Include="MenuPrincipal.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="recibo.cpp">
+    <ClCompile Include="VentanaCobro.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="historial.cpp">
+    <ClCompile Include="placeholders\VentanaCuenta.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="compra.h">
-      <Filter>Header Files\Clases</Filter>
+    <ClCompile Include="Administracion.cpp">
+      <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -98,9 +95,6 @@
     <QtMoc Include="clases\Cuenta.h">
       <Filter>Header Files\Clases</Filter>
     </QtMoc>
-    <QtMoc Include="clases\Saldo.h">
-      <Filter>Header Files\Clases</Filter>
-    </QtMoc>
     <QtMoc Include="clases\Cambio.h">
       <Filter>Header Files\Clases</Filter>
     </QtMoc>
@@ -110,27 +104,12 @@
     <QtMoc Include="clases\menuPaginacion.h">
       <Filter>Header Files\Clases</Filter>
     </QtMoc>
-    <QtMoc Include="Carrito.h">
-      <Filter>Header Files\Paginas</Filter>
-    </QtMoc>
-    <QtMoc Include="Historial.h">
-      <Filter>Header Files\Paginas</Filter>
-    </QtMoc>
-    <QtMoc Include="clases\PagoEfectivo.h">
-      <Filter>Header Files\Clases</Filter>
-    </QtMoc>
-    <QtMoc Include="clases\Recibo.h">
-      <Filter>Header Files\Clases</Filter>
-    </QtMoc>
   </ItemGroup>
   <ItemGroup>
     <QtUic Include="registro.ui">
       <Filter>Form Files</Filter>
     </QtUic>
     <QtUic Include="cuenta.ui">
-      <Filter>Form Files</Filter>
-    </QtUic>
-    <QtUic Include="Saldo.ui">
       <Filter>Form Files</Filter>
     </QtUic>
     <QtUic Include="Cambio.ui">
@@ -142,21 +121,25 @@
     <QtUic Include="MenuPrincipal.ui">
       <Filter>Form Files</Filter>
     </QtUic>
-    <QtUic Include="carrito.ui">
-      <Filter>Form Files</Filter>
-    </QtUic>
-    <QtUic Include="historial.ui">
-      <Filter>Form Files</Filter>
-    </QtUic>
-    <QtUic Include="MenuPrincipal.ui">
+    <QtUic Include="menuPaginacion.ui">
       <Filter>Form Files</Filter>
     </QtUic>
   </ItemGroup>
   <ItemGroup>
-    <QtMoc Include="clases\MenuPrincipal.h"><Filter>Header Files\Clases</Filter></QtMoc>
-
-
-    <ClInclude Include="clases\CalculadoraCambio.h"><Filter>Header Files\Clases</Filter></ClInclude>
-    <ClInclude Include="clases\EstiloPulpe.h"><Filter>Header Files\Clases</Filter></ClInclude>
+    <QtMoc Include="clases\MenuPrincipal.h">
+      <Filter>Header Files\Clases</Filter>
+    </QtMoc>
+    <QtMoc Include="clases\VentanaCobro.h">
+      <Filter>Header Files\Clases</Filter>
+    </QtMoc>
+    <QtMoc Include="clases\VentanaCuenta.h">
+      <Filter>Header Files\Clases</Filter>
+    </QtMoc>
+    <ClInclude Include="clases\CalculadoraCambio.h">
+      <Filter>Header Files\Clases</Filter>
+    </ClInclude>
+    <ClInclude Include="clases\EstiloPulpe.h">
+      <Filter>Header Files\Clases</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

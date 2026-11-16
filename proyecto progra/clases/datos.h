@@ -8,13 +8,17 @@
 #include <QJsonObject>
 #include <QStandardPaths>
 #include <QDir>
+#include <QDateTime>
 #include <QCoreApplication>
 #include <QRandomGenerator>
 #include "Cliente.h"
 #include "Producto.h"
+#include "compra.h"
 
 inline QList<Cliente> clientes;
 inline QList<Producto> productos;
+inline QList<Compra> historialCompras;   // compras de todos los clientes
+inline QList<ItemCompra> carrito;        // carrito de compras del usuario actual
 inline Cliente usuarioActual;  // variable global para almacenar el usuario actual
 
 inline QString carpetaDatos()
@@ -89,58 +93,212 @@ inline void cargarClientes() { cargarLista(clientes, "clientes.json"); }
 inline void guardarProductos() { guardarLista(productos, "productos.json"); }
 inline void cargarProductos() { cargarLista(productos, "productos.json"); }
 
+inline void guardarHistorial() { guardarLista(historialCompras, "historial.json"); }
+inline void cargarHistorial() { cargarLista(historialCompras, "historial.json"); }
 
 // Opcional: para guardar/cargar todo de una vez
-inline void guardarTodo() { guardarClientes(); guardarProductos(); }
-inline void cargarTodo() { cargarClientes();  cargarProductos(); }
+inline void guardarTodo() { guardarClientes(); guardarProductos(); guardarHistorial(); }
+inline void cargarTodo() { cargarClientes();  cargarProductos(); cargarHistorial(); }
 
 // ---------------------------------------------------------------
-// Códigos de producto (6 dígitos, únicos)
+// Carrito de compras (sesión, no se guarda en disco)
 // ---------------------------------------------------------------
-
-// Devuelve un código de 6 dígitos que no esté en "usados".
-inline QString generarCodigoUnico(const QSet<QString>& usados)
+inline int cantidadEnCarrito(int idProducto)
 {
-    QString codigo;
-    do {
-        codigo = QString::number(QRandomGenerator::global()->bounded(100000, 1000000));
-    } while (usados.contains(codigo));
-    return codigo;
+    int cantidad = 0;
+    for (const ItemCompra& item : carrito)
+        if (item.idProducto == idProducto)
+            cantidad += item.cantidad;
+    return cantidad;
 }
 
-// Código nuevo para un producto que se vaya a agregar a "productos".
-inline QString nuevoCodigoProducto()
+inline bool agregarAlCarrito(int idProducto, int cantidad)
 {
-    QSet<QString> usados;
-    for (const Producto& p : productos)
-        usados.insert(p.codigo);
-    return generarCodigoUnico(usados);
+    if (cantidad <= 0)
+        return false;
+
+    const Producto* producto = nullptr;
+    for (const Producto& p : productos) {
+        if (p.id == idProducto) { producto = &p; break; }
+    }
+    if (!producto)
+        return false;
+
+    if (producto->stock < cantidadEnCarrito(idProducto) + cantidad)
+        return false;   // no hay stock suficiente
+
+    // si ya está, suma cantidades; si no, agrega la línea
+    for (ItemCompra& item : carrito) {
+        if (item.idProducto == idProducto) {
+            item.cantidad += cantidad;
+            return true;
+        }
+    }
+
+    ItemCompra item;
+    item.idProducto = idProducto;
+    item.nombre = producto->nombre;
+    item.precio = producto->precio;
+    item.cantidad = cantidad;
+    carrito.append(item);
+    return true;
 }
 
-// Se asegura de que TODOS los productos tengan un código válido y no repetido.
-// Los productos que no lo tengan (por ejemplo, un productos.json anterior) reciben uno
-// y el archivo se guarda. Devuelve true si algún código fue asignado.
-inline bool asegurarCodigos()
+inline bool quitarDelCarrito(int idProducto)
 {
-    QSet<QString> usados;
-    QList<int> pendientes;
-
-    for (int i = 0; i < productos.size(); ++i) {
-        const QString& c = productos[i].codigo;
-        if (Producto::codigoValido(c) && !usados.contains(c))
-            usados.insert(c);
-        else
-            pendientes.append(i);
+    for (int i = 0; i < carrito.size(); ++i) {
+        if (carrito[i].idProducto == idProducto) {
+            carrito.removeAt(i);
+            return true;
+        }
     }
+    return false;
+}
 
-    for (int i : pendientes) {
-        const QString nuevo = generarCodigoUnico(usados);
-        usados.insert(nuevo);
-        productos[i].codigo = nuevo;
+inline double carritoTotal()
+{
+    double total = 0.0;
+    for (const ItemCompra& item : carrito)
+        total += item.precio * item.cantidad;
+    return total;
+}
+
+inline int carritoCantidadTotal()
+{
+    int cantidad = 0;
+    for (const ItemCompra& item : carrito)
+        cantidad += item.cantidad;
+    return cantidad;
+}
+
+inline void vaciarCarrito() { carrito.clear(); }
+
+// sincroniza usuarioActual con la lista de clientes para que el saldo
+// mostrado y cobrado esté siempre al día (p. ej. tras un depósito)
+inline void refrescarUsuarioActual()
+{
+    for (const Cliente& cliente : clientes) {
+        if (cliente.getId() == usuarioActual.getId()) {
+            usuarioActual = cliente;
+            break;
+        }
     }
+}
 
-    if (!pendientes.isEmpty())
-        guardarProductos();
+// agrega dinero ficticio al saldo del usuario actual y lo guarda en clientes.json
+inline bool depositarSaldo(double monto)
+{
+    if (monto <= 0.0)
+        return false;
 
-    return !pendientes.isEmpty();
+    usuarioActual.saldo += static_cast<float>(monto);
+    for (Cliente& cliente : clientes) {
+        if (cliente.getId() == usuarioActual.getId()) {
+            cliente.setSaldo(usuarioActual.saldo);
+            break;
+        }
+    }
+    guardarClientes();
+    return true;
+}
+
+// cierra la compra: descuenta stock, guarda el historial y vacía el
+// carrito (no toca el saldo del usuario). Devuelve la compra registrada.
+inline Compra finalizarCompra(double total, int meses, const QString& metodo)
+{
+    // descuenta el stock de cada producto
+    for (const ItemCompra& item : carrito) {
+        for (Producto& p : productos) {
+            if (p.id == item.idProducto) {
+                p.stock -= item.cantidad;
+                break;
+            }
+        }
+    }
+    guardarProductos();
+
+    // registra la compra en el historial
+    Compra compra;
+    compra.clienteId = usuarioActual.getId();
+    compra.fecha = QDateTime::currentDateTime().toString("dd/MM/yyyy hh:mm");
+    compra.total = total;
+    compra.meses = (meses > 0) ? meses : 0;
+    compra.cuotaMensual = (meses > 0) ? total / meses : 0.0;
+    compra.metodo = metodo;
+    compra.items = carrito;
+    historialCompras.append(compra);
+    guardarHistorial();
+
+    vaciarCarrito();
+    return compra;
+}
+
+// pago con tarjeta (de contado o a plazos): el pago es inmediato y se
+// descuenta del saldo de la cuenta.
+// si meses > 0, la compra se hace a plazos (12 o 24 meses):
+//   solo se cobra la primera cuota (total / meses, sin interés)
+// si recibo != nullptr, devuelve la compra registrada para mostrarla en el recibo
+// metodoPersonalizado: nombre alternativo del método de pago (p. ej. "Efectivo (saldo)")
+inline bool pagarCarrito(int meses = 0, Compra* recibo = nullptr,
+                         const QString& metodoPersonalizado = QString())
+{
+    if (carrito.isEmpty())
+        return false;
+
+    const double total = carritoTotal();
+
+    // el cobro es el total de contado, o solo la primera cuota
+    double cobro = total;
+    if (meses > 0)
+        cobro = total / meses;
+
+    if (usuarioActual.saldo < cobro)
+        return false;   // saldo insuficiente
+
+    // descuenta el saldo del usuario actual (y de la lista de clientes)
+    usuarioActual.saldo -= static_cast<float>(cobro);
+    for (Cliente& cliente : clientes) {
+        if (cliente.getId() == usuarioActual.getId()) {
+            cliente.setSaldo(usuarioActual.saldo);
+            break;
+        }
+    }
+    guardarClientes();
+
+    QString metodo = metodoPersonalizado;
+    if (metodo.isEmpty())
+        metodo = (meses > 0) ? "Tarjeta (cuotas)" : "Tarjeta";
+
+    if (recibo)
+        *recibo = finalizarCompra(total, meses, metodo);
+    else
+        finalizarCompra(total, meses, metodo);
+    return true;
+}
+
+// pago en efectivo: el cliente entrega dinero físico y se calcula el
+// vuelto (efectivo dado - total). No usa el saldo de la cuenta.
+// devuelve false si el efectivo no alcanza (saldo insuficiente).
+// si recibo != nullptr, devuelve la compra registrada para mostrarla en el recibo
+inline bool pagarCarritoEfectivo(double efectivoRecibido, double* vuelto = nullptr, Compra* recibo = nullptr)
+{
+    if (carrito.isEmpty())
+        return false;
+    if (vuelto)
+        *vuelto = 0.0;
+
+    const double total = carritoTotal();
+    const qint64 diferencia = qRound64(efectivoRecibido * 100.0) - qRound64(total * 100.0);
+
+    if (diferencia < 0)
+        return false;   // efectivo insuficiente
+
+    if (vuelto)
+        *vuelto = diferencia / 100.0;
+
+    if (recibo)
+        *recibo = finalizarCompra(total, 0, "Efectivo");
+    else
+        finalizarCompra(total, 0, "Efectivo");
+    return true;
 }

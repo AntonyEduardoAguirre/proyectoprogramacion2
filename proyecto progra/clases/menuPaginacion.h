@@ -10,18 +10,7 @@ class QPushButton;
 
 namespace Ui { class MenuPaginacion; }
 
-// Una línea del carrito: el producto se identifica por su código de 6 dígitos.
-struct ItemCarrito
-{
-    QString codigo;
-    int cantidad = 0;
-};
-
-// MENÚ DE PAGINACIÓN (ventana de catálogo + carrito).
-// Muestra 9 productos por página (3x3), con dos buscadores encima del catálogo:
-//  - nombre: filtra el catálogo;
-//  - código: con Enter agrega el producto con ese código al carrito.
-// Al hacer clic en un producto también se agrega al carrito.
+// MENÚ DE PAGINACIÓN (ventana de catálogo).
 class MenuPaginacion : public QMainWindow
 {
     Q_OBJECT
@@ -37,25 +26,14 @@ private slots:
     void agregarPorCodigo();
     void paginaAnterior();
     void paginaSiguiente();
-    void agregarAlCarrito(int indiceProducto);
-    void vaciarCarrito();
-    void pagar();
+    void abrirDetalle(int indiceProducto);
+    void volverAlMenu();
+    void comprarActual();        // agrega el producto del detalle al carrito
+    void mostrarCarrito();       // abre la ventana del carrito
 
 private:
     void mostrarPagina();
-    void reconstruirCarrito();
-    void cambiarCantidad(const QString& codigo, int delta);
-    void quitarDelCarrito(const QString& codigo);
-    int  indiceDeCodigo(const QString& codigo) const;   // posición en "productos" o -1
-
-    // Los 9 botones de producto y las etiquetas que llevan dentro
-    struct BotonProducto
-    {
-        QPushButton* boton;
-        QLabel* nombre;
-        QLabel* precio;
-        QLabel* codigo;
-    };
+    void actualizarPanelCarrito();   // refresca el panel de productos acumulados
 
     Ui::MenuPaginacion* ui;
 
@@ -65,7 +43,5 @@ private:
     QList<int> filtrados;               // índices de "productos" que pasan la búsqueda por nombre
     QList<BotonProducto> botones;       // los 9 botones de la página
     int paginaActual = 0;
-
-    QList<ItemCarrito> carrito;
-    QList<QFrame*> filasCarrito;        // widgets de las filas actuales del carrito
+    int detalleIndice = -1;             // producto mostrado en la pantalla de detalle
 };

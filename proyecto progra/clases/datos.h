@@ -230,41 +230,18 @@ inline Compra finalizarCompra(double total, int meses, const QString& metodo)
     return compra;
 }
 
-// pago con tarjeta (de contado o a plazos): el pago es inmediato y se
-// descuenta del saldo de la cuenta.
+// pago con tarjeta (de contado o a plazos): el pago es inmediato.
 // si meses > 0, la compra se hace a plazos (12 o 24 meses):
 //   solo se cobra la primera cuota (total / meses, sin interés)
 // si recibo != nullptr, devuelve la compra registrada para mostrarla en el recibo
-// metodoPersonalizado: nombre alternativo del método de pago (p. ej. "Efectivo (saldo)")
-inline bool pagarCarrito(int meses = 0, Compra* recibo = nullptr,
-                         const QString& metodoPersonalizado = QString())
+inline bool pagarCarrito(int meses = 0, Compra* recibo = nullptr)
 {
     if (carrito.isEmpty())
         return false;
 
     const double total = carritoTotal();
 
-    // el cobro es el total de contado, o solo la primera cuota
-    double cobro = total;
-    if (meses > 0)
-        cobro = total / meses;
-
-    if (usuarioActual.saldo < cobro)
-        return false;   // saldo insuficiente
-
-    // descuenta el saldo del usuario actual (y de la lista de clientes)
-    usuarioActual.saldo -= static_cast<float>(cobro);
-    for (Cliente& cliente : clientes) {
-        if (cliente.getId() == usuarioActual.getId()) {
-            cliente.setSaldo(usuarioActual.saldo);
-            break;
-        }
-    }
-    guardarClientes();
-
-    QString metodo = metodoPersonalizado;
-    if (metodo.isEmpty())
-        metodo = (meses > 0) ? "Tarjeta (cuotas)" : "Tarjeta";
+    QString metodo = (meses > 0) ? "Tarjeta (cuotas)" : "Tarjeta";
 
     if (recibo)
         *recibo = finalizarCompra(total, meses, metodo);

@@ -13,8 +13,7 @@
 #include <QWidget>
 #include <QtGlobal>
 
-PagoEfectivo::PagoEfectivo(double total, double saldoCuenta,
-                           const QList<ItemCompra>& items, QWidget* parent)
+PagoEfectivo::PagoEfectivo(double total, const QList<ItemCompra>& items, QWidget* parent)
     : QWidget(parent)
 {
     setWindowTitle(QStringLiteral("Cobro en efectivo"));
@@ -168,9 +167,8 @@ QLabel#resultado {
 
     auto* lblTotal = new QLabel(this);
     lblTotal->setObjectName(QStringLiteral("lblTotal"));
-    lblTotal->setText(QStringLiteral("Total a pagar: $%1   (Saldo de la cuenta: $%2)")
-                          .arg(total, 0, 'f', 2)
-                          .arg(saldoCuenta, 0, 'f', 2));
+    lblTotal->setText(QStringLiteral("Total a pagar: $%1")
+                          .arg(total, 0, 'f', 2));
 
     auto* efectivo = new QDoubleSpinBox(tarjeta);
     efectivo->setDecimals(2);
@@ -194,27 +192,17 @@ QLabel#resultado {
     btnCancelar->setProperty("rol", "secundario");
 
     // recalcula el vuelto con cada cambio del efectivo recibido
-    auto actualizar = [this, total, saldoCuenta, efectivo, resultado, btnConfirmar]() {
+    auto actualizar = [this, total, efectivo, resultado, btnConfirmar]() {
         // se compara en centavos para evitar errores de redondeo
         const qint64 diferencia = qRound64(efectivo->value() * 100.0)
                                  - qRound64(total * 100.0);
 
         if (diferencia < 0) {
-            if (qRound64(saldoCuenta * 100.0) >= qRound64(total * 100.0)) {
-                // el efectivo físico no alcanza, pero el saldo de la
-                // cuenta del cliente sí cubre el total: se permite pagar
-                resultado->setProperty("estado", "exito");
-                resultado->setText(
-                    QStringLiteral("El efectivo no alcanza, pero tu saldo de $%1 cubre el pago.")
-                        .arg(saldoCuenta, 0, 'f', 2));
-                btnConfirmar->setEnabled(true);
-            } else {
-                const double faltante = -diferencia / 100.0;
-                resultado->setProperty("estado", "error");
-                resultado->setText(QStringLiteral("Saldo insuficiente. Faltan $%1")
-                                       .arg(faltante, 0, 'f', 2));
-                btnConfirmar->setEnabled(false);
-            }
+            const double faltante = -diferencia / 100.0;
+            resultado->setProperty("estado", "error");
+            resultado->setText(QStringLiteral("Efectivo insuficiente. Faltan $%1")
+                                   .arg(faltante, 0, 'f', 2));
+            btnConfirmar->setEnabled(false);
         } else if (diferencia == 0) {
             resultado->setProperty("estado", "exito");
             resultado->setText(QStringLiteral("Pago completo. Sin vuelto."));
@@ -234,14 +222,10 @@ QLabel#resultado {
     actualizar();   // muestra desde el arranque por qué se puede (o no) confirmar
 
     connect(btnConfirmar, &QPushButton::clicked, this,
-            [this, total, saldoCuenta, efectivo]() {
+            [this, total, efectivo]() {
         const qint64 diferencia = qRound64(efectivo->value() * 100.0)
                                  - qRound64(total * 100.0);
-        // si el efectivo no alcanza, el pago se hace con el saldo de la cuenta
-        const bool conSaldo = diferencia < 0;
-        emit pagoConfirmado(efectivo->value(),
-                            conSaldo ? 0.0 : diferencia / 100.0,
-                            conSaldo);
+        emit pagoConfirmado(efectivo->value(), diferencia / 100.0);
         close();
     });
 

@@ -2,23 +2,17 @@
     {
         "clienteId": 6,
         "cuotaMensual": 0,
-        "fecha": "14/11/2026 21:37",
+        "fecha": "15/11/2026 18:59",
         "items": [
             {
                 "cantidad": 1,
-                "idProducto": 1,
-                "nombre": "Laptop Lenovo IdeaPad 15",
-                "precio": 8499
-            },
-            {
-                "cantidad": 1,
-                "idProducto": 3,
-                "nombre": "Monitor Samsung 24 pulgadas",
-                "precio": 2899
+                "idProducto": 5,
+                "nombre": "Mouse inalámbrico Logitech",
+                "precio": 349
             }
         ],
         "meses": 0,
         "metodo": "Efectivo (saldo)",
-        "total": 11398
+        "total": 349
     }
 ]

@@ -1,22 +1,23 @@
 #include "clases/menuPaginacion.h"
 #include "ui_menuPaginacion.h"  // generado por uic a partir de menuPaginacion.ui
 #include "clases/datos.h"
+#include "Carrito.h"
 
 #include <algorithm>
 
+#include <QLabel>
 #include <QPushButton>
-#include <QSignalBlocker>
-#include <QSlider>
-#include <QtMath>
 #include <QFrame>
 #include <QGraphicsDropShadowEffect>
+#include <QMessageBox>
+#include <QVBoxLayout>
 
 MenuPaginacion::MenuPaginacion(QWidget* parent)
     : QMainWindow(parent), ui(new Ui::MenuPaginacion)
 {
     ui->setupUi(this);
 	// La sombra suave no se puede definir en el .ui
-    for (QFrame* tarjeta : { ui->cardFiltros, ui->cardCatalogo, ui->cardDetalle }) {
+    for (QFrame* tarjeta : { ui->cardDetalle }) {
         auto* sombra = new QGraphicsDropShadowEffect(tarjeta);
         sombra->setBlurRadius(28);
         sombra->setOffset(0, 8);
@@ -24,55 +25,55 @@ MenuPaginacion::MenuPaginacion(QWidget* parent)
         tarjeta->setGraphicsEffect(sombra);
     }
 
-    // --- 6 botones de producto en la cuadrícula (2 filas x 3 columnas) ---
+    // La cuadrícula de productos ocupa todo el espacio libre de la tarjeta
+    ui->layoutCatalogo->setStretchFactor(ui->gridProductos, 1);
+
+    // --- 9 botones de producto en la cuadrícula (3 filas x 3 columnas) ---
+    // Cada botón lleva tres etiquetas (nombre, precio, código) para poder
+    // ajustar el texto largo y dar al código un color más suave.
     for (int i = 0; i < PRODUCTOS_POR_PAGINA; ++i) {
         auto* b = new QPushButton(this);
-        b->setObjectName("btnProducto");         
+        b->setObjectName("btnProducto");
         b->setMinimumSize(160, 90);
         b->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
         ui->gridProductos->addWidget(b, i / 3, i % 3);
-        botones.append(b);
+        botones.append(BotonProducto{ b, nombre, precio, codigo });
 
         connect(b, &QPushButton::clicked, this, [this, i] {
             const int pos = paginaActual * PRODUCTOS_POR_PAGINA + i;
             if (pos < filtrados.size())
-                abrirDetalle(filtrados[pos]);
-        });
+                agregarAlCarrito(filtrados[pos]);
+            });
     }
 
-    // --- Cada campo de filtro solo se activa si su checkbox está marcado ---
+    // --- Búsqueda por nombre e ID (cada campo se activa con su checkbox) ---
     ui->leNombre->setEnabled(false);
-    ui->leCategoria->setEnabled(false);
     ui->leId->setEnabled(false);
-    ui->sldPrecio->setEnabled(false);
 
-    connect(ui->chkNombre,    &QCheckBox::toggled, ui->leNombre,    &QWidget::setEnabled);
-    connect(ui->chkCategoria, &QCheckBox::toggled, ui->leCategoria, &QWidget::setEnabled);
-    connect(ui->chkId,        &QCheckBox::toggled, ui->leId,        &QWidget::setEnabled);
-    connect(ui->chkPrecio,    &QCheckBox::toggled, ui->sldPrecio,   &QWidget::setEnabled);
+    connect(ui->chkNombre, &QCheckBox::toggled, ui->leNombre, &QWidget::setEnabled);
+    connect(ui->chkId,     &QCheckBox::toggled, ui->leId,     &QWidget::setEnabled);
 
-    // --- Cualquier cambio en filtros => recalcular ---
-    connect(ui->chkNombre,    &QCheckBox::toggled, this, &MenuPaginacion::aplicarFiltros);
-    connect(ui->chkCategoria, &QCheckBox::toggled, this, &MenuPaginacion::aplicarFiltros);
-    connect(ui->chkId,        &QCheckBox::toggled, this, &MenuPaginacion::aplicarFiltros);
-    connect(ui->chkPrecio,    &QCheckBox::toggled, this, &MenuPaginacion::aplicarFiltros);
-    connect(ui->leNombre,     &QLineEdit::textChanged, this, &MenuPaginacion::aplicarFiltros);
-    connect(ui->leCategoria,  &QLineEdit::textChanged, this, &MenuPaginacion::aplicarFiltros);
-    connect(ui->leId,         &QLineEdit::textChanged, this, &MenuPaginacion::aplicarFiltros);
-    connect(ui->sldPrecio,    &QSlider::valueChanged, this, [this](int v) {
-        ui->lblPrecio->setText(QString("$%1").arg(v));
-        aplicarFiltros();
-    });
+    connect(ui->chkNombre, &QCheckBox::toggled, this, &MenuPaginacion::aplicarFiltros);
+    connect(ui->chkId,     &QCheckBox::toggled, this, &MenuPaginacion::aplicarFiltros);
+    connect(ui->leNombre,  &QLineEdit::textChanged, this, &MenuPaginacion::aplicarFiltros);
+    connect(ui->leId,      &QLineEdit::textChanged, this, &MenuPaginacion::aplicarFiltros);
 
     // --- Paginación ---
-    connect(ui->btnAnterior,  &QPushButton::clicked, this, &MenuPaginacion::paginaAnterior);
+    connect(ui->btnAnterior, &QPushButton::clicked, this, &MenuPaginacion::paginaAnterior);
     connect(ui->btnSiguiente, &QPushButton::clicked, this, &MenuPaginacion::paginaSiguiente);
 
     // --- Detalle ---
     connect(ui->btnSalir, &QPushButton::clicked, this, &MenuPaginacion::volverAlMenu);
-    // btnComprar: sin conexión por ahora 
+    connect(ui->btnComprar, &QPushButton::clicked, this, &MenuPaginacion::comprarActual);
+
+    // --- Carrito (misma acción/ventana que antes) ---
+    connect(ui->btnCarrito, &QPushButton::clicked, this, &MenuPaginacion::mostrarCarrito);
+
+    // --- Regresar: cierra el catálogo y MenuPrincipal vuelve a mostrarse ---
+    connect(ui->btnRegresar, &QPushButton::clicked, this, &QWidget::close);
 
     actualizarCatalogo();
+    actualizarPanelCarrito();
 }
 
 
@@ -84,40 +85,21 @@ MenuPaginacion::~MenuPaginacion()
 void MenuPaginacion::actualizarCatalogo()
 {
     if (::productos.isEmpty())
-        cargarProductos();      // carga productos.json o lo crea con el catálogo inicial
+        cargarProductos();      // carga productos.json
 
-    configurarSlider();
+    asegurarCodigos();          // todo producto debe tener su código de 6 dígitos
+
     aplicarFiltros();
+    actualizarPanelCarrito();
 }
 
-// El rango del slider sale de los productos reales, así que se adapta si el catálogo cambia.
-void MenuPaginacion::configurarSlider()
-{
-    double minP = 0, maxP = 0;
-    bool primero = true;
-
-    for (const Producto& p : productos) {
-        if (!admin && p.stock <= 0) continue;
-        if (primero) { minP = maxP = p.precio; primero = false; }
-        minP = std::min(minP, p.precio);
-        maxP = std::max(maxP, p.precio);
-    }
-
-    const QSignalBlocker bloqueo(ui->sldPrecio);   // evita disparar el filtro aquí
-    ui->sldPrecio->setRange(static_cast<int>(qFloor(minP)), static_cast<int>(qCeil(maxP)));
-    ui->sldPrecio->setValue(static_cast<int>(qCeil(maxP)));   // por defecto: sin recortar nada
-    ui->lblPrecio->setText(QString("$%1").arg(ui->sldPrecio->value()));
-}
-
-// Los filtros activos se combinan con AND.
+// Los filtros activos se combinan con AND (búsqueda por nombre e ID).
 void MenuPaginacion::aplicarFiltros()
 {
     filtrados.clear();
 
-    const QString nombre    = ui->leNombre->text().trimmed();
-    const QString categoria = ui->leCategoria->text().trimmed();
-    const QString idTxt     = ui->leId->text().trimmed();
-    const int     precioMax = ui->sldPrecio->value();
+    const QString nombre = ui->leNombre->text().trimmed();
+    const QString idTxt  = ui->leId->text().trimmed();
 
     for (int i = 0; i < productos.size(); ++i) {
         const Producto& p = productos[i];
@@ -127,18 +109,13 @@ void MenuPaginacion::aplicarFiltros()
         if (ui->chkNombre->isChecked() && !nombre.isEmpty()
             && !p.nombre.contains(nombre, Qt::CaseInsensitive)) continue;
 
-        if (ui->chkCategoria->isChecked() && !categoria.isEmpty()
-            && !p.categoria.contains(categoria, Qt::CaseInsensitive)) continue;
-
         if (ui->chkId->isChecked() && !idTxt.isEmpty()
             && p.id != idTxt.toInt()) continue;
-
-        if (ui->chkPrecio->isChecked() && p.precio > precioMax) continue;
 
         filtrados.append(i);
     }
 
-    paginaActual = 0;    // al cambiar el filtro, volvemos a la primera página
+    paginaActual = 0;    // al cambiar la búsqueda, volvemos a la primera página
     mostrarPagina();
 }
 
@@ -151,14 +128,17 @@ void MenuPaginacion::mostrarPagina()
 
     for (int i = 0; i < PRODUCTOS_POR_PAGINA; ++i) {
         const int pos = paginaActual * PRODUCTOS_POR_PAGINA + i;
-        QPushButton* b = botones[i];
+        const BotonProducto& b = botones[i];
 
         if (pos < filtrados.size()) {
             const Producto& p = productos[filtrados[pos]];
-            b->setText(QString("%1\n$%2").arg(p.nombre).arg(p.precio, 0, 'f', 2));
-            b->setVisible(true);
-        } else {
-            b->setVisible(false);   // hueco vacío en la última página
+            b.nombre->setText(p.nombre);
+            b.precio->setText(QString("$%1").arg(p.precio, 0, 'f', 2));
+            b.codigo->setText(tr("Cód. %1").arg(p.codigo));
+            b.boton->setVisible(true);
+        }
+        else {
+            b.boton->setVisible(false);   // hueco vacío en la última página
         }
     }
 
@@ -167,23 +147,292 @@ void MenuPaginacion::mostrarPagina()
     ui->btnSiguiente->setEnabled(paginaActual < totalPaginas - 1);
 }
 
-void MenuPaginacion::paginaAnterior()  { --paginaActual; mostrarPagina(); }
-void MenuPaginacion::paginaSiguiente() { ++paginaActual; mostrarPagina(); }
-
-void MenuPaginacion::abrirDetalle(int indiceProducto)
+// Enter en el buscador por código: el producto con ese código se agrega al carrito.
+void MenuPaginacion::agregarPorCodigo()
 {
-    const Producto& p = productos[indiceProducto];
+    const QString codigo = ui->leCodigo->text().trimmed();
+    if (codigo.isEmpty())
+        return;
 
-    ui->lblDetNombre->setText(tr("Nombre: %1").arg(p.nombre));
-    ui->lblDetCategoria->setText(tr("Categoría: %1").arg(p.categoria));
-    ui->lblDetPrecio->setText(tr("Precio: $%1").arg(p.precio, 0, 'f', 2));
-    ui->lblDetId->setText(tr("ID: %1").arg(p.id));
-    ui->lblDetStock->setText(tr("Stock: %1").arg(p.stock));
+    const int idx = indiceDeCodigo(codigo);
+    if (idx < 0) {
+        QMessageBox::warning(this, tr("Producto no encontrado"),
+            tr("No existe ningún producto con el código %1.").arg(codigo));
+        ui->leCodigo->selectAll();
+        return;
+    }
+    if (productos[idx].stock <= 0) {
+        QMessageBox::information(this, tr("Sin existencias"),
+            tr("«%1» está agotado.").arg(productos[idx].nombre));
+        ui->leCodigo->selectAll();
+        return;
+    }
 
-    ui->stackedWidget->setCurrentIndex(1);   // muestra el detalle
+    agregarAlCarrito(idx);
+    ui->leCodigo->clear();      // listo para escanear/escribir el siguiente código
+    ui->leCodigo->setFocus();
 }
 
-void MenuPaginacion::volverAlMenu()
+void MenuPaginacion::paginaAnterior() { --paginaActual; mostrarPagina(); }
+void MenuPaginacion::paginaSiguiente() { ++paginaActual; mostrarPagina(); }
+
+// ---------------------------------------------------------------
+// Carrito
+// ---------------------------------------------------------------
+
+void MenuPaginacion::agregarAlCarrito(int indiceProducto)
 {
-    ui->stackedWidget->setCurrentIndex(0);   // Comprar: por ahora solo regresa al menú
+    detalleIndice = indiceProducto;
+    const Producto& p = productos[indiceProducto];
+    if (p.stock <= 0)
+        return;
+
+    for (ItemCarrito& it : carrito) {
+        if (it.codigo == p.codigo) {
+            if (it.cantidad < p.stock)      // no se puede pedir más de lo que hay
+                ++it.cantidad;
+            reconstruirCarrito();
+            return;
+        }
+    }
+
+    carrito.append(ItemCarrito{ p.codigo, 1 });
+    reconstruirCarrito();
+}
+
+void MenuPaginacion::cambiarCantidad(const QString& codigo, int delta)
+{
+    for (ItemCarrito& it : carrito) {
+        if (it.codigo != codigo) continue;
+
+        it.cantidad += delta;
+        if (it.cantidad <= 0) {
+            quitarDelCarrito(codigo);
+            return;
+        }
+        break;
+    }
+    reconstruirCarrito();   // también ajusta la cantidad al stock disponible
+}
+
+void MenuPaginacion::quitarDelCarrito(const QString& codigo)
+{
+    for (int k = 0; k < carrito.size(); ++k) {
+        if (carrito[k].codigo == codigo) {
+            carrito.removeAt(k);
+            break;
+        }
+    }
+    reconstruirCarrito();
+}
+
+void MenuPaginacion::vaciarCarrito()
+{
+    carrito.clear();
+    reconstruirCarrito();
+}
+
+// Dibuja de nuevo todas las filas del carrito y el total.
+void MenuPaginacion::reconstruirCarrito()
+{
+    // 1) Depurar: fuera lo que ya no existe o no tiene stock; cantidades al máximo disponible
+    for (int k = carrito.size() - 1; k >= 0; --k) {
+        const int idx = indiceDeCodigo(carrito[k].codigo);
+        if (idx < 0 || productos[idx].stock <= 0) {
+            carrito.removeAt(k);
+            continue;
+        }
+        carrito[k].cantidad = qMin(carrito[k].cantidad, productos[idx].stock);
+    }
+
+    // 2) Quitar las filas anteriores
+    for (QFrame* fila : filasCarrito) {
+        ui->layoutItemsCarrito->removeWidget(fila);
+        fila->hide();
+        fila->deleteLater();   // seguro aunque venga de un clic en un botón de la propia fila
+    }
+    filasCarrito.clear();
+
+    // 3) Crear una fila por producto del carrito
+    double total = 0.0;
+
+    for (const ItemCarrito& it : carrito) {
+        const Producto& p = productos[indiceDeCodigo(it.codigo)];
+        const double subtotal = p.precio * it.cantidad;
+        total += subtotal;
+
+        auto* fila = new QFrame(ui->contenedorCarrito);
+        fila->setObjectName("itemCarrito");
+
+        auto* vertical = new QVBoxLayout(fila);
+        vertical->setContentsMargins(14, 12, 14, 12);
+        vertical->setSpacing(8);
+
+        // Arriba: nombre + botón para quitar
+        auto* arriba = new QHBoxLayout;
+        auto* lblNombre = new QLabel(p.nombre, fila);
+        lblNombre->setObjectName("itemNombre");
+        lblNombre->setWordWrap(true);
+
+        auto* btnQuitar = new QPushButton(QStringLiteral("\u2715"), fila);
+        btnQuitar->setObjectName("btnQuitar");
+        btnQuitar->setCursor(Qt::PointingHandCursor);
+        btnQuitar->setToolTip(tr("Quitar del carrito"));
+
+        arriba->addWidget(lblNombre, 1);
+        arriba->addWidget(btnQuitar, 0, Qt::AlignTop);
+
+        // Abajo: [−] cantidad [+]            subtotal
+        auto* abajo = new QHBoxLayout;
+        abajo->setSpacing(8);
+
+        auto* btnMenos = new QPushButton(QStringLiteral("\u2212"), fila);
+        btnMenos->setObjectName("btnCantidad");
+        btnMenos->setCursor(Qt::PointingHandCursor);
+
+        auto* lblCantidad = new QLabel(QString::number(it.cantidad), fila);
+        lblCantidad->setObjectName("itemCantidad");
+        lblCantidad->setAlignment(Qt::AlignCenter);
+
+        auto* btnMas = new QPushButton("+", fila);
+        btnMas->setObjectName("btnCantidad");
+        btnMas->setCursor(Qt::PointingHandCursor);
+        btnMas->setEnabled(it.cantidad < p.stock);   // sin más unidades disponibles
+
+        auto* lblSubtotal = new QLabel(QString("$%1").arg(subtotal, 0, 'f', 2), fila);
+        lblSubtotal->setObjectName("itemSubtotal");
+
+        abajo->addWidget(btnMenos);
+        abajo->addWidget(lblCantidad);
+        abajo->addWidget(btnMas);
+        abajo->addStretch();
+        abajo->addWidget(lblSubtotal);
+
+        vertical->addLayout(arriba);
+        vertical->addLayout(abajo);
+
+        const QString codigo = it.codigo;
+        connect(btnMenos, &QPushButton::clicked, this, [this, codigo] { cambiarCantidad(codigo, -1); });
+        connect(btnMas, &QPushButton::clicked, this, [this, codigo] { cambiarCantidad(codigo, +1); });
+        connect(btnQuitar, &QPushButton::clicked, this, [this, codigo] { quitarDelCarrito(codigo); });
+
+        // Antes del espaciador final del layout
+        ui->layoutItemsCarrito->insertWidget(ui->layoutItemsCarrito->count() - 1, fila);
+        filasCarrito.append(fila);
+    }
+
+    // 4) Total y estado de los botones
+    ui->lblCarritoVacio->setVisible(carrito.isEmpty());
+    ui->lblTotal->setText(QString("$%1").arg(total, 0, 'f', 2));
+    ui->btnPagar->setEnabled(!carrito.isEmpty());
+}
+
+void MenuPaginacion::pagar()
+{
+    if (carrito.isEmpty())
+        return;
+
+    double total = 0.0;
+    int unidades = 0;
+    for (const ItemCarrito& it : carrito) {
+        const int idx = indiceDeCodigo(it.codigo);
+        if (idx < 0) continue;
+        total += productos[idx].precio * it.cantidad;
+        unidades += it.cantidad;
+    }
+
+    const auto respuesta = QMessageBox::question(
+        this, tr("Confirmar compra"),
+        tr("Vas a pagar $%1 por %2 artículo(s). ¿Continuar?")
+        .arg(total, 0, 'f', 2).arg(unidades),
+        QMessageBox::Yes | QMessageBox::No);
+
+    if (respuesta != QMessageBox::Yes)
+        return;
+
+    // Descontar del inventario lo que se compró y guardar
+    for (const ItemCarrito& it : carrito) {
+        const int idx = indiceDeCodigo(it.codigo);
+        if (idx >= 0)
+            productos[idx].stock = qMax(0, productos[idx].stock - it.cantidad);
+    }
+    guardarProductos();
+
+    carrito.clear();
+
+    QMessageBox::information(this, tr("Compra realizada"), tr("¡Gracias por tu compra!"));
+
+    // Refrescar el catálogo (los productos agotados desaparecen) sin perder la página
+    const int pagina = paginaActual;
+    aplicarFiltros();
+    paginaActual = pagina;
+    mostrarPagina();
+
+    reconstruirCarrito();
+}
+
+// Agrega el producto del detalle al carrito (1 unidad)
+void MenuPaginacion::comprarActual()
+{
+    if (detalleIndice < 0 || detalleIndice >= productos.size())
+        return;
+
+    const Producto& p = productos[detalleIndice];
+
+    if (!agregarAlCarrito(p.id, 1)) {
+        QMessageBox::warning(this, "Carrito",
+            "No hay más stock disponible de este producto.");
+        return;
+    }
+
+    volverAlMenu();            // regresa al catálogo
+    actualizarPanelCarrito();  // muestra el producto y recalcula el total al instante
+}
+
+// Abre la ventana del carrito sobre el catálogo (misma acción y ventana que antes)
+void MenuPaginacion::mostrarCarrito()
+{
+    Carrito* ventanaCarrito = new Carrito();
+    ventanaCarrito->setAttribute(Qt::WA_DeleteOnClose);
+    connect(ventanaCarrito, &Carrito::carritoModificado, this, [this]() {
+        actualizarCatalogo();      // refresca stock/filtros y el panel tras pagar/quitar
+        actualizarPanelCarrito();
+        });
+    ventanaCarrito->setWindowModality(Qt::ApplicationModal);
+    ventanaCarrito->show();
+}
+
+// Refresca el panel izquierdo leyendo los mismos datos compartidos del carrito (datos.h)
+void MenuPaginacion::actualizarPanelCarrito()
+{
+    // limpia los elementos anteriores del panel
+    while (QLayoutItem* hijo = ui->layoutCarritoPanel->takeAt(0)) {
+        if (QWidget* widget = hijo->widget())
+            widget->deleteLater();
+        delete hijo;
+    }
+
+    if (carrito.isEmpty()) {
+        auto* vacio = new QLabel(tr("Tu carrito está vacío."), this);
+        vacio->setObjectName("lblCarritoVacio");
+        vacio->setAlignment(Qt::AlignCenter);
+        vacio->setWordWrap(true);
+        ui->layoutCarritoPanel->addWidget(vacio);
+    } else {
+        for (const ItemCompra& item : carrito) {
+            auto* fila = new QLabel(
+                QString("%1 × %2\n$%3 c/u  —  $%4")
+                    .arg(item.cantidad)
+                    .arg(item.nombre)
+                    .arg(item.precio, 0, 'f', 2)
+                    .arg(item.precio * item.cantidad, 0, 'f', 2),
+                this);
+            fila->setObjectName("lblItemCarritoPanel");
+            fila->setWordWrap(true);
+            ui->layoutCarritoPanel->addWidget(fila);
+        }
+    }
+    ui->layoutCarritoPanel->addStretch();
+
+    ui->lblTotalPanel->setText(QString("$%1").arg(carritoTotal(), 0, 'f', 2));
 }

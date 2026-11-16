@@ -4,42 +4,42 @@
         "id": 1,
         "nombre": "Laptop Lenovo IdeaPad 15",
         "precio": 8499,
-        "stock": 11
+        "stock": 6
     },
     {
         "categoria": "Computación",
         "id": 2,
         "nombre": "Laptop HP Pavilion 14",
         "precio": 10999,
-        "stock": 7
+        "stock": 4
     },
     {
         "categoria": "Computación",
         "id": 3,
         "nombre": "Monitor Samsung 24 pulgadas",
         "precio": 2899,
-        "stock": 19
+        "stock": 18
     },
     {
         "categoria": "Computación",
         "id": 4,
         "nombre": "Teclado mecánico Redragon",
         "precio": 699,
-        "stock": 34
+        "stock": 31
     },
     {
         "categoria": "Computación",
         "id": 5,
         "nombre": "Mouse inalámbrico Logitech",
         "precio": 349,
-        "stock": 49
+        "stock": 44
     },
     {
         "categoria": "Computación",
         "id": 6,
         "nombre": "Disco SSD 1TB Kingston",
         "precio": 1399,
-        "stock": 25
+        "stock": 19
     },
     {
         "categoria": "Computación",

@@ -170,6 +170,25 @@ inline int carritoCantidadTotal()
 
 inline void vaciarCarrito() { carrito.clear(); }
 
+// meses del plazo según el índice del combo de método de pago del carrito
+inline int mesesDelMetodo(int indiceMetodo)
+{
+    switch (indiceMetodo) {
+    case 2: return 3;
+    case 3: return 6;
+    case 4: return 12;
+    case 5: return 24;
+    default: return 0;
+    }
+}
+
+// total a pagar con el recargo del 0.5% por cada mes de plazo
+// sobre el precio original (3 meses = 1.5% más, 12 meses = 6% más...)
+inline double totalConInteres(double total, int meses)
+{
+    return (meses > 0) ? total * (1.0 + 0.005 * meses) : total;
+}
+
 // sincroniza usuarioActual con la lista de clientes para que el saldo
 // mostrado y cobrado esté siempre al día (p. ej. tras un depósito)
 inline void refrescarUsuarioActual()
@@ -231,8 +250,9 @@ inline Compra finalizarCompra(double total, int meses, const QString& metodo)
 }
 
 // pago con tarjeta (de contado o a plazos): el pago es inmediato.
-// si meses > 0, la compra se hace a plazos (12 o 24 meses):
-//   solo se cobra la primera cuota (total / meses, sin interés)
+// si meses > 0, la compra se hace a plazos (3, 6, 12 o 24 meses):
+//   el precio sube 0.5% por cada mes de plazo y se cobra la primera
+//   cuota (total con aumento / meses) el día de la compra
 // si recibo != nullptr, devuelve la compra registrada para mostrarla en el recibo
 inline bool pagarCarrito(int meses = 0, Compra* recibo = nullptr)
 {
@@ -240,13 +260,14 @@ inline bool pagarCarrito(int meses = 0, Compra* recibo = nullptr)
         return false;
 
     const double total = carritoTotal();
+    const double totalFinal = totalConInteres(total, meses);
 
     QString metodo = (meses > 0) ? "Tarjeta (cuotas)" : "Tarjeta";
 
     if (recibo)
-        *recibo = finalizarCompra(total, meses, metodo);
+        *recibo = finalizarCompra(totalFinal, meses, metodo);
     else
-        finalizarCompra(total, meses, metodo);
+        finalizarCompra(totalFinal, meses, metodo);
     return true;
 }
 

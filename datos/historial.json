@@ -1,18 +1,18 @@
 [
     {
         "clienteId": 6,
-        "cuotaMensual": 0,
-        "fecha": "15/11/2026 18:59",
+        "cuotaMensual": 236.49499999999998,
+        "fecha": "16/11/2026 00:03",
         "items": [
             {
                 "cantidad": 1,
-                "idProducto": 5,
-                "nombre": "Mouse inalámbrico Logitech",
-                "precio": 349
+                "idProducto": 4,
+                "nombre": "Teclado mecánico Redragon",
+                "precio": 699
             }
         ],
-        "meses": 0,
-        "metodo": "Efectivo (saldo)",
-        "total": 349
+        "meses": 3,
+        "metodo": "Tarjeta (cuotas)",
+        "total": 709.4849999999999
     }
 ]

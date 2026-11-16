@@ -432,12 +432,22 @@ QScrollBar:horizontal {
             </item>
             <item>
              <property name="text">
-              <string>Tarjeta a 12 meses</string>
+              <string>3 cuotas</string>
              </property>
             </item>
             <item>
              <property name="text">
-              <string>Tarjeta a 24 meses</string>
+              <string>6 cuotas</string>
+             </property>
+            </item>
+            <item>
+             <property name="text">
+              <string>12 cuotas</string>
+             </property>
+            </item>
+            <item>
+             <property name="text">
+              <string>24 cuotas</string>
              </property>
             </item>
            </widget>

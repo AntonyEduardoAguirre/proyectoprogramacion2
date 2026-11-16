@@ -106,6 +106,9 @@
   <ItemGroup>
     <ClCompile Include="carrito.cpp" />
     <ClCompile Include="pagoefectivo.cpp" />
+    <ClCompile Include="pagoTarjeta.cpp" />
+    <ClCompile Include="pagoCuotas.cpp" />
+    <ClCompile Include="cuotacompletada.cpp" />
     <ClCompile Include="recibo.cpp" />
     <ClCompile Include="saldo.cpp" />
     <ClCompile Include="historial.cpp" />
@@ -124,11 +127,15 @@
     <QtUic Include="menuPaginacion.ui" />
     <QtUic Include="MenuPrincipal.ui" />
     <QtUic Include="Saldo.ui" />
+    <QtUic Include="CuotaCompletada.ui" />
   </ItemGroup>
   <ItemGroup>
     <QtMoc Include="Carrito.h" />
     <QtMoc Include="Historial.h" />
     <QtMoc Include="clases\PagoEfectivo.h" />
+    <QtMoc Include="clases\PagoTarjeta.h" />
+    <QtMoc Include="clases\PagoCuotas.h" />
+    <QtMoc Include="clases\CuotaCompletada.h" />
     <QtMoc Include="clases\Recibo.h" />
     <ClInclude Include="compra.h" />
     <QtMoc Include="clases\menuPaginacion.h" />

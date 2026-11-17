@@ -1,6 +1,8 @@
 #include "clases/Administracion.h"
 #include "clases/datos.h"
 #include "clases/Inicio.h"
+#include "clases/CierreDia.h"
+#include "clases/RepositorioBitacora.h"
 #include "ui_AdminCobros.h"
 #include "ui_AdminCuentas.h"
 #include "ui_AdminCuotas.h"
@@ -25,6 +27,7 @@
 #include <QRegularExpressionValidator>
 #include <QScrollArea>
 #include <QSet>
+#include <QStringList>
 #include <QStyle>
 #include <QVBoxLayout>
 
@@ -48,6 +51,9 @@ struct CobroRegistro
     bool esCuota = false;
     int indiceRegistro = -1;
     int indicePago = -1;
+    QString tipo;     // Efectivo / Tarjeta / Cuotas / Factura
+    QString factura;  // número de factura (vacío si no aplica)
+    QString detalle;  // productos de la factura (opcional)
 };
 
 QString nombreCliente(int id)
@@ -56,6 +62,14 @@ QString nombreCliente(int id)
         if (cliente.getId() == id)
             return cliente.nombre;
     return QStringLiteral("Cliente %1").arg(id);
+}
+
+QString claveCobro(const CobroRegistro& cobro)
+{
+    return QStringLiteral("%1|%2|%3|%4")
+        .arg(cobro.cliente, cobro.fecha)
+        .arg(cobro.monto, 0, 'f', 2)
+        .arg(cobro.factura);
 }
 
 QSet<int> cuotasPagadas(const QJsonObject& registro)
@@ -96,33 +110,67 @@ QDateTime fechaDesdeRegistro(const QString& fecha)
 
 QList<CobroRegistro> recolectarCobros(QString* error = nullptr)
 {
-    cargarHistorial();
     QList<CobroRegistro> cobros;
+    QSet<QString> vistos;
+
+    // Mantener los cobros locales de main (ventas normales y pagos de cuotas).
+    cargarHistorial();
     for (int i = 0; i < historialCompras.size(); ++i) {
         const Compra& compra = historialCompras[i];
-        if (compra.meses == 0)
-            cobros.append({ nombreCliente(compra.clienteId), compra.fecha, compra.total, false, i, -1 });
-    }
-    QJsonArray registros;
-    if (!cargarRegistrosCuotas(registros, error))
-        return cobros;
-    for (int i = 0; i < registros.size(); ++i) {
-        const QJsonObject registro = registros.at(i).toObject();
-        const QString cliente = registro.value(QStringLiteral("cliente")).toString().trimmed();
-        const QJsonArray pagos = registro.value(QStringLiteral("pagos")).toArray();
-        bool pagoInicialEnPagos = false;
-        for (int j = 0; j < pagos.size(); ++j) {
-            const QJsonObject pago = pagos.at(j).toObject();
-            const int numero = pago.contains(QStringLiteral("cuota")) ? pago.value(QStringLiteral("cuota")).toInt(-1) : j + 1;
-            if (numero == 0)
-                pagoInicialEnPagos = true;
+        if (compra.meses == 0) {
+            CobroRegistro local{ nombreCliente(compra.clienteId), compra.fecha, compra.total, false, i, -1 };
+            vistos.insert(claveCobro(local));
+            cobros.append(local);
         }
-        if (!cliente.isEmpty() && !registro.value(QStringLiteral("pago_inicial_eliminado")).toBool() && !pagoInicialEnPagos)
-            cobros.append({ cliente, registro.value(QStringLiteral("fecha")).toString(), registro.value(QStringLiteral("pago_mensual")).toDouble(), true, i, -1 });
-        for (int j = 0; j < pagos.size(); ++j) {
-            const QJsonObject pago = pagos.at(j).toObject();
-            if (!cliente.isEmpty())
-                cobros.append({ cliente, pago.value(QStringLiteral("fecha")).toString(), pago.value(QStringLiteral("monto")).toDouble(), true, i, j });
+    }
+    QJsonArray registrosLocales;
+    if (cargarRegistrosCuotas(registrosLocales, error)) {
+        for (int i = 0; i < registrosLocales.size(); ++i) {
+            const QJsonObject registro = registrosLocales.at(i).toObject();
+            const QString cliente = registro.value(QStringLiteral("cliente")).toString().trimmed();
+            const QJsonArray pagos = registro.value(QStringLiteral("pagos")).toArray();
+            bool pagoInicialEnPagos = false;
+            for (int j = 0; j < pagos.size(); ++j) {
+                const QJsonObject pago = pagos.at(j).toObject();
+                const int numero = pago.contains(QStringLiteral("cuota")) ? pago.value(QStringLiteral("cuota")).toInt(-1) : j + 1;
+                if (numero == 0) pagoInicialEnPagos = true;
+            }
+            if (!cliente.isEmpty() && !registro.value(QStringLiteral("pago_inicial_eliminado")).toBool() && !pagoInicialEnPagos) {
+                CobroRegistro local{ cliente, registro.value(QStringLiteral("fecha")).toString(), registro.value(QStringLiteral("pago_mensual")).toDouble(), true, i, -1 };
+                vistos.insert(claveCobro(local));
+                cobros.append(local);
+            }
+            for (int j = 0; j < pagos.size(); ++j) {
+                const QJsonObject pago = pagos.at(j).toObject();
+                if (!cliente.isEmpty()) {
+                    CobroRegistro local{ cliente, pago.value(QStringLiteral("fecha")).toString(), pago.value(QStringLiteral("monto")).toDouble(), true, i, j };
+                    vistos.insert(claveCobro(local));
+                    cobros.append(local);
+                }
+            }
+        }
+    }
+
+    // Añadir también los cobros enviados mediante Cierre. Se conservan los
+    // registros locales de main y se evitan duplicados cuando una venta ya
+    // aparece tanto en historial.json como en bitacora.json.
+    RepositorioBitacora bitacora;
+    QList<CierreDia> cierres;
+    if (!bitacora.todos(&cierres, error))
+        return cobros;
+
+    for (const CierreDia& cierre : cierres) {
+        for (const VentaDia& venta : cierre.detalle) {
+            if (venta.tipo != QStringLiteral("Efectivo")
+                && venta.tipo != QStringLiteral("Tarjeta"))
+                continue;
+            CobroRegistro cobro{ venta.cliente, venta.fecha, venta.monto,
+                                 false, -1, -1, venta.tipo, QString(), QString() };
+            const QString clave = claveCobro(cobro);
+            if (vistos.contains(clave))
+                continue;
+            vistos.insert(clave);
+            cobros.append(cobro);
         }
     }
     return cobros;
@@ -371,7 +419,15 @@ void Administracion::actualizarCuotas()
         const double total = registro.value(QStringLiteral("total_con_aumento")).toDouble(); const double pagoMensual = registro.value(QStringLiteral("pago_mensual")).toDouble();
         const QSet<int> pagadas = cuotasPagadas(registro);
         auto* tarjeta = new QFrame(uiCuotas_->contenidoListaCuotas); auto* tarjetaLayout = new QVBoxLayout(tarjeta); auto* encabezado = new QHBoxLayout;
-        encabezado->addWidget(new QLabel(QStringLiteral("%1 — $%2").arg(cliente).arg(total, 0, 'f', 2), tarjeta), 1);
+        const bool completada = registro.value(QStringLiteral("completada")).toBool();
+        const QString numeroFactura = registro.value(QStringLiteral("factura")).toObject()
+                                          .value(QStringLiteral("numero_factura")).toString();
+        const QString estado = completada
+            ? QStringLiteral(" · Completada%1").arg(numeroFactura.isEmpty() ? QString() : QStringLiteral(" (Factura %1)").arg(numeroFactura))
+            : QStringLiteral(" · Activa");
+        auto* etiquetaPlan = new QLabel(QStringLiteral("%1 — $%2%3").arg(cliente).arg(total, 0, 'f', 2).arg(estado), tarjeta);
+        etiquetaPlan->setWordWrap(true);
+        encabezado->addWidget(etiquetaPlan, 1);
         auto* ver = new QPushButton(QStringLiteral("Ver cuotas"), tarjeta); encabezado->addWidget(ver);
         auto* borrar = new QPushButton(tarjeta); borrar->setIcon(style()->standardIcon(QStyle::SP_TrashIcon)); borrar->setToolTip(QStringLiteral("Eliminar plan de cuotas")); encabezado->addWidget(borrar);
         connect(borrar, &QPushButton::clicked, this, [this, i]() { eliminarCuota(i); }); tarjetaLayout->addLayout(encabezado);
@@ -480,9 +536,22 @@ void Administracion::mostrarDetalleCobros(const QString& usuarioKey, const QStri
         layoutDia->addWidget(new QLabel(QStringLiteral("%1 — Ganancias del día: $%2").arg(dia.key().toString(QStringLiteral("dd/MM/yyyy"))).arg(totalDia, 0, 'f', 2), tarjeta));
         for (const auto& cobro : dia.value()) {
             const QDateTime fecha = fechaDesdeRegistro(cobro.fecha); auto* fila = new QFrame(tarjeta); auto* layout = new QHBoxLayout(fila);
-            layout->addWidget(new QLabel(QStringLiteral("Cobro — %1").arg(fecha.time().toString(QStringLiteral("hh:mm"))), fila), 1); layout->addWidget(new QLabel(QStringLiteral("$%1").arg(cobro.monto, 0, 'f', 2), fila));
-            auto* borrar = new QPushButton(fila); borrar->setIcon(style()->standardIcon(QStyle::SP_TrashIcon)); borrar->setToolTip(QStringLiteral("Eliminar cobro")); layout->addWidget(borrar);
-            connect(borrar, &QPushButton::clicked, this, [this, dialogo, cobro]() { if (eliminarCobro(cobro.esCuota, cobro.indiceRegistro, cobro.indicePago)) dialogo->accept(); }); layoutDia->addWidget(fila);
+            QString etiqueta = QStringLiteral("Cobro — %1").arg(fecha.time().toString(QStringLiteral("hh:mm")));
+            if (!cobro.tipo.isEmpty())
+                etiqueta += QStringLiteral(" · %1").arg(cobro.tipo);
+            if (!cobro.factura.isEmpty())
+                etiqueta += QStringLiteral(" · Factura %1").arg(cobro.factura);
+            if (!cobro.detalle.isEmpty())
+                etiqueta += QStringLiteral(" · %1").arg(cobro.detalle);
+            auto* etiquetaCobro = new QLabel(etiqueta, fila);
+            etiquetaCobro->setWordWrap(true);
+            layout->addWidget(etiquetaCobro, 1);
+            layout->addWidget(new QLabel(QStringLiteral("$%1").arg(cobro.monto, 0, 'f', 2), fila));
+            if (cobro.indiceRegistro >= 0) {
+                auto* borrar = new QPushButton(fila); borrar->setIcon(style()->standardIcon(QStyle::SP_TrashIcon)); borrar->setToolTip(QStringLiteral("Eliminar cobro")); layout->addWidget(borrar);
+                connect(borrar, &QPushButton::clicked, this, [this, dialogo, cobro]() { if (eliminarCobro(cobro.esCuota, cobro.indiceRegistro, cobro.indicePago)) dialogo->accept(); });
+            }
+            layoutDia->addWidget(fila);
         }
         formulario.listaDiasLayout->addWidget(tarjeta);
     }

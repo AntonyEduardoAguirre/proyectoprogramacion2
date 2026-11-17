@@ -1,0 +1,674 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>VentanaDetalleCuotaClass</class>
+ <widget class="QWidget" name="VentanaDetalleCuotaClass">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>560</width>
+    <height>840</height>
+   </rect>
+  </property>
+  <property name="minimumSize">
+   <size>
+    <width>500</width>
+    <height>700</height>
+   </size>
+  </property>
+  <property name="windowTitle">
+   <string>Detalle de cuota</string>
+  </property>
+  <property name="styleSheet">
+   <string notr="true">#VentanaDetalleCuotaClass {
+	background-color: #F5F3EE;
+}
+#softCard {
+	background-color: #FFFFFF;
+	border: 1px solid #EAE8E2;
+	border-radius: 18px;
+}
+QLabel#eyebrow {
+	color: #92918B;
+	font-family: &quot;Segoe UI&quot;;
+	font-size: 11px;
+	font-weight: 600;
+}
+QLabel#title {
+	color: #292A28;
+	font-family: Georgia;
+	font-size: 29px;
+}
+QLabel#subtitle {
+	color: #92918B;
+	font-family: &quot;Segoe UI&quot;;
+	font-size: 12px;
+}
+QLabel[tipo=&quot;dato&quot;] {
+	color: #292A28;
+	background: #FAFAF8;
+	border: 1px solid #EAE8E2;
+	border-radius: 8px;
+	padding: 11px 14px;
+	font-family: &quot;Segoe UI&quot;;
+	font-size: 13px;
+}
+QLabel[tipo=&quot;total&quot;] {
+	color: #292A28;
+	background: #FAFAF8;
+	border: 1px solid #EAE8E2;
+	border-radius: 8px;
+	padding: 12px 14px;
+	font-family: &quot;Segoe UI&quot;;
+	font-size: 14px;
+	font-weight: 600;
+}
+QLabel#lblFaltaPagar { color: #FFFFFF; background-color: #899B83; border: none; border-radius: 8px; padding: 12px 14px; font-family: &quot;Segoe UI&quot;; font-size: 15px; font-weight: 700; }
+QLabel[tipo=&quot;seccion&quot;] {
+	color: #292A28;
+	font-family: &quot;Segoe UI&quot;;
+	font-size: 13px;
+	font-weight: 600;
+	padding: 4px 0;
+}
+QLabel#lblEstadoPago {
+	color: #92918B;
+	font-family: &quot;Segoe UI&quot;;
+	font-size: 11px;
+}
+QLabel#lblEstadoPago[error=&quot;true&quot;] {
+	color: #B3261E;
+}
+QListWidget#listaProductos {
+	background: #FAFAF8;
+	border: 1px solid #EAE8E2;
+	border-radius: 8px;
+	padding: 6px;
+	font-family: &quot;Segoe UI&quot;;
+	font-size: 12px;
+	color: #292A28;
+	outline: none;
+}
+QListWidget#listaProductos::item {
+	padding: 7px 8px;
+	border-radius: 5px;
+}
+QListWidget#listaProductos::item:selected {
+	background: #E5EAE2;
+	color: #292A28;
+}
+QScrollArea {
+	background: transparent;
+	border: none;
+}
+QScrollArea &gt; QWidget &gt; QWidget {
+	background: transparent;
+}
+QScrollBar:vertical {
+	background: transparent;
+	width: 8px;
+	margin: 0;
+}
+QScrollBar::handle:vertical {
+	background: #D8DED5;
+	border-radius: 4px;
+	min-height: 30px;
+}
+QScrollBar::handle:vertical:hover {
+	background: #B9C2B4;
+}
+QScrollBar::add-line:vertical, QScrollBar::sub-line:vertical {
+	height: 0;
+}
+QScrollBar::add-page:vertical, QScrollBar::sub-page:vertical {
+	background: transparent;
+}
+QScrollBar:horizontal {
+	background: transparent;
+	height: 0;
+}
+QPushButton#btnCompletarPago {
+	background: #899B83;
+	color: #FFFFFF;
+	border: none;
+	border-radius: 8px;
+	min-height: 43px;
+	font-family: &quot;Segoe UI&quot;;
+	font-size: 13px;
+	font-weight: 600;
+}
+QPushButton#btnCompletarPago:hover {
+	background: #788B72;
+}
+QPushButton#btnCompletarPago:pressed {
+	background: #6D8067;
+}
+QPushButton#btnCompletarPago:disabled {
+	background: #D5DAD2;
+	color: #FAFAF8;
+}
+QPushButton#btnRegresar {
+	background-color: #FFFFFF;
+	color: #899B83;
+	border: 1px solid #899B83;
+	border-radius: 8px;
+	min-height: 43px;
+	font-family: &quot;Segoe UI&quot;;
+	font-size: 13px;
+	font-weight: 600;
+}
+QPushButton#btnRegresar:hover {
+	background-color: #F0F3EE;
+	color: #788B72;
+}
+QPushButton#btnRegresar:pressed {
+	background-color: #E5EAE2;
+}
+</string>
+  </property>
+  <layout class="QVBoxLayout" name="layoutExterior">
+   <property name="leftMargin">
+    <number>24</number>
+   </property>
+   <property name="topMargin">
+    <number>24</number>
+   </property>
+   <property name="rightMargin">
+    <number>24</number>
+   </property>
+   <property name="bottomMargin">
+    <number>24</number>
+   </property>
+   <item>
+    <spacer name="spacerSuperior">
+     <property name="orientation">
+      <enum>Qt::Orientation::Vertical</enum>
+     </property>
+     <property name="sizeHint" stdset="0">
+      <size>
+       <width>20</width>
+       <height>40</height>
+      </size>
+     </property>
+    </spacer>
+   </item>
+   <item>
+    <layout class="QHBoxLayout" name="filaTarjeta">
+     <item>
+      <spacer name="spacerIzquierdo">
+       <property name="orientation">
+        <enum>Qt::Orientation::Horizontal</enum>
+       </property>
+       <property name="sizeHint" stdset="0">
+        <size>
+         <width>40</width>
+         <height>20</height>
+        </size>
+       </property>
+      </spacer>
+     </item>
+     <item>
+      <widget class="QFrame" name="softCard">
+       <property name="minimumSize">
+        <size>
+         <width>480</width>
+         <height>720</height>
+        </size>
+       </property>
+       <property name="frameShape">
+        <enum>QFrame::Shape::NoFrame</enum>
+       </property>
+       <layout class="QVBoxLayout" name="contenido">
+        <property name="spacing">
+         <number>0</number>
+        </property>
+        <property name="leftMargin">
+         <number>40</number>
+        </property>
+        <property name="topMargin">
+         <number>30</number>
+        </property>
+        <property name="rightMargin">
+         <number>40</number>
+        </property>
+        <property name="bottomMargin">
+         <number>26</number>
+        </property>
+        <item>
+         <widget class="QLabel" name="eyebrow">
+          <property name="text">
+           <string>CUOTA ACTIVA</string>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <spacer name="spacerEyebrow">
+          <property name="orientation">
+           <enum>Qt::Orientation::Vertical</enum>
+          </property>
+          <property name="sizeType">
+           <enum>QSizePolicy::Policy::Fixed</enum>
+          </property>
+          <property name="sizeHint">
+           <size>
+            <width>20</width>
+            <height>8</height>
+           </size>
+          </property>
+         </spacer>
+        </item>
+        <item>
+         <widget class="QLabel" name="title">
+          <property name="text">
+           <string>Detalle de la cuota.</string>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QLabel" name="subtitle">
+          <property name="text">
+           <string>Información de la compra y pago mensual.</string>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <spacer name="spacerSubtitulo">
+          <property name="orientation">
+           <enum>Qt::Orientation::Vertical</enum>
+          </property>
+          <property name="sizeType">
+           <enum>QSizePolicy::Policy::Fixed</enum>
+          </property>
+          <property name="sizeHint">
+           <size>
+            <width>20</width>
+            <height>14</height>
+           </size>
+          </property>
+         </spacer>
+        </item>
+        <item>
+         <widget class="QScrollArea" name="scrollDatos">
+          <property name="widgetResizable">
+           <bool>true</bool>
+          </property>
+          <property name="frameShape">
+           <enum>QFrame::Shape::NoFrame</enum>
+          </property>
+          <widget class="QWidget" name="areaDatos">
+           <property name="geometry">
+            <rect>
+             <x>0</x>
+             <y>0</y>
+             <width>454</width>
+             <height>560</height>
+            </rect>
+           </property>
+           <layout class="QVBoxLayout" name="layoutDatos">
+            <property name="spacing">
+             <number>8</number>
+            </property>
+            <property name="leftMargin">
+             <number>0</number>
+            </property>
+            <property name="topMargin">
+             <number>0</number>
+            </property>
+            <property name="rightMargin">
+             <number>6</number>
+            </property>
+            <property name="bottomMargin">
+             <number>0</number>
+            </property>
+            <item>
+             <widget class="QLabel" name="lblCliente">
+              <property name="text">
+               <string>Cliente: —</string>
+              </property>
+              <property name="wordWrap">
+               <bool>true</bool>
+              </property>
+              <property name="tipo" stdset="0">
+               <string>dato</string>
+              </property>
+             </widget>
+            </item>
+            <item>
+             <widget class="QLabel" name="lblCaja">
+              <property name="text">
+               <string>Caja: —</string>
+              </property>
+              <property name="wordWrap">
+               <bool>true</bool>
+              </property>
+              <property name="tipo" stdset="0">
+               <string>dato</string>
+              </property>
+             </widget>
+            </item>
+            <item>
+             <widget class="QLabel" name="lblFecha">
+              <property name="text">
+               <string>Fecha en que se realizó: —</string>
+              </property>
+              <property name="wordWrap">
+               <bool>true</bool>
+              </property>
+              <property name="tipo" stdset="0">
+               <string>dato</string>
+              </property>
+             </widget>
+            </item>
+            <item>
+             <widget class="QLabel" name="lblProductosTitulo">
+              <property name="text">
+               <string>Productos comprados</string>
+              </property>
+              <property name="tipo" stdset="0">
+               <string>seccion</string>
+              </property>
+             </widget>
+            </item>
+            <item>
+             <widget class="QListWidget" name="listaProductos">
+              <property name="minimumSize">
+               <size>
+                <width>0</width>
+                <height>84</height>
+               </size>
+              </property>
+              <property name="maximumSize">
+               <size>
+                <width>16777215</width>
+                <height>112</height>
+               </size>
+              </property>
+              <property name="selectionMode">
+               <enum>QAbstractItemView::SelectionMode::NoSelection</enum>
+              </property>
+              <property name="focusPolicy">
+               <enum>Qt::FocusPolicy::NoFocus</enum>
+              </property>
+             </widget>
+            </item>
+            <item>
+             <widget class="QLabel" name="lblTotalSinAumento">
+              <property name="text">
+               <string>Precio total sin aumento: $0.00</string>
+              </property>
+              <property name="wordWrap">
+               <bool>true</bool>
+              </property>
+              <property name="tipo" stdset="0">
+               <string>dato</string>
+              </property>
+             </widget>
+            </item>
+            <item>
+             <widget class="QLabel" name="lblAumento">
+              <property name="text">
+               <string>Aumento: 0.0% de recargo</string>
+              </property>
+              <property name="wordWrap">
+               <bool>true</bool>
+              </property>
+              <property name="tipo" stdset="0">
+               <string>dato</string>
+              </property>
+             </widget>
+            </item>
+            <item>
+             <widget class="QLabel" name="lblTotalConAumento">
+              <property name="text">
+               <string>Precio total con aumento: $0.00</string>
+              </property>
+              <property name="wordWrap">
+               <bool>true</bool>
+              </property>
+              <property name="tipo" stdset="0">
+               <string>total</string>
+              </property>
+             </widget>
+            </item>
+            <item>
+             <widget class="QLabel" name="lblPlazo">
+              <property name="text">
+               <string>Plazo elegido: 0 meses</string>
+              </property>
+              <property name="wordWrap">
+               <bool>true</bool>
+              </property>
+              <property name="tipo" stdset="0">
+               <string>dato</string>
+              </property>
+             </widget>
+            </item>
+            <item>
+             <widget class="QLabel" name="lblCuotasPagadas">
+              <property name="text">
+               <string>Cuotas pagadas: 0</string>
+              </property>
+              <property name="wordWrap">
+               <bool>true</bool>
+              </property>
+              <property name="tipo" stdset="0">
+               <string>dato</string>
+              </property>
+             </widget>
+            </item>
+            <item>
+             <widget class="QLabel" name="lblCuotasPendientes">
+              <property name="text">
+               <string>Cuotas pendientes: 0</string>
+              </property>
+              <property name="wordWrap">
+               <bool>true</bool>
+              </property>
+              <property name="tipo" stdset="0">
+               <string>dato</string>
+              </property>
+             </widget>
+            </item>
+            <item>
+             <widget class="QLabel" name="lblSaldo">
+              <property name="text">
+               <string>Saldo pendiente: $0.00</string>
+              </property>
+              <property name="wordWrap">
+               <bool>true</bool>
+              </property>
+              <property name="tipo" stdset="0">
+               <string>total</string>
+              </property>
+             </widget>
+            </item>
+            <item>
+             <widget class="QLabel" name="lblFaltaPagar">
+               <property name="text">
+                <string>Falta por pagar: $0.00</string>
+               </property>
+               <property name="wordWrap">
+                <bool>true</bool>
+               </property>
+               <property name="tipo" stdset="0">
+                <string>total</string>
+               </property>
+              </widget>
+             </item>
+             <item>
+              <widget class="QLabel" name="lblPagado">
+               <property name="text">
+                <string>Pagado: $0.00</string>
+               </property>
+               <property name="wordWrap">
+                <bool>true</bool>
+               </property>
+               <property name="tipo" stdset="0">
+                <string>dato</string>
+               </property>
+              </widget>
+             </item>
+             <item>
+              <widget class="QLabel" name="lblPagoMensual">
+              <property name="text">
+               <string>Cuota mensual: $0.00</string>
+              </property>
+              <property name="wordWrap">
+               <bool>true</bool>
+              </property>
+              <property name="tipo" stdset="0">
+               <string>dato</string>
+              </property>
+             </widget>
+            </item>
+            <item>
+             <widget class="QLabel" name="lblFactura">
+              <property name="text">
+               <string/>
+              </property>
+              <property name="wordWrap">
+               <bool>true</bool>
+              </property>
+              <property name="visible">
+               <bool>false</bool>
+              </property>
+              <property name="tipo" stdset="0">
+               <string>total</string>
+              </property>
+             </widget>
+            </item>
+            <item>
+             <spacer name="spacerSeccionPago">
+              <property name="orientation">
+               <enum>Qt::Orientation::Vertical</enum>
+              </property>
+              <property name="sizeType">
+               <enum>QSizePolicy::Policy::Fixed</enum>
+              </property>
+              <property name="sizeHint">
+               <size>
+                <width>20</width>
+                <height>6</height>
+               </size>
+              </property>
+             </spacer>
+            </item>
+            <item>
+             <widget class="QLabel" name="lblSeccionPago">
+              <property name="text">
+               <string>Completar pago de este mes</string>
+              </property>
+              <property name="tipo" stdset="0">
+               <string>seccion</string>
+              </property>
+             </widget>
+            </item>
+            <item>
+             <widget class="QLabel" name="lblPagoEsteMes">
+              <property name="text">
+               <string>Pago de este mes: $0.00</string>
+              </property>
+              <property name="wordWrap">
+               <bool>true</bool>
+              </property>
+              <property name="tipo" stdset="0">
+               <string>total</string>
+              </property>
+             </widget>
+            </item>
+            <item>
+             <widget class="QLabel" name="lblEstadoPago">
+              <property name="text">
+               <string/>
+              </property>
+              <property name="wordWrap">
+               <bool>true</bool>
+              </property>
+             </widget>
+            </item>
+           </layout>
+          </widget>
+         </widget>
+        </item>
+        <item>
+         <spacer name="spacerScroll">
+          <property name="orientation">
+           <enum>Qt::Orientation::Vertical</enum>
+          </property>
+          <property name="sizeType">
+           <enum>QSizePolicy::Policy::Fixed</enum>
+          </property>
+          <property name="sizeHint">
+           <size>
+            <width>20</width>
+            <height>12</height>
+           </size>
+          </property>
+         </spacer>
+        </item>
+        <item>
+         <widget class="QPushButton" name="btnCompletarPago">
+          <property name="text">
+           <string>Completar pago de este mes</string>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <spacer name="spacerBoton">
+          <property name="orientation">
+           <enum>Qt::Orientation::Vertical</enum>
+          </property>
+          <property name="sizeType">
+           <enum>QSizePolicy::Policy::Fixed</enum>
+          </property>
+          <property name="sizeHint">
+           <size>
+            <width>20</width>
+            <height>8</height>
+           </size>
+          </property>
+         </spacer>
+        </item>
+        <item>
+         <widget class="QPushButton" name="btnRegresar">
+          <property name="text">
+           <string>← Regresar</string>
+          </property>
+         </widget>
+        </item>
+       </layout>
+      </widget>
+     </item>
+     <item>
+      <spacer name="spacerDerecho">
+       <property name="orientation">
+        <enum>Qt::Orientation::Horizontal</enum>
+       </property>
+       <property name="sizeHint" stdset="0">
+        <size>
+         <width>40</width>
+         <height>20</height>
+        </size>
+       </property>
+      </spacer>
+     </item>
+    </layout>
+   </item>
+   <item>
+    <spacer name="spacerInferiorExterior">
+     <property name="orientation">
+      <enum>Qt::Orientation::Vertical</enum>
+     </property>
+     <property name="sizeHint" stdset="0">
+      <size>
+       <width>20</width>
+       <height>40</height>
+      </size>
+     </property>
+    </spacer>
+   </item>
+  </layout>
+ </widget>
+ <resources/>
+ <connections/>
+</ui>

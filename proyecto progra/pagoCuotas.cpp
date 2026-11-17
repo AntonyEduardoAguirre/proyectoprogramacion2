@@ -1,5 +1,4 @@
 #include "clases/PagoCuotas.h"
-
 #include "clases/datos.h"
 
 #include <QComboBox>

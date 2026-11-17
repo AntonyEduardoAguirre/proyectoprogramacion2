@@ -18,6 +18,7 @@ int main(int argc, char* argv[])
 
     cargarClientes();
     cargarProductos();
+    cargarHistorial();
 
     inicio w;
     w.show();

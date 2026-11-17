@@ -1,0 +1,22 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>AdminCuentas</class>
+ <widget class="QWidget" name="AdminCuentas">
+  <layout class="QVBoxLayout" name="contenidoCuentas">
+   <item><widget class="QPushButton" name="crearUsuario"><property name="text"><string>Crear usuario</string></property></widget></item>
+   <item><widget class="QLabel" name="etiquetaCuentas"><property name="text"><string>Usuarios registrados</string></property></widget></item>
+   <item>
+	<widget class="QScrollArea" name="scrollCuentas">
+	 <property name="widgetResizable"><bool>true</bool></property>
+	 <widget class="QWidget" name="contenidoListaCuentas">
+	  <layout class="QVBoxLayout" name="listaCuentasLayout">
+	   <property name="alignment"><set>Qt::AlignmentFlag::AlignTop</set></property>
+	  </layout>
+	 </widget>
+	</widget>
+   </item>
+  </layout>
+ </widget>
+ <resources/>
+ <connections/>
+</ui>

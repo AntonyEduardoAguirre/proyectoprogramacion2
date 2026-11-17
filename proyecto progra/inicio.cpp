@@ -31,6 +31,7 @@ inicio::inicio(QWidget* parent)
 
     connect(ui.btnIniciarSesion, &QPushButton::clicked,
         this, &inicio::validarSesion);
+<<<<<<< Updated upstream
 
     connect(ui.btnRegistrarse, &QPushButton::clicked, this, [this]() {
         registro* ventanaRegistro = new registro();
@@ -45,6 +46,8 @@ inicio::inicio(QWidget* parent)
         ventanaAdmin->show();
         close();
         });
+=======
+>>>>>>> Stashed changes
 
     connect(ui.btnSalir, &QPushButton::clicked, this, [this]() {
         this->close();
@@ -63,13 +66,26 @@ string convertirMinuscula(string texto) {//FUNCION AUXILIAR
 }
 
 void inicio::validarSesion() {//FUNCION AUXILIAR
-    string nombre = ui.txtNombre->text().toStdString();
-    string contrasenna = ui.txtContrasenna->text().toStdString();
+    const QString nombreIngresado = ui.txtNombre->text();
+    const QString contrasennaIngresada = ui.txtContrasenna->text();
+    if (nombreIngresado.compare(QStringLiteral("admin"), Qt::CaseInsensitive) == 0) {
+        if (contrasennaIngresada == QStringLiteral("admin123")) {
+            auto* ventanaAdmin = new Administracion();
+            ventanaAdmin->setAttribute(Qt::WA_DeleteOnClose);
+            ventanaAdmin->show();
+            close();
+            return;
+        }
+        ui.lblError->setText("El nombre o la contraseña son incorrectos");
+        return;
+    }
+
+    string nombre = nombreIngresado.toStdString();
+    string contrasenna = contrasennaIngresada.toStdString();
 
     for (const auto& usuario : clientes) {
         if (convertirMinuscula(usuario.getNombre()) == convertirMinuscula(nombre) && contrasenna == usuario.getContrasenna()) {
             usuarioActual = usuario; // Almacena el usuario actual en la variable global
-            // TODO: cambiar según el rol del usuario cuando se implemente la validación de administradores.
             MenuPrincipal* ventanaMenu = new MenuPrincipal(usuarioActual.nombre, false);
             ventanaMenu->setAttribute(Qt::WA_DeleteOnClose); // libera memoria al cerrarla
             ventanaMenu->show();

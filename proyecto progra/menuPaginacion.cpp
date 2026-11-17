@@ -40,11 +40,20 @@ MenuPaginacion::MenuPaginacion(QWidget* parent)
         });
     }
 
+<<<<<<< Updated upstream
     // --- Cada campo de filtro solo se activa si su checkbox está marcado ---
     ui->leNombre->setEnabled(false);
     ui->leCategoria->setEnabled(false);
     ui->leId->setEnabled(false);
     ui->sldPrecio->setEnabled(false);
+=======
+    // --- Buscadores ---
+    // Nombre: filtra el catálogo mientras se escribe.
+    // Código: NO filtra; al presionar Enter agrega al carrito el producto con ese código.
+    // El código admite al menos 3 dígitos, incluidos ceros iniciales.
+    ui->leCodigo->setValidator(
+        new QRegularExpressionValidator(QRegularExpression("\\d*"), this));
+>>>>>>> Stashed changes
 
     connect(ui->chkNombre,    &QCheckBox::toggled, ui->leNombre,    &QWidget::setEnabled);
     connect(ui->chkCategoria, &QCheckBox::toggled, ui->leCategoria, &QWidget::setEnabled);
@@ -84,7 +93,13 @@ MenuPaginacion::~MenuPaginacion()
 void MenuPaginacion::actualizarCatalogo()
 {
     if (::productos.isEmpty())
+<<<<<<< Updated upstream
         cargarProductos();      // carga productos.json o lo crea con el catálogo inicial
+=======
+        cargarProductos();      // carga productos.json
+
+    asegurarCodigos();          // todo producto debe tener un código válido y único
+>>>>>>> Stashed changes
 
     configurarSlider();
     aplicarFiltros();

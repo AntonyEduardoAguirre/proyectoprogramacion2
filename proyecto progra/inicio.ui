@@ -93,7 +93,7 @@ QPushButton#btnIniciarSesion {
 }
 QPushButton#btnIniciarSesion:hover { background-color: #788B72; }
 QPushButton#btnIniciarSesion:pressed { background-color: #6D8067; }
-QPushButton#btnRegistrarse, QPushButton#btnCuentaAdmin, QPushButton#btnRecuperar, QPushButton#btnSalir {
+QPushButton#btnRegistrarse, QPushButton#btnRecuperar, QPushButton#btnSalir {
 	background: transparent;
 	border: none;
 	color: #899B83;
@@ -101,7 +101,7 @@ QPushButton#btnRegistrarse, QPushButton#btnCuentaAdmin, QPushButton#btnRecuperar
 	font-size: 11px;
 	padding: 4px;
 }
-QPushButton#btnRegistrarse:hover, QPushButton#btnCuentaAdmin:hover, QPushButton#btnRecuperar:hover, QPushButton#btnSalir:hover {
+QPushButton#btnRegistrarse:hover, QPushButton#btnRecuperar:hover, QPushButton#btnSalir:hover {
 	color: #788B72;
 }
 QLabel#lblError { color: #92918B; font-size: 11px; margin-top: 8px; }
@@ -350,6 +350,7 @@ QLabel#lblError { color: #92918B; font-size: 11px; margin-top: 8px; }
            </property>
           </widget>
          </item>
+<<<<<<< Updated upstream
          <item>
           <spacer name="spacerBoton">
            <property name="orientation">
@@ -387,6 +388,9 @@ QLabel#lblError { color: #92918B; font-size: 11px; margin-top: 8px; }
           </widget>
          </item>
          <item>
+=======
+                   <item>
+>>>>>>> Stashed changes
           <widget class="QLabel" name="lblError">
            <property name="text">
             <string/>

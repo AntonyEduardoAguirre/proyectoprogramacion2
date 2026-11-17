@@ -1,0 +1,50 @@
+[
+    {
+        "clienteId": 1,
+        "cuotaMensual": 0,
+        "fecha": "16/11/2026 22:01",
+        "items": [
+            {
+                "cantidad": 1,
+                "idProducto": 1,
+                "nombre": "Laptop Lenovo IdeaPad 15",
+                "precio": 8499
+            }
+        ],
+        "meses": 0,
+        "metodo": "Efectivo",
+        "total": 8499
+    },
+    {
+        "clienteId": 1,
+        "cuotaMensual": 0,
+        "fecha": "16/11/2026 22:03",
+        "items": [
+            {
+                "cantidad": 1,
+                "idProducto": 8,
+                "nombre": "Webcam Full HD",
+                "precio": 549
+            }
+        ],
+        "meses": 0,
+        "metodo": "Efectivo",
+        "total": 549
+    },
+    {
+        "clienteId": 1,
+        "cuotaMensual": 396.62000000000006,
+        "fecha": "16/11/2026 22:04",
+        "items": [
+            {
+                "cantidad": 1,
+                "idProducto": 1,
+                "nombre": "Laptop Lenovo IdeaPad 15",
+                "precio": 8499
+            }
+        ],
+        "meses": 24,
+        "metodo": "Tarjeta (cuotas)",
+        "total": 9518.880000000001
+    }
+]

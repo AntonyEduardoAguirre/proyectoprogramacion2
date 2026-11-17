@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>AdminCuotas</class>
+ <widget class="QWidget" name="AdminCuotas">
+  <layout class="QVBoxLayout" name="contenidoCuotas">
+   <item><widget class="QLabel" name="tituloCuotas"><property name="objectName"><string notr="true">titulo</string></property><property name="text"><string>Cuotas</string></property></widget></item>
+   <item><widget class="QScrollArea" name="scrollCuotas"><property name="widgetResizable"><bool>true</bool></property><widget class="QWidget" name="contenidoListaCuotas"><layout class="QVBoxLayout" name="listaCuotasLayout"><property name="alignment"><set>Qt::AlignmentFlag::AlignTop</set></property></layout></widget></widget></item>
+   <item><widget class="QLabel" name="errorCuotas"><property name="text"><string/></property></widget></item>
+  </layout>
+ </widget>
+ <resources/>
+ <connections/>
+</ui>

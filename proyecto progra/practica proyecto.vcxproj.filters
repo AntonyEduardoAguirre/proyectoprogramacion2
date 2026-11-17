@@ -58,6 +58,42 @@
     <ClCompile Include="menuPaginacion.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+<<<<<<< Updated upstream
+=======
+    <ClCompile Include="CalculadoraCambio.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="MenuPrincipal.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Administracion.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="saldo.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="carrito.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="pagoefectivo.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="pagoTarjeta.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="pagoCuotas.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="cuotacompletada.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="recibo.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="historial.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+>>>>>>> Stashed changes
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="clases\cliente.h">
@@ -66,6 +102,15 @@
     <ClInclude Include="clases\datos.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+<<<<<<< Updated upstream
+=======
+    <ClInclude Include="clases\Administracion.h">
+      <Filter>Header Files\Clases</Filter>
+    </ClInclude>
+    <ClInclude Include="compra.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+>>>>>>> Stashed changes
   </ItemGroup>
   <ItemGroup>
     <QtMoc Include="clases\Inicio.h">
@@ -104,6 +149,33 @@
       <Filter>Form Files</Filter>
     </QtUic>
     <QtUic Include="MenuPrincipal.ui">
+      <Filter>Form Files</Filter>
+    </QtUic>
+    <QtUic Include="CuotaCompletada.ui">
+      <Filter>Form Files</Filter>
+    </QtUic>
+    <QtUic Include="AdminProductos.ui">
+      <Filter>Form Files</Filter>
+    </QtUic>
+    <QtUic Include="DialogoProducto.ui">
+      <Filter>Form Files</Filter>
+    </QtUic>
+    <QtUic Include="DialogoCuenta.ui">
+      <Filter>Form Files</Filter>
+    </QtUic>
+    <QtUic Include="AdminCuentas.ui">
+      <Filter>Form Files</Filter>
+    </QtUic>
+    <QtUic Include="Administracion.ui">
+      <Filter>Form Files</Filter>
+    </QtUic>
+    <QtUic Include="AdminCuotas.ui">
+      <Filter>Form Files</Filter>
+    </QtUic>
+    <QtUic Include="AdminCobros.ui">
+      <Filter>Form Files</Filter>
+    </QtUic>
+    <QtUic Include="DetalleCobros.ui">
       <Filter>Form Files</Filter>
     </QtUic>
   </ItemGroup>

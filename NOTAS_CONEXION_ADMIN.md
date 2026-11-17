@@ -229,3 +229,37 @@ simplemente dejará de mostrar esas compras ya enviadas.
 - Se vistieron también los dos `.ui` huérfanos (`practicaproyecto.ui`, `Widget.ui`).
 - El `esAdmin` de `MenuPrincipal` sigue sin usarse (`Q_UNUSED(esAdmin)`): el admin que falta
   es el receptor de datos, no el administrador de catálogo/usuarios que ya existe.
+
+---
+
+## 7) Conexión final con el menú admin (rama `menu-principal-completo`)
+
+Estado actual de esta rama:
+
+- Se copiaron **todos los archivos de `main`** (menú admin con pestañas Productos,
+  Cuentas, **Cuotas** y **Cobros por usuario**) y se integraron los botones **Cuotas** y
+  **Cierre** de `menu-principal` con el estilo/UI actual de `main`.
+- Se conservaron los datos de demostración (`datos/*.json`) que tenían las cuotas
+  completadas con factura (`F-000001`…`F-000003`) para poder probar la conexión.
+
+### Cómo quedó conectado
+
+1. **Cierre → Cobros por usuario** (`Administracion.cpp`):
+   - `recolectarCobros()` lee ahora `bitacora.json` y recupera los pagos **Efectivo** y
+     **Tarjeta** que el Cierre envió (y que borró de `historial.json`), sin duplicar los
+     que todavía no se enviaron.
+   - Las **facturas** de las cuotas completadas (`factura.numero_factura` en
+     `cuotas.json`) se muestran como cobros de tipo `Factura`, con número de factura y
+     productos en el detalle. Los planes activos siguen aportando sus pagos.
+   - El detalle de cada cobro indica el tipo (`Efectivo` / `Tarjeta` / `Cuotas` / `Factura`),
+     el número de factura y los productos.
+2. **Cuotas → pestaña Cuotas del admin** (`Administracion.cpp`):
+   - `actualizarCuotas()` lee `cuotas.json` (el mismo archivo que escribe el flujo de
+     cuotas del cliente) y muestra cada plan con estado **Activa** o
+     **Completada (Factura F-…)**, además de su progreso de pagos.
+3. `MenuPrincipal.cpp`: los mensajes del Cierre ya indican que los datos se envían al
+   menú de administración (Cobros y Cuotas).
+
+El orden de seguridad del Cierre (generar → respaldar → guardar → releer/verificar →
+limpiar/marcar) se conserva intacto: `bitacora.json` sigue siendo la bandeja de entrega
+que ahora consume el menú admin.

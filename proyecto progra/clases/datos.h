@@ -10,7 +10,13 @@
 #include <QDir>
 #include <QDateTime>
 #include <QCoreApplication>
+#include <QPointer>
+#include <QObject>
 #include <QRandomGenerator>
+#include <QSaveFile>
+#include <QJsonParseError>
+#include <functional>
+#include <utility>
 #include "Cliente.h"
 #include "Producto.h"
 #include "compra.h"
@@ -20,6 +26,29 @@ inline QList<Producto> productos;
 inline QList<Compra> historialCompras;   // compras de todos los clientes
 inline QList<ItemCompra> carrito;        // carrito de compras del usuario actual
 inline Cliente usuarioActual;  // variable global para almacenar el usuario actual
+
+struct ObservadorActualizacionPagos { QPointer<QObject> objeto; std::function<void()> actualizar; };
+inline QList<ObservadorActualizacionPagos>& observadoresActualizacionPagos()
+{
+    static QList<ObservadorActualizacionPagos> observadores;
+    return observadores;
+}
+inline void registrarActualizacionPagos(QObject* objeto, std::function<void()> actualizar)
+{
+    auto& observadores = observadoresActualizacionPagos();
+    for (auto& observador : observadores) {
+        if (observador.objeto == objeto) { observador.actualizar = std::move(actualizar); return; }
+    }
+    observadores.append({ objeto, std::move(actualizar) });
+}
+inline void notificarActualizacionPagos()
+{
+    auto& observadores = observadoresActualizacionPagos();
+    for (int i = observadores.size() - 1; i >= 0; --i) {
+        if (observadores[i].objeto.isNull()) { observadores.removeAt(i); continue; }
+        observadores[i].actualizar();
+    }
+}
 
 inline QString carpetaDatos()
 {
@@ -95,6 +124,38 @@ inline void cargarProductos() { cargarLista(productos, "productos.json"); }
 
 inline void guardarHistorial() { guardarLista(historialCompras, "historial.json"); }
 inline void cargarHistorial() { cargarLista(historialCompras, "historial.json"); }
+
+inline bool cargarRegistrosCuotas(QJsonArray& registros, QString* error = nullptr)
+{
+    QFile archivo(rutaArchivo(QStringLiteral("cuotas.json")));
+    if (!archivo.exists()) { registros = QJsonArray(); return true; }
+    if (!archivo.open(QIODevice::ReadOnly)) { if (error) *error = archivo.errorString(); return false; }
+    QJsonParseError errorJson;
+    const QJsonDocument documento = QJsonDocument::fromJson(archivo.readAll(), &errorJson);
+    archivo.close();
+    if (errorJson.error != QJsonParseError::NoError || !documento.isArray()) {
+        if (error) *error = errorJson.errorString().isEmpty() ? QStringLiteral("El archivo de cuotas no contiene una lista válida.") : errorJson.errorString();
+        return false;
+    }
+    registros = documento.array();
+    return true;
+}
+inline bool guardarRegistrosCuotas(const QJsonArray& registros, QString* error = nullptr)
+{
+    QSaveFile archivo(rutaArchivo(QStringLiteral("cuotas.json")));
+    if (!archivo.open(QIODevice::WriteOnly)) { if (error) *error = archivo.errorString(); return false; }
+    const QByteArray datos = QJsonDocument(registros).toJson();
+    if (archivo.write(datos) != datos.size()) { if (error) *error = archivo.errorString(); archivo.cancelWriting(); return false; }
+    if (!archivo.commit()) { if (error) *error = archivo.errorString(); return false; }
+    return true;
+}
+inline bool agregarRegistroCuotas(const QJsonObject& registro, QString* error = nullptr)
+{
+    QJsonArray registros;
+    if (!cargarRegistrosCuotas(registros, error)) return false;
+    registros.append(registro);
+    return guardarRegistrosCuotas(registros, error);
+}
 
 // Opcional: para guardar/cargar todo de una vez
 inline void guardarTodo() { guardarClientes(); guardarProductos(); guardarHistorial(); }
@@ -249,6 +310,7 @@ inline Compra finalizarCompra(double total, int meses, const QString& metodo)
     guardarHistorial();
 
     vaciarCarrito();
+    notificarActualizacionPagos();
     return compra;
 }
 
@@ -302,15 +364,15 @@ inline bool pagarCarritoEfectivo(double efectivoRecibido, double* vuelto = nullp
 }
 
 // ---------------------------------------------------------------
-// Códigos de producto (6 dígitos, únicos)
+// Códigos de producto (al menos 3 dígitos, únicos)
 // ---------------------------------------------------------------
 
-// Devuelve un código de 6 dígitos que no esté en "usados".
+// Devuelve un código aleatorio de 6 dígitos, incluidos ceros iniciales.
 inline QString generarCodigoUnico(const QSet<QString>& usados)
 {
     QString codigo;
     do {
-        codigo = QString::number(QRandomGenerator::global()->bounded(100000, 1000000));
+        codigo = QStringLiteral("%1").arg(QRandomGenerator::global()->bounded(1000000), 6, 10, QChar('0'));
     } while (usados.contains(codigo));
     return codigo;
 }

@@ -21,12 +21,11 @@
   </property>
   <property name="styleSheet">
    <string notr="true">QMainWindow, #centralwidget {
-	background-color: #F5F3EE;
-}
-#cardCarrito, #cardCatalogo, #cardFiltros, #cardDetalle {
 	background-color: #FFFFFF;
-	border: 1px solid #EAE8E2;
-	border-radius: 18px;
+}
+#cardCarrito, #cardCatalogo {
+	background: transparent;
+	border: none;
 }
 QLabel#lblPagina, QLabel#lblCarritoVacio {
 	color: #92918B;
@@ -85,7 +84,7 @@ QPushButton#btnAnterior:disabled, QPushButton#btnSiguiente:disabled {
 	border-color: #EFEEE9;
 }
 QPushButton#btnPagar {
-	background: #899B83;
+	background: #2F5243;
 	color: #FFFFFF;
 	border: none;
 	border-radius: 8px;
@@ -95,7 +94,7 @@ QPushButton#btnPagar {
 	font-weight: 700;
 }
 QPushButton#btnPagar:hover {
-	background: #788B72;
+	background: #264135;
 }
 QPushButton#btnRegresar {
 	background: transparent;
@@ -106,7 +105,7 @@ QPushButton#btnRegresar {
 	font-size: 13px;
 }
 QPushButton#btnRegresar:hover {
-	color: #788B72;
+	color: #2F5243;
 }
 QPushButton#btnPagar:disabled {
 	background: #C9D2CD;

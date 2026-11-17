@@ -66,9 +66,9 @@ MenuPaginacion::MenuPaginacion(QWidget* parent)
     // --- Buscadores ---
     // Nombre: filtra el catálogo mientras se escribe.
     // Código: NO filtra; al presionar Enter agrega al carrito el producto con ese código.
-    // El código solo admite hasta 6 dígitos.
+    // El código admite al menos 3 dígitos y puede comenzar con cero.
     ui->leCodigo->setValidator(
-        new QRegularExpressionValidator(QRegularExpression("\\d{0,6}"), this));
+        new QRegularExpressionValidator(QRegularExpression("\\d*"), this));
 
     connect(ui->leNombre, &QLineEdit::textChanged, this, &MenuPaginacion::aplicarFiltros);
     connect(ui->leCodigo, &QLineEdit::returnPressed, this, &MenuPaginacion::agregarPorCodigo);

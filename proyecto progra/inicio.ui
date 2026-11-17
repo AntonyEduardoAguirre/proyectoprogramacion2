@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
+﻿<?xml version="1.0" encoding="UTF-8"?>
 <ui version="4.0">
  <class>inicioClass</class>
  <widget class="QMainWindow" name="inicioClass">
@@ -93,7 +93,7 @@ QPushButton#btnIniciarSesion {
 }
 QPushButton#btnIniciarSesion:hover { background-color: #788B72; }
 QPushButton#btnIniciarSesion:pressed { background-color: #6D8067; }
-QPushButton#btnRegistrarse, QPushButton#btnCuentaAdmin, QPushButton#btnRecuperar, QPushButton#btnSalir {
+QPushButton#btnRegistrarse, QPushButton#btnRecuperar, QPushButton#btnSalir {
 	background: transparent;
 	border: none;
 	color: #899B83;
@@ -101,7 +101,7 @@ QPushButton#btnRegistrarse, QPushButton#btnCuentaAdmin, QPushButton#btnRecuperar
 	font-size: 11px;
 	padding: 4px;
 }
-QPushButton#btnRegistrarse:hover, QPushButton#btnCuentaAdmin:hover, QPushButton#btnRecuperar:hover, QPushButton#btnSalir:hover {
+QPushButton#btnRegistrarse:hover, QPushButton#btnRecuperar:hover, QPushButton#btnSalir:hover {
 	color: #788B72;
 }
 QLabel#lblError { color: #92918B; font-size: 11px; margin-top: 8px; }
@@ -366,17 +366,7 @@ QLabel#lblError { color: #92918B; font-size: 11px; margin-top: 8px; }
            </property>
           </spacer>
          </item>
-         <item>
-          <widget class="QPushButton" name="btnCuentaAdmin">
-           <property name="text">
-            <string>Cuenta admin</string>
-           </property>
-           <property name="flat">
-            <bool>true</bool>
-           </property>
-          </widget>
-         </item>
-         <item>
+<item>
           <widget class="QLabel" name="lblError">
            <property name="text">
             <string/>

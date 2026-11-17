@@ -29,12 +29,6 @@ inicio::inicio(QWidget* parent)
 
     connect(ui.btnIniciarSesion, &QPushButton::clicked,
         this, &inicio::validarSesion);
-    connect(ui.btnCuentaAdmin, &QPushButton::clicked, this, [this]() {
-        auto* ventanaAdmin = new AccesoAdmin();
-        ventanaAdmin->setAttribute(Qt::WA_DeleteOnClose);
-        ventanaAdmin->show();
-        close();
-        });
 
     connect(ui.btnSalir, &QPushButton::clicked, this, [this]() {
         this->close();
@@ -53,8 +47,19 @@ string convertirMinuscula(string texto) {//FUNCION AUXILIAR
 }
 
 void inicio::validarSesion() {//FUNCION AUXILIAR
-    string nombre = ui.txtNombre->text().toStdString();
-    string contrasenna = ui.txtContrasenna->text().toStdString();
+    const QString nombreIngresado = ui.txtNombre->text().trimmed();
+    const QString contrasennaIngresada = ui.txtContrasenna->text();
+    if (nombreIngresado.compare(QStringLiteral("admin"), Qt::CaseInsensitive) == 0
+        && contrasennaIngresada == QStringLiteral("admin123")) {
+        auto* ventanaAdmin = new Administracion();
+        ventanaAdmin->setAttribute(Qt::WA_DeleteOnClose);
+        ventanaAdmin->show();
+        close();
+        return;
+    }
+
+    string nombre = nombreIngresado.toStdString();
+    string contrasenna = contrasennaIngresada.toStdString();
 
     for (const auto& usuario : clientes) {
         if (convertirMinuscula(usuario.getNombre()) == convertirMinuscula(nombre) && contrasenna == usuario.getContrasenna()) {

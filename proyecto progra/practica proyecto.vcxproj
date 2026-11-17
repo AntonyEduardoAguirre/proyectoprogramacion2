@@ -118,6 +118,7 @@
     <ClCompile Include="clases\producto.h" />
     <ClCompile Include="Administracion.cpp" />
     <QtRcc Include="practicaproyecto.qrc" />
+    <QtUic Include="Administracion.ui" />
     <QtUic Include="carrito.ui" />
     <QtUic Include="historial.ui" />
     <QtUic Include="inicio.ui" />

@@ -20,39 +20,9 @@
 
 namespace {
 
-// agrega el registro al final de datos/cuotas.json sin borrar los
-// registros anteriores; devuelve false si falla la lectura/escritura
 bool guardarRegistroCuotas(const QJsonObject& registro, QString* error)
 {
-    const QString ruta = rutaArchivo(QStringLiteral("cuotas.json"));
-
-    QJsonArray registros;
-    QFile archivo(ruta);
-    if (archivo.exists()) {
-        if (!archivo.open(QIODevice::ReadOnly)) {
-            if (error)
-                *error = archivo.errorString();
-            return false;
-        }
-        registros = QJsonDocument::fromJson(archivo.readAll()).array();
-        archivo.close();
-    }
-
-    registros.append(registro);
-
-    if (!archivo.open(QIODevice::WriteOnly | QIODevice::Truncate)) {
-        if (error)
-            *error = archivo.errorString();
-        return false;
-    }
-    if (archivo.write(QJsonDocument(registros).toJson()) == -1) {
-        if (error)
-            *error = archivo.errorString();
-        archivo.close();
-        return false;
-    }
-    archivo.close();
-    return true;
+    return agregarRegistroCuotas(registro, error);
 }
 
 } // namespace

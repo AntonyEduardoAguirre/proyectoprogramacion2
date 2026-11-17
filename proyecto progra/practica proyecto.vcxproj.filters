@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
     <Filter Include="Source Files">
@@ -145,6 +145,14 @@
     <QtUic Include="MenuPrincipal.ui">
       <Filter>Form Files</Filter>
     </QtUic>
+    <QtUic Include="Administracion.ui"><Filter>Form Files</Filter></QtUic>
+    <QtUic Include="AdminProductos.ui"><Filter>Form Files</Filter></QtUic>
+    <QtUic Include="AdminCuentas.ui"><Filter>Form Files</Filter></QtUic>
+    <QtUic Include="AdminCuotas.ui"><Filter>Form Files</Filter></QtUic>
+    <QtUic Include="AdminCobros.ui"><Filter>Form Files</Filter></QtUic>
+    <QtUic Include="DialogoProducto.ui"><Filter>Form Files</Filter></QtUic>
+    <QtUic Include="DialogoCuenta.ui"><Filter>Form Files</Filter></QtUic>
+    <QtUic Include="DetalleCobros.ui"><Filter>Form Files</Filter></QtUic>
   </ItemGroup>
   <ItemGroup>
     <QtMoc Include="clases\MenuPrincipal.h">

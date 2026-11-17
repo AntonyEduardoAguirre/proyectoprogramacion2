@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="UTF-8"?>
 <Project DefaultTargets="Build" ToolsVersion="18.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup Label="ProjectConfigurations">
     <ProjectConfiguration Include="Debug|x64">
@@ -106,12 +106,24 @@
   <ItemGroup>
     <ClCompile Include="carrito.cpp" />
     <ClCompile Include="pagoefectivo.cpp" />
+    <ClCompile Include="pagoTarjeta.cpp" />
+    <ClCompile Include="pagoCuotas.cpp" />
+    <ClCompile Include="cuotacompletada.cpp" />
     <ClCompile Include="recibo.cpp" />
     <ClCompile Include="saldo.cpp" />
     <ClCompile Include="historial.cpp" />
     <ClCompile Include="menuPaginacion.cpp" />
     <ClCompile Include="CalculadoraCambio.cpp" />
     <ClCompile Include="MenuPrincipal.cpp" />
+    <ClCompile Include="RepositorioCuotas.cpp" />
+    <ClCompile Include="RepositorioBitacora.cpp" />
+    <ClCompile Include="FuenteHistorialVentas.cpp" />
+    <ClCompile Include="FuenteCuotas.cpp" />
+    <ClCompile Include="ServicioCierre.cpp" />
+    <ClCompile Include="VentanaCuotas.cpp" />
+    <ClCompile Include="VentanaDetalleCuota.cpp" />
+    <ClCompile Include="FacturaCuota.cpp" />
+    <ClCompile Include="EnvioAdminLocal.cpp" />
     <ClCompile Include="clases\producto.h" />
     <ClCompile Include="Administracion.cpp" />
     <QtRcc Include="practicaproyecto.qrc" />
@@ -123,22 +135,40 @@
     <ClCompile Include="main.cpp" />
     <QtUic Include="menuPaginacion.ui" />
     <QtUic Include="MenuPrincipal.ui" />
+    <QtUic Include="VentanaCuotas.ui" />
+    <QtUic Include="VentanaDetalleCuota.ui" />
     <QtUic Include="Saldo.ui" />
+    <QtUic Include="CuotaCompletada.ui" />
   </ItemGroup>
   <ItemGroup>
     <QtMoc Include="Carrito.h" />
     <QtMoc Include="Historial.h" />
     <QtMoc Include="clases\PagoEfectivo.h" />
+    <QtMoc Include="clases\PagoTarjeta.h" />
+    <QtMoc Include="clases\PagoCuotas.h" />
+    <QtMoc Include="clases\CuotaCompletada.h" />
     <QtMoc Include="clases\Recibo.h" />
     <ClInclude Include="compra.h" />
     <QtMoc Include="clases\menuPaginacion.h" />
     <QtMoc Include="clases\Saldo.h" />
     <QtMoc Include="clases\MenuPrincipal.h" />
+    <QtMoc Include="clases\VentanaCuotas.h" />
+    <QtMoc Include="clases\VentanaDetalleCuota.h" />
+    <ClInclude Include="clases\RepositorioCuotas.h" />
+    <ClInclude Include="clases\RepositorioBitacora.h" />
+    <ClInclude Include="clases\CierreDia.h" />
+    <ClInclude Include="clases\FuenteVentasDia.h" />
+    <ClInclude Include="clases\FuenteHistorialVentas.h" />
+    <ClInclude Include="clases\FuenteCuotas.h" />
+    <ClInclude Include="clases\ServicioCierre.h" />
     <ClInclude Include="clases\cliente.h" />
     <ClInclude Include="clases\CalculadoraCambio.h" />
     <ClInclude Include="clases\EstiloPulpe.h" />
     <ClInclude Include="clases\datos.h" />
     <ClInclude Include="clases\Administracion.h" />
+    <ClInclude Include="clases\FacturaCuota.h" />
+    <ClInclude Include="clases\EnvioAdmin.h" />
+    <ClInclude Include="clases\EnvioAdminLocal.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Condition="Exists('$(QtMsBuild)\qt.targets')">

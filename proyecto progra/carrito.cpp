@@ -1,6 +1,9 @@
 #include "Carrito.h"
 #include "clases/datos.h"
+#include "clases/PagoCuotas.h"
+#include "clases/CuotaCompletada.h"
 #include "clases/PagoEfectivo.h"
+#include "clases/PagoTarjeta.h"
 #include "clases/Recibo.h"
 
 #include <QPushButton>
@@ -39,20 +42,13 @@ Carrito::Carrito(QWidget* parent)
             // efectivo: se abre la caja registradora del vuelto y el pago
             // se confirma ahí mismo; el recibo sale después de confirmar
             abrirPagoEfectivo();
+        } else if (metodo == 1) {
+            // tarjeta de contado: se pide el número de tarjeta y el pago
+            // se procesa al instante; el recibo sale después de confirmar
+            abrirPagoTarjeta(0);
         } else {
-            // tarjeta: el pago es inmediato (total o primera cuota según el método)
-            const int meses = (metodo == 2) ? 12 : (metodo == 3) ? 24 : 0;
-            Compra recibo;
-            if (pagarCarrito(meses, &recibo)) {
-                ui.lblMensaje->setText("");
-                emit carritoModificado();
-                actualizarCarrito();
-                mostrarRecibo(recibo, 0.0, 0.0);
-            } else if (meses > 0) {
-                ui.lblMensaje->setText("No tienes saldo suficiente para la primera cuota.");
-            } else {
-                ui.lblMensaje->setText("No tienes saldo suficiente para pagar todo el carrito.");
-            }
+            // cuotas: ventana propia del pago a cuotas (plazo, nombre y registro)
+            abrirPagoCuotas(mesesDelMetodo(metodo));
         }
         });
 
@@ -75,7 +71,6 @@ Carrito::Carrito(QWidget* parent)
     // la flecha de arriba hace lo mismo que el botón de volver
     connect(ui.btnFlecha, &QPushButton::clicked, ui.btnRegresar, &QPushButton::click);
 
-    refrescarUsuarioActual();   // saldo del cliente siempre al día
     actualizarCarrito();
 }
 
@@ -86,29 +81,70 @@ Carrito::~Carrito()
 // abre la calculadora del pago en efectivo sobre el carrito
 void Carrito::abrirPagoEfectivo()
 {
-    PagoEfectivo* pago = new PagoEfectivo(carritoTotal(), usuarioActual.saldo, carrito);
+    PagoEfectivo* pago = new PagoEfectivo(carritoTotal(), carrito);
     pago->setAttribute(Qt::WA_DeleteOnClose);
     pago->setWindowModality(Qt::ApplicationModal);
 
     connect(pago, &PagoEfectivo::pagoConfirmado, this,
-            [this](double efectivoRecibido, double, bool pagadoConSaldo) {
+            [this](double efectivoRecibido, double vuelto) {
         Compra recibo;
-        if (pagadoConSaldo) {
-            // el efectivo físico no alcanzó, pero el saldo de la cuenta
-            // del cliente cubre el total: se descuenta del saldo
-            if (pagarCarrito(0, &recibo, "Efectivo (saldo)")) {
-                ui.lblMensaje->setText("");
-                emit carritoModificado();
-                mostrarRecibo(recibo, efectivoRecibido, 0.0);
-            }
-        } else {
-            double vuelto = 0.0;
-            if (pagarCarritoEfectivo(efectivoRecibido, &vuelto, &recibo)) {
-                ui.lblMensaje->setText("");
-                emit carritoModificado();
-                mostrarRecibo(recibo, efectivoRecibido, vuelto);
-            }
+        if (pagarCarritoEfectivo(efectivoRecibido, &vuelto, &recibo)) {
+            ui.lblMensaje->setText("");
+            emit carritoModificado();
+            mostrarRecibo(recibo, efectivoRecibido, vuelto);
         }
+        });
+
+    pago->show();
+}
+
+// abre la ventana del pago a cuotas sobre el carrito
+void Carrito::abrirPagoCuotas(int mesesIniciales)
+{
+    PagoCuotas* pago = new PagoCuotas(carritoTotal(), mesesIniciales);
+    pago->setAttribute(Qt::WA_DeleteOnClose);
+    pago->setWindowModality(Qt::ApplicationModal);
+
+    connect(pago, &PagoCuotas::pagoCompletado, this,
+            [this](int meses, const QString& cliente, const QString& fecha,
+                   double totalSinAumento, double totalConAumento,
+                   double pagoMensual, int mesesRestantes) {
+        // registra la compra (stock, historial y carrito) con el plazo elegido
+        Compra recibo;
+        pagarCarrito(meses, &recibo);
+        ui.lblMensaje->setText("");
+        emit carritoModificado();
+
+        // recibo de la cuota completada; al cerrarlo se cierra el carrito
+        CuotaCompletada* completada = new CuotaCompletada(
+            recibo, cliente, fecha, totalSinAumento, totalConAumento,
+            pagoMensual, mesesRestantes);
+        completada->setAttribute(Qt::WA_DeleteOnClose);
+        completada->setWindowModality(Qt::ApplicationModal);
+        connect(completada, &CuotaCompletada::cuotaCerrada, this, [this]() {
+            actualizarCarrito();
+            this->close();
+            });
+        completada->show();
+        });
+
+    pago->show();
+}
+
+// abre la ventana del pago con tarjeta sobre el carrito
+void Carrito::abrirPagoTarjeta(int meses)
+{
+    PagoTarjeta* pago = new PagoTarjeta(carritoTotal(), meses);
+    pago->setAttribute(Qt::WA_DeleteOnClose);
+    pago->setWindowModality(Qt::ApplicationModal);
+
+    connect(pago, &PagoTarjeta::pagoAceptado, this,
+            [this, meses]() {
+        Compra recibo;
+        pagarCarrito(meses, &recibo);
+        ui.lblMensaje->setText("");
+        emit carritoModificado();
+        mostrarRecibo(recibo, 0.0, 0.0);
         });
 
     pago->show();
@@ -164,21 +200,20 @@ void Carrito::mostrarTotal()
 {
     const double total = carritoTotal();
     const int metodo = ui.cmbMetodo->currentIndex();
-    const int meses = (metodo == 2) ? 12 : (metodo == 3) ? 24 : 0;
+    const int meses = mesesDelMetodo(metodo);
 
     if (!carrito.isEmpty() && meses > 0) {
-        // a plazos: el total no cambia, pero se cobra por cuotas mensuales
-        ui.lblTotal->setText(QString("Total: $%1  —  %2 cuotas de $%3  (Saldo: $%4)")
-            .arg(total, 0, 'f', 2)
+        // a plazos: el precio sube 0.5% por cada mes de plazo
+        const double totalFinal = totalConInteres(total, meses);
+        ui.lblTotal->setText(QString("Total: $%1  —  %2 cuotas de $%3")
+            .arg(totalFinal, 0, 'f', 2)
             .arg(meses)
-            .arg(total / meses, 0, 'f', 2)
-            .arg(usuarioActual.saldo, 0, 'f', 2));
+            .arg(totalFinal / meses, 0, 'f', 2));
     } else if (metodo >= 1) {
-        // tarjeta de contado: pago inmediato con el saldo de la cuenta
-        ui.lblTotal->setText("Total: $" + QString::number(total, 'f', 2)
-            + "   (Saldo: $" + QString::number(usuarioActual.saldo, 'f', 2) + ")");
+        // tarjeta de contado: pago inmediato
+        ui.lblTotal->setText("Total: $" + QString::number(total, 'f', 2));
     } else {
-        // efectivo: el pago no usa el saldo; el vuelto se calcula en la caja
+        // efectivo: el vuelto se calcula en la caja registradora
         ui.lblTotal->setText("Total: $" + QString::number(total, 'f', 2)
             + "   (El vuelto se calcula al pagar en efectivo)");
     }

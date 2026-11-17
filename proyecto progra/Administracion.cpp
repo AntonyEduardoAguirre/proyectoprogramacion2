@@ -20,13 +20,17 @@ namespace
 {
 const QString estilo = QStringLiteral(
 	"QWidget { background-color: #F5F3EE; color: #292A28; font-family: 'Segoe UI'; }"
-	"QFrame, QLineEdit { background-color: #FFFFFF; border: 1px solid #EAE8E2; border-radius: 8px; padding: 6px; }"
-	"QLineEdit { min-height: 30px; }"
-	"QPushButton { background-color: #899B83; color: white; border: none; border-radius: 8px; padding: 8px 14px; }"
+	"QFrame { background-color: #FFFFFF; border: 1px solid #EAE8E2; border-radius: 18px; }"
+	"QLineEdit { background-color: #FAFAF8; color: #292A28; border: 1px solid #E8E7E1; border-radius: 8px; padding: 0 12px; min-height: 36px; font-family: 'Segoe UI'; font-size: 13px; }"
+	"QLineEdit:focus { border: 1px solid #899B83; }"
+	"QPushButton { background-color: #899B83; color: #FFFFFF; border: none; border-radius: 8px; min-height: 36px; padding: 0 14px; font-family: 'Segoe UI'; font-size: 13px; font-weight: 600; }"
 	"QPushButton:hover { background-color: #788B72; }"
-	"QPushButton[flat='true'] { background: transparent; color: #899B83; }"
-	"QLabel#titulo { font-family: Georgia; font-size: 26px; }"
-	"QLabel#error { color: #B05E5E; }");
+	"QPushButton:pressed { background-color: #6D8067; }"
+	"QPushButton:disabled { background-color: #D5DAD2; color: #FAFAF8; }"
+	"QPushButton[flat='true'] { background-color: #FFFFFF; color: #899B83; border: 1px solid #899B83; }"
+	"QPushButton[flat='true']:hover { background-color: #F0F3EE; color: #788B72; }"
+	"QLabel#titulo { color: #292A28; font-family: Georgia; font-size: 26px; }"
+	"QLabel#error { color: #B3261E; }");
 
 QDialog* dialogoProducto(QWidget* parent, const Producto* producto, QString& nombre, double& precio)
 {

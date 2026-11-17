@@ -19,6 +19,8 @@ signals:
 
 private:
     void abrirPagoEfectivo();
+    void abrirPagoTarjeta(int meses);
+    void abrirPagoCuotas(int mesesIniciales);
     void mostrarRecibo(const Compra& compra, double efectivoRecibido, double vuelto);
     void actualizarCarrito();
     void mostrarTotal();

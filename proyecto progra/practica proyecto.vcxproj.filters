@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="UTF-8"?>
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
     <Filter Include="Source Files">
@@ -55,6 +55,33 @@
     <ClCompile Include="MenuPrincipal.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="RepositorioCuotas.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="RepositorioBitacora.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="FuenteHistorialVentas.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="FuenteCuotas.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="ServicioCierre.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="VentanaCuotas.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="VentanaDetalleCuota.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="FacturaCuota.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="EnvioAdminLocal.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
     <ClCompile Include="Administracion.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -65,6 +92,15 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="pagoefectivo.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="pagoTarjeta.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="pagoCuotas.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="cuotacompletada.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="recibo.cpp">
@@ -87,6 +123,36 @@
     <ClInclude Include="clases\Administracion.h">
       <Filter>Header Files\Clases</Filter>
     </ClInclude>
+    <ClInclude Include="clases\RepositorioCuotas.h">
+      <Filter>Header Files\Clases</Filter>
+    </ClInclude>
+    <ClInclude Include="clases\RepositorioBitacora.h">
+      <Filter>Header Files\Clases</Filter>
+    </ClInclude>
+    <ClInclude Include="clases\CierreDia.h">
+      <Filter>Header Files\Clases</Filter>
+    </ClInclude>
+    <ClInclude Include="clases\FuenteVentasDia.h">
+      <Filter>Header Files\Clases</Filter>
+    </ClInclude>
+    <ClInclude Include="clases\FuenteHistorialVentas.h">
+      <Filter>Header Files\Clases</Filter>
+    </ClInclude>
+    <ClInclude Include="clases\FuenteCuotas.h">
+      <Filter>Header Files\Clases</Filter>
+    </ClInclude>
+    <ClInclude Include="clases\ServicioCierre.h">
+      <Filter>Header Files\Clases</Filter>
+    </ClInclude>
+    <ClInclude Include="clases\FacturaCuota.h">
+      <Filter>Header Files\Clases</Filter>
+    </ClInclude>
+    <ClInclude Include="clases\EnvioAdmin.h">
+      <Filter>Header Files\Clases</Filter>
+    </ClInclude>
+    <ClInclude Include="clases\EnvioAdminLocal.h">
+      <Filter>Header Files\Clases</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <QtMoc Include="clases\Inicio.h">
@@ -105,6 +171,15 @@
       <Filter>Header Files\Paginas</Filter>
     </QtMoc>
     <QtMoc Include="clases\PagoEfectivo.h">
+      <Filter>Header Files\Clases</Filter>
+    </QtMoc>
+    <QtMoc Include="clases\PagoTarjeta.h">
+      <Filter>Header Files\Clases</Filter>
+    </QtMoc>
+    <QtMoc Include="clases\PagoCuotas.h">
+      <Filter>Header Files\Clases</Filter>
+    </QtMoc>
+    <QtMoc Include="clases\CuotaCompletada.h">
       <Filter>Header Files\Clases</Filter>
     </QtMoc>
     <QtMoc Include="clases\Recibo.h">
@@ -127,9 +202,24 @@
     <QtUic Include="MenuPrincipal.ui">
       <Filter>Form Files</Filter>
     </QtUic>
+    <QtUic Include="VentanaCuotas.ui">
+      <Filter>Form Files</Filter>
+    </QtUic>
+    <QtUic Include="VentanaDetalleCuota.ui">
+      <Filter>Form Files</Filter>
+    </QtUic>
+    <QtUic Include="CuotaCompletada.ui">
+      <Filter>Form Files</Filter>
+    </QtUic>
   </ItemGroup>
   <ItemGroup>
     <QtMoc Include="clases\MenuPrincipal.h">
+      <Filter>Header Files\Clases</Filter>
+    </QtMoc>
+    <QtMoc Include="clases\VentanaCuotas.h">
+      <Filter>Header Files\Clases</Filter>
+    </QtMoc>
+    <QtMoc Include="clases\VentanaDetalleCuota.h">
       <Filter>Header Files\Clases</Filter>
     </QtMoc>
     <ClInclude Include="clases\CalculadoraCambio.h">

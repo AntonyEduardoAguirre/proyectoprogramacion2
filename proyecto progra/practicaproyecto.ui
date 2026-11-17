@@ -13,6 +13,95 @@
   <property name="windowTitle">
    <string>practicaproyecto</string>
   </property>
+  <property name="styleSheet">
+   <string notr="true">#inicioClass {
+  background-color: #F5F3EE;
+}
+#centralWidget {
+  background-color: #F5F3EE;
+}
+QFrame#softCard, QFrame#tarjeta {
+  background-color: #FFFFFF;
+  border: 1px solid #EAE8E2;
+  border-radius: 18px;
+}
+QLabel {
+  font-family: &quot;Segoe UI&quot;;
+  font-size: 13px;
+}
+QLabel#tituloPrincipal, QLabel#tituloCobro, QLabel#lblTitulo, QLabel#title {
+  color: #292A28;
+  font-family: Georgia;
+  font-size: 29px;
+  font-weight: 400;
+}
+QLabel#subtitulo, QLabel#etiquetaUsuario, QLabel#lblSubtitulo, QLabel#subtitle, QLabel#copyright {
+  color: #92918B;
+  font-size: 12px;
+}
+QLabel#lblSeccion, QLabel#eyebrow {
+  color: #92918B;
+  font-size: 11px;
+  font-weight: 600;
+}
+QLabel#lblUsuario {
+  color: #292A28;
+  background: #FAFAF8;
+  border: 1px solid #EAE8E2;
+  border-radius: 8px;
+  padding: 14px;
+}
+QLabel#etiquetaFormulario {
+  color: #292A28;
+  font-size: 12px;
+  font-weight: 600;
+}
+QPushButton {
+  min-height: 46px;
+  border-radius: 8px;
+  padding: 0 13px;
+  font-family: &quot;Segoe UI&quot;;
+  font-size: 13px;
+  font-weight: 600;
+}
+QPushButton[rol=&quot;principal&quot;], QPushButton#btnIniciarSesion, QPushButton#btnCatalogo, QPushButton#btnCarrito, QPushButton#btnCobro, QPushButton#btnCuenta, QPushButton#btnAdmin, QPushButton#btnSalir {
+  background-color: #899B83;
+  color: #FFFFFF;
+  border: none;
+}
+QPushButton[rol=&quot;principal&quot;]:hover, QPushButton#btnIniciarSesion:hover, QPushButton#btnCatalogo:hover, QPushButton#btnCarrito:hover, QPushButton#btnCobro:hover, QPushButton#btnCuenta:hover, QPushButton#btnAdmin:hover, QPushButton#btnSalir:hover {
+  background-color: #788B72;
+}
+QPushButton[rol=&quot;principal&quot;]:pressed, QPushButton#btnIniciarSesion:pressed, QPushButton#btnCatalogo:pressed, QPushButton#btnCarrito:pressed, QPushButton#btnCobro:pressed, QPushButton#btnCuenta:pressed, QPushButton#btnAdmin:pressed, QPushButton#btnSalir:pressed {
+  background-color: #6D8067;
+}
+QPushButton[rol=&quot;secundario&quot;], QPushButton#btnRegistrarse {
+  background-color: #FFFFFF;
+  color: #899B83;
+  border: 1px solid #899B83;
+}
+QPushButton[rol=&quot;secundario&quot;]:hover, QPushButton#btnRegistrarse:hover {
+  background-color: #F0F3EE;
+  color: #788B72;
+}
+QPushButton[rol=&quot;secundario&quot;]:pressed, QPushButton#btnRegistrarse:pressed {
+  background-color: #E5EAE2;
+  color: #6D8067;
+}
+QLineEdit, QDoubleSpinBox {
+  background-color: #FAFAF8;
+  color: #292A28;
+  border: 1px solid #E8E7E1;
+  border-radius: 8px;
+  font-family: &quot;Segoe UI&quot;;
+  font-size: 13px;
+  padding: 0 13px;
+  min-height: 46px;
+}
+QLineEdit:focus, QDoubleSpinBox:focus {
+  border: 1px solid #899B83;
+}</string>
+  </property>
   <widget class="QWidget" name="centralWidget">
    <layout class="QVBoxLayout" name="verticalLayout">
     <item>

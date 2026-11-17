@@ -1,11 +1,14 @@
 #include "clases/PagoEfectivo.h"
 
+#include <QDoubleValidator>
 #include <QDoubleSpinBox>
 #include <QFrame>
 #include <QFormLayout>
 #include <QGraphicsDropShadowEffect>
 #include <QHBoxLayout>
 #include <QLabel>
+#include <QLineEdit>
+#include <QLocale>
 #include <QPushButton>
 #include <QScrollArea>
 #include <QStyle>
@@ -13,8 +16,7 @@
 #include <QWidget>
 #include <QtGlobal>
 
-PagoEfectivo::PagoEfectivo(double total, double saldoCuenta,
-                           const QList<ItemCompra>& items, QWidget* parent)
+PagoEfectivo::PagoEfectivo(double total, const QList<ItemCompra>& items, QWidget* parent)
     : QWidget(parent)
 {
     setWindowTitle(QStringLiteral("Cobro en efectivo"));
@@ -67,17 +69,43 @@ QScrollArea {
 	background: transparent;
 	border: none;
 }
-QDoubleSpinBox {
+QScrollArea > QWidget > QWidget {
+	background: transparent;
+}
+QScrollBar:vertical {
+	background: transparent;
+	width: 8px;
+	margin: 0;
+}
+QScrollBar::handle:vertical {
+	background: #D8DED5;
+	border-radius: 4px;
+	min-height: 30px;
+}
+QScrollBar::handle:vertical:hover {
+	background: #B9C2B4;
+}
+QScrollBar::add-line:vertical, QScrollBar::sub-line:vertical {
+	height: 0;
+}
+QScrollBar::add-page:vertical, QScrollBar::sub-page:vertical {
+	background: transparent;
+}
+QScrollBar:horizontal {
+	background: transparent;
+	height: 0;
+}
+QLineEdit {
 	background-color: #FAFAF8;
 	color: #292A28;
 	border: 1px solid #E8E7E1;
 	border-radius: 8px;
 	font-family: "Segoe UI";
-	font-size: 13px;
+	font-size: 15px;
 	padding: 0 13px;
 	min-height: 43px;
 }
-QDoubleSpinBox:focus {
+QLineEdit:focus {
 	border: 1px solid #899B83;
 }
 QPushButton {
@@ -168,17 +196,22 @@ QLabel#resultado {
 
     auto* lblTotal = new QLabel(this);
     lblTotal->setObjectName(QStringLiteral("lblTotal"));
-    lblTotal->setText(QStringLiteral("Total a pagar: $%1   (Saldo de la cuenta: $%2)")
-                          .arg(total, 0, 'f', 2)
-                          .arg(saldoCuenta, 0, 'f', 2));
+    lblTotal->setText(QStringLiteral("Total a pagar: $%1")
+                          .arg(total, 0, 'f', 2));
 
-    auto* efectivo = new QDoubleSpinBox(tarjeta);
-    efectivo->setDecimals(2);
-    efectivo->setMinimum(0.0);
-    efectivo->setMaximum(999999999.99);
-    efectivo->setPrefix(QStringLiteral("$ "));
-    efectivo->setButtonSymbols(QAbstractSpinBox::NoButtons);
+    // campo de texto con validador: se puede escribir directo el monto
+    auto* efectivo = new QLineEdit(tarjeta);
+    efectivo->setPlaceholderText(QStringLiteral("0.00"));
     efectivo->setAlignment(Qt::AlignRight);
+    auto* validadorDinero = new QDoubleValidator(0.0, 999999999.99, 2, efectivo);
+    validadorDinero->setLocale(QLocale::c());
+    validadorDinero->setNotation(QDoubleValidator::StandardNotation);
+    efectivo->setValidator(validadorDinero);
+
+    // lee el monto digitado (vacío o inválido cuenta como 0)
+    auto montoDigitado = [efectivo]() -> double {
+        return QLocale::c().toDouble(efectivo->text());
+    };
 
     auto* resultado = new QLabel(tarjeta);
     resultado->setObjectName(QStringLiteral("resultado"));
@@ -194,27 +227,17 @@ QLabel#resultado {
     btnCancelar->setProperty("rol", "secundario");
 
     // recalcula el vuelto con cada cambio del efectivo recibido
-    auto actualizar = [this, total, saldoCuenta, efectivo, resultado, btnConfirmar]() {
+    auto actualizar = [this, total, montoDigitado, resultado, btnConfirmar]() {
         // se compara en centavos para evitar errores de redondeo
-        const qint64 diferencia = qRound64(efectivo->value() * 100.0)
+        const qint64 diferencia = qRound64(montoDigitado() * 100.0)
                                  - qRound64(total * 100.0);
 
         if (diferencia < 0) {
-            if (qRound64(saldoCuenta * 100.0) >= qRound64(total * 100.0)) {
-                // el efectivo físico no alcanza, pero el saldo de la
-                // cuenta del cliente sí cubre el total: se permite pagar
-                resultado->setProperty("estado", "exito");
-                resultado->setText(
-                    QStringLiteral("El efectivo no alcanza, pero tu saldo de $%1 cubre el pago.")
-                        .arg(saldoCuenta, 0, 'f', 2));
-                btnConfirmar->setEnabled(true);
-            } else {
-                const double faltante = -diferencia / 100.0;
-                resultado->setProperty("estado", "error");
-                resultado->setText(QStringLiteral("Saldo insuficiente. Faltan $%1")
-                                       .arg(faltante, 0, 'f', 2));
-                btnConfirmar->setEnabled(false);
-            }
+            const double faltante = -diferencia / 100.0;
+            resultado->setProperty("estado", "error");
+            resultado->setText(QStringLiteral("Efectivo insuficiente. Faltan $%1")
+                                   .arg(faltante, 0, 'f', 2));
+            btnConfirmar->setEnabled(false);
         } else if (diferencia == 0) {
             resultado->setProperty("estado", "exito");
             resultado->setText(QStringLiteral("Pago completo. Sin vuelto."));
@@ -230,18 +253,15 @@ QLabel#resultado {
         style()->polish(resultado);
     };
 
-    connect(efectivo, &QDoubleSpinBox::valueChanged, this, actualizar);
+    connect(efectivo, &QLineEdit::textChanged, this, actualizar);
     actualizar();   // muestra desde el arranque por qué se puede (o no) confirmar
 
     connect(btnConfirmar, &QPushButton::clicked, this,
-            [this, total, saldoCuenta, efectivo]() {
-        const qint64 diferencia = qRound64(efectivo->value() * 100.0)
+            [this, total, montoDigitado]() {
+        const double recibido = montoDigitado();
+        const qint64 diferencia = qRound64(recibido * 100.0)
                                  - qRound64(total * 100.0);
-        // si el efectivo no alcanza, el pago se hace con el saldo de la cuenta
-        const bool conSaldo = diferencia < 0;
-        emit pagoConfirmado(efectivo->value(),
-                            conSaldo ? 0.0 : diferencia / 100.0,
-                            conSaldo);
+        emit pagoConfirmado(recibido, diferencia / 100.0);
         close();
     });
 
@@ -278,4 +298,7 @@ QLabel#resultado {
     contenidoTarjeta->addSpacing(18);
     contenidoTarjeta->addLayout(botones);
     contenidoTarjeta->addStretch();
+
+    // el campo del dinero queda listo para digitar apenas se abre la caja
+    efectivo->setFocus();
 }

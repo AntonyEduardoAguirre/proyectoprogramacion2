@@ -1,0 +1,437 @@
+[
+    {
+        "caja": "anderson",
+        "cliente": "ivan bolivar",
+        "completada": true,
+        "factura": {
+            "caja": "anderson",
+            "cliente": "ivan bolivar",
+            "enviada_admin": false,
+            "fecha_compra": "16/11/2026 22:19:21",
+            "fecha_envio_admin": "",
+            "fecha_finalizacion": "16/11/2026 22:20:19",
+            "numero_factura": "F-000002",
+            "pagos": [
+                {
+                    "enviado_admin": false,
+                    "fecha": "16/11/2026 22:19:21",
+                    "monto": 91.14699999999999
+                },
+                {
+                    "enviado_admin": false,
+                    "fecha": "16/11/2026 22:19:54",
+                    "monto": 91.14699999999999
+                },
+                {
+                    "enviado_admin": false,
+                    "fecha": "16/11/2026 22:19:59",
+                    "monto": 91.14699999999999
+                },
+                {
+                    "enviado_admin": false,
+                    "fecha": "16/11/2026 22:20:02",
+                    "monto": 91.14699999999999
+                },
+                {
+                    "enviado_admin": false,
+                    "fecha": "16/11/2026 22:20:06",
+                    "monto": 91.14699999999999
+                },
+                {
+                    "enviado_admin": false,
+                    "fecha": "16/11/2026 22:20:09",
+                    "monto": 91.14699999999999
+                },
+                {
+                    "enviado_admin": false,
+                    "fecha": "16/11/2026 22:20:11",
+                    "monto": 91.14699999999999
+                },
+                {
+                    "enviado_admin": false,
+                    "fecha": "16/11/2026 22:20:14",
+                    "monto": 91.14699999999999
+                },
+                {
+                    "enviado_admin": false,
+                    "fecha": "16/11/2026 22:20:17",
+                    "monto": 91.14699999999999
+                },
+                {
+                    "enviado_admin": false,
+                    "fecha": "16/11/2026 22:20:19",
+                    "monto": 91.14699999999999
+                }
+            ],
+            "producto": [
+                {
+                    "cantidad": 1,
+                    "idProducto": 8,
+                    "nombre": "Webcam Full HD",
+                    "precio": 549
+                },
+                {
+                    "cantidad": 1,
+                    "idProducto": 5,
+                    "nombre": "Mouse inalámbrico Logitech",
+                    "precio": 349
+                }
+            ],
+            "total_con_aumento": 911.4699999999999,
+            "total_pagado": 911.4699999999999
+        },
+        "fecha": "16/11/2026 22:19:21",
+        "meses": 3,
+        "meses_restantes": 0,
+        "pago_mensual": 91.14699999999999,
+        "pagos": [
+            {
+                "enviado_admin": false,
+                "fecha": "16/11/2026 22:19:21",
+                "monto": 91.14699999999999
+            },
+            {
+                "enviado_admin": false,
+                "fecha": "16/11/2026 22:19:54",
+                "monto": 91.14699999999999
+            },
+            {
+                "enviado_admin": false,
+                "fecha": "16/11/2026 22:19:59",
+                "monto": 91.14699999999999
+            },
+            {
+                "enviado_admin": false,
+                "fecha": "16/11/2026 22:20:02",
+                "monto": 91.14699999999999
+            },
+            {
+                "enviado_admin": false,
+                "fecha": "16/11/2026 22:20:06",
+                "monto": 91.14699999999999
+            },
+            {
+                "enviado_admin": false,
+                "fecha": "16/11/2026 22:20:09",
+                "monto": 91.14699999999999
+            },
+            {
+                "enviado_admin": false,
+                "fecha": "16/11/2026 22:20:11",
+                "monto": 91.14699999999999
+            },
+            {
+                "enviado_admin": false,
+                "fecha": "16/11/2026 22:20:14",
+                "monto": 91.14699999999999
+            },
+            {
+                "enviado_admin": false,
+                "fecha": "16/11/2026 22:20:17",
+                "monto": 91.14699999999999
+            },
+            {
+                "enviado_admin": false,
+                "fecha": "16/11/2026 22:20:19",
+                "monto": 91.14699999999999
+            }
+        ],
+        "porcentaje_aumento": 1.5,
+        "total_con_aumento": 911.4699999999999,
+        "total_sin_aumento": 898
+    },
+    {
+        "caja": "anderson",
+        "cliente": "josue",
+        "completada": true,
+        "factura": {
+            "caja": "anderson",
+            "cliente": "josue",
+            "enviada_admin": false,
+            "fecha_compra": "16/11/2026 22:23:33",
+            "fecha_envio_admin": "",
+            "fecha_finalizacion": "16/11/2026 23:06:54",
+            "numero_factura": "F-000001",
+            "pagos": [
+                {
+                    "enviado_admin": false,
+                    "fecha": "16/11/2026 22:23:33",
+                    "monto": 436.0160000000001
+                },
+                {
+                    "enviado_admin": false,
+                    "fecha": "16/11/2026 22:43:31",
+                    "monto": 436.0160000000001
+                },
+                {
+                    "enviado_admin": false,
+                    "fecha": "16/11/2026 22:51:18",
+                    "monto": 436.0160000000001
+                },
+                {
+                    "enviado_admin": false,
+                    "fecha": "16/11/2026 23:06:37",
+                    "monto": 436.0160000000001
+                },
+                {
+                    "enviado_admin": false,
+                    "fecha": "16/11/2026 23:06:40",
+                    "monto": 436.0160000000001
+                },
+                {
+                    "enviado_admin": false,
+                    "fecha": "16/11/2026 23:06:43",
+                    "monto": 436.0160000000001
+                },
+                {
+                    "enviado_admin": false,
+                    "fecha": "16/11/2026 23:06:45",
+                    "monto": 436.0160000000001
+                },
+                {
+                    "enviado_admin": false,
+                    "fecha": "16/11/2026 23:06:48",
+                    "monto": 436.0160000000001
+                },
+                {
+                    "enviado_admin": false,
+                    "fecha": "16/11/2026 23:06:50",
+                    "monto": 436.0160000000001
+                },
+                {
+                    "enviado_admin": false,
+                    "fecha": "16/11/2026 23:06:54",
+                    "monto": 436.0160000000001
+                }
+            ],
+            "producto": [
+                {
+                    "cantidad": 2,
+                    "idProducto": 8,
+                    "nombre": "Webcam Full HD",
+                    "precio": 549
+                },
+                {
+                    "cantidad": 2,
+                    "idProducto": 5,
+                    "nombre": "Mouse inalámbrico Logitech",
+                    "precio": 349
+                },
+                {
+                    "cantidad": 3,
+                    "idProducto": 4,
+                    "nombre": "Teclado mecánico Redragon",
+                    "precio": 699
+                }
+            ],
+            "total_con_aumento": 4360.160000000001,
+            "total_pagado": 4360.160000000001
+        },
+        "fecha": "16/11/2026 22:23:33",
+        "meses": 24,
+        "meses_restantes": 0,
+        "pago_mensual": 436.0160000000001,
+        "pagos": [
+            {
+                "enviado_admin": false,
+                "fecha": "16/11/2026 22:23:33",
+                "monto": 436.0160000000001
+            },
+            {
+                "enviado_admin": false,
+                "fecha": "16/11/2026 22:43:31",
+                "monto": 436.0160000000001
+            },
+            {
+                "enviado_admin": false,
+                "fecha": "16/11/2026 22:51:18",
+                "monto": 436.0160000000001
+            },
+            {
+                "enviado_admin": false,
+                "fecha": "16/11/2026 23:06:37",
+                "monto": 436.0160000000001
+            },
+            {
+                "enviado_admin": false,
+                "fecha": "16/11/2026 23:06:40",
+                "monto": 436.0160000000001
+            },
+            {
+                "enviado_admin": false,
+                "fecha": "16/11/2026 23:06:43",
+                "monto": 436.0160000000001
+            },
+            {
+                "enviado_admin": false,
+                "fecha": "16/11/2026 23:06:45",
+                "monto": 436.0160000000001
+            },
+            {
+                "enviado_admin": false,
+                "fecha": "16/11/2026 23:06:48",
+                "monto": 436.0160000000001
+            },
+            {
+                "enviado_admin": false,
+                "fecha": "16/11/2026 23:06:50",
+                "monto": 436.0160000000001
+            },
+            {
+                "enviado_admin": false,
+                "fecha": "16/11/2026 23:06:54",
+                "monto": 436.0160000000001
+            }
+        ],
+        "porcentaje_aumento": 12,
+        "total_con_aumento": 4360.160000000001,
+        "total_sin_aumento": 3893
+    },
+    {
+        "caja": "anderson",
+        "cliente": "sebas",
+        "completada": true,
+        "factura": {
+            "caja": "anderson",
+            "cliente": "sebas",
+            "enviada_admin": false,
+            "fecha_compra": "16/11/2026 22:23:50",
+            "fecha_envio_admin": "",
+            "fecha_finalizacion": "16/11/2026 23:23:16",
+            "numero_factura": "F-000003",
+            "pagos": [
+                {
+                    "enviado_admin": false,
+                    "fecha": "16/11/2026 22:23:50",
+                    "monto": 2079.982
+                },
+                {
+                    "enviado_admin": false,
+                    "fecha": "16/11/2026 23:17:35",
+                    "monto": 2079.982
+                },
+                {
+                    "enviado_admin": false,
+                    "fecha": "16/11/2026 23:19:30",
+                    "monto": 2079.982
+                },
+                {
+                    "enviado_admin": false,
+                    "fecha": "16/11/2026 23:19:34",
+                    "monto": 2079.982
+                },
+                {
+                    "enviado_admin": false,
+                    "fecha": "16/11/2026 23:23:02",
+                    "monto": 2079.982
+                },
+                {
+                    "enviado_admin": false,
+                    "fecha": "16/11/2026 23:23:05",
+                    "monto": 2079.982
+                },
+                {
+                    "enviado_admin": false,
+                    "fecha": "16/11/2026 23:23:08",
+                    "monto": 2079.982
+                },
+                {
+                    "enviado_admin": false,
+                    "fecha": "16/11/2026 23:23:10",
+                    "monto": 2079.982
+                },
+                {
+                    "enviado_admin": false,
+                    "fecha": "16/11/2026 23:23:13",
+                    "monto": 2079.982
+                },
+                {
+                    "enviado_admin": false,
+                    "fecha": "16/11/2026 23:23:16",
+                    "monto": 2079.982
+                }
+            ],
+            "producto": [
+                {
+                    "cantidad": 2,
+                    "idProducto": 7,
+                    "nombre": "Memoria RAM 16GB DDR4",
+                    "precio": 899
+                },
+                {
+                    "cantidad": 2,
+                    "idProducto": 4,
+                    "nombre": "Teclado mecánico Redragon",
+                    "precio": 699
+                },
+                {
+                    "cantidad": 2,
+                    "idProducto": 1,
+                    "nombre": "Laptop Lenovo IdeaPad 15",
+                    "precio": 8499
+                }
+            ],
+            "total_con_aumento": 20799.82,
+            "total_pagado": 20799.82
+        },
+        "fecha": "16/11/2026 22:23:50",
+        "meses": 6,
+        "meses_restantes": 0,
+        "pago_mensual": 2079.982,
+        "pagos": [
+            {
+                "enviado_admin": false,
+                "fecha": "16/11/2026 22:23:50",
+                "monto": 2079.982
+            },
+            {
+                "enviado_admin": false,
+                "fecha": "16/11/2026 23:17:35",
+                "monto": 2079.982
+            },
+            {
+                "enviado_admin": false,
+                "fecha": "16/11/2026 23:19:30",
+                "monto": 2079.982
+            },
+            {
+                "enviado_admin": false,
+                "fecha": "16/11/2026 23:19:34",
+                "monto": 2079.982
+            },
+            {
+                "enviado_admin": false,
+                "fecha": "16/11/2026 23:23:02",
+                "monto": 2079.982
+            },
+            {
+                "enviado_admin": false,
+                "fecha": "16/11/2026 23:23:05",
+                "monto": 2079.982
+            },
+            {
+                "enviado_admin": false,
+                "fecha": "16/11/2026 23:23:08",
+                "monto": 2079.982
+            },
+            {
+                "enviado_admin": false,
+                "fecha": "16/11/2026 23:23:10",
+                "monto": 2079.982
+            },
+            {
+                "enviado_admin": false,
+                "fecha": "16/11/2026 23:23:13",
+                "monto": 2079.982
+            },
+            {
+                "enviado_admin": false,
+                "fecha": "16/11/2026 23:23:16",
+                "monto": 2079.982
+            }
+        ],
+        "porcentaje_aumento": 3,
+        "total_con_aumento": 20799.82,
+        "total_sin_aumento": 20194
+    }
+]

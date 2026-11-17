@@ -301,7 +301,7 @@
         "id": 38,
         "nombre": "Mousepad XL RGB",
         "precio": 399,
-        "stock": 38
+        "stock": 37
     },
     {
         "categoria": "Gaming",
@@ -317,7 +317,7 @@
         "id": 40,
         "nombre": "Volante Logitech G29",
         "precio": 5999,
-        "stock": 3
+        "stock": 2
     },
     {
         "categoria": "Gaming",

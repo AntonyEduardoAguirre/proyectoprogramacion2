@@ -18,6 +18,8 @@ int main(int argc, char* argv[])
 
     cargarClientes();
     cargarProductos();
+    cargarHistorial();
+    asegurarCodigos();
 
     inicio w;
     w.show();

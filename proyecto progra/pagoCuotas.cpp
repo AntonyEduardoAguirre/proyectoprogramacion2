@@ -1,19 +1,30 @@
-﻿#include "clases/PagoCuotas.h"
-
-#include "clases/RepositorioCuotas.h"
+#include "clases/PagoCuotas.h"
 #include "clases/datos.h"
 
 #include <QComboBox>
 #include <QDateTime>
+#include <QFile>
 #include <QFrame>
 #include <QGraphicsDropShadowEffect>
 #include <QHBoxLayout>
+#include <QJsonArray>
+#include <QJsonDocument>
+#include <QJsonObject>
 #include <QLabel>
 #include <QLineEdit>
 #include <QMessageBox>
 #include <QPushButton>
 #include <QVBoxLayout>
 #include <QWidget>
+
+namespace {
+
+bool guardarRegistroCuotas(const QJsonObject& registro, QString* error)
+{
+    return agregarRegistroCuotas(registro, error);
+}
+
+} // namespace
 
 PagoCuotas::PagoCuotas(double totalSinAumento, int mesesIniciales, QWidget* parent)
     : QWidget(parent)
@@ -229,20 +240,18 @@ QPushButton[rol="secundario"]:hover {
         const QString fecha = QDateTime::currentDateTime().toString(
             QStringLiteral("dd/MM/yyyy hh:mm:ss"));
 
-        Cuota cuota;
-        cuota.cliente = cliente;
-        cuota.caja = usuarioActual.nombre;   // caja con la sesión iniciada
-        cuota.meses = meses;
-        cuota.totalSinAumento = totalSinAumento;
-        cuota.porcentajeAumento = porcentajeAumento;
-        cuota.totalConAumento = totalConAumento;
-        cuota.pagoMensual = pagoMensual;
-        cuota.mesesRestantes = mesesRestantes;
-        cuota.fecha = fecha;
+        QJsonObject registro;
+        registro["cliente"] = cliente;
+        registro["meses"] = meses;
+        registro["total_sin_aumento"] = totalSinAumento;
+        registro["porcentaje_aumento"] = porcentajeAumento;
+        registro["total_con_aumento"] = totalConAumento;
+        registro["pago_mensual"] = pagoMensual;
+        registro["meses_restantes"] = mesesRestantes;
+        registro["fecha"] = fecha;
 
         QString error;
-        RepositorioCuotas repositorio;
-        if (!repositorio.agregar(cuota, &error)) {
+        if (!guardarRegistroCuotas(registro, &error)) {
             QMessageBox::warning(this, QStringLiteral("Pago a cuotas"),
                                  QStringLiteral("No se pudo guardar el registro en cuotas.json:\n%1")
                                      .arg(error));

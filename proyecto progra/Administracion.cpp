@@ -415,7 +415,6 @@ void Administracion::actualizarCuotas()
     for (int i = 0; i < registros.size(); ++i) {
         const QJsonObject registro = registros.at(i).toObject(); const int meses = registro.value(QStringLiteral("meses")).toInt();
         if (meses != 3 && meses != 6 && meses != 12 && meses != 24) continue;
-
         ++cantidad; const QString cliente = registro.value(QStringLiteral("cliente")).toString();
         const double total = registro.value(QStringLiteral("total_con_aumento")).toDouble(); const double pagoMensual = registro.value(QStringLiteral("pago_mensual")).toDouble();
         const QSet<int> pagadas = cuotasPagadas(registro);

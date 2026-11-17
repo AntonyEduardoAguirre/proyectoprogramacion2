@@ -7,6 +7,7 @@
 #include "clases/ServicioCierre.h"
 #include "clases/VentanaCuotas.h"
 #include "clases/datos.h"
+#include "clases/Inicio.h"
 #include "clases/menuPaginacion.h"
 
 #include <QDate>
@@ -211,6 +212,15 @@ MenuPrincipal::MenuPrincipal(const QString& usuario, bool esAdmin, QWidget* pare
 
 	ui->lblUsuario->setText(QStringLiteral("Usuario: %1").arg(usuario_));
 	conectarSenales();
+
+	// "Salir" no cierra la aplicación: limpia la sesión y vuelve al inicio de sesión.
+	// Se conecta aquí para que inicio.cpp siga siendo idéntico al de main.
+	connect(this, &MenuPrincipal::sesionCerrada, this, []() {
+		usuarioActual = Cliente();          // sesión limpia
+		auto* nuevoInicio = new inicio();   // login con los campos vacíos
+		nuevoInicio->setAttribute(Qt::WA_DeleteOnClose);
+		nuevoInicio->show();                // se muestra antes de cerrar el menú
+	});
 }
 
 void MenuPrincipal::conectarSenales()

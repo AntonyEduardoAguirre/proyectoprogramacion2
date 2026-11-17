@@ -1,22 +1,2 @@
-﻿<?xml version="1.0" encoding="UTF-8"?>
-<ui version="4.0">
- <class>AdminCuentas</class>
- <widget class="QWidget" name="AdminCuentas">
-  <layout class="QVBoxLayout" name="contenidoCuentas">
-   <item><widget class="QPushButton" name="crearUsuario"><property name="text"><string>Crear usuario</string></property></widget></item>
-   <item><widget class="QLabel" name="etiquetaCuentas"><property name="text"><string>Usuarios registrados</string></property></widget></item>
-   <item>
-	<widget class="QScrollArea" name="scrollCuentas">
-	 <property name="widgetResizable"><bool>true</bool></property>
-	 <widget class="QWidget" name="contenidoListaCuentas">
-	  <layout class="QVBoxLayout" name="listaCuentasLayout">
-	   <property name="alignment"><set>Qt::AlignmentFlag::AlignTop</set></property>
-	  </layout>
-	 </widget>
-	</widget>
-   </item>
-  </layout>
- </widget>
- <resources/>
- <connections/>
-</ui>
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0"><class>AdminCuentas</class><widget class="QWidget" name="AdminCuentas"><layout class="QVBoxLayout" name="layoutCuentas"><item><layout class="QHBoxLayout" name="barraCuentas"><item><widget class="QLabel" name="tituloCuentas"><property name="text"><string>Usuarios registrados</string></property></widget></item><item><spacer name="espaciador"><property name="orientation"><enum>Qt::Orientation::Horizontal</enum></property><property name="sizeHint"><size><width>40</width><height>20</height></size></property></spacer></item><item><widget class="QPushButton" name="crearUsuario"><property name="text"><string>Crear usuario</string></property></widget></item></layout></item><item><widget class="QScrollArea" name="scrollCuentas"><property name="widgetResizable"><bool>true</bool></property><widget class="QWidget" name="contenidoListaCuentas"><layout class="QVBoxLayout" name="listaCuentasLayout"/></widget></widget></item><item><widget class="QLabel" name="errorCuentas"><property name="text"><string/></property></widget></item></layout></widget><resources/><connections/></ui>

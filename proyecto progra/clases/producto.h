@@ -9,20 +9,14 @@ class Producto
 public:
     QString categoria;
     int id;
-<<<<<<< Updated upstream
-=======
     QString codigo;      // código numérico de al menos 3 dígitos, único por producto
->>>>>>> Stashed changes
     QString nombre;
     double precio;
     int stock;
 
-<<<<<<< Updated upstream
-    Producto() : precio(0.0), stock(0), id(0) {}
-=======
     Producto() : id(0), precio(0.0), stock(0) {}
 
-    // Un código válido contiene al menos 3 dígitos y puede comenzar en 0.
+    // Un código válido contiene al menos 3 dígitos y puede comenzar con cero.
     static bool codigoValido(const QString& c)
     {
         if (c.size() < 3)
@@ -32,17 +26,17 @@ public:
                 return false;
         return true;
     }
->>>>>>> Stashed changes
 
     QJsonObject toJson() const
     {
         QJsonObject json;
         json["categoria"] = categoria;
         json["id"] = id;
+        json["codigo"] = codigo;
         json["nombre"] = nombre;
         json["precio"] = precio;
-		json["stock"] = stock;
-		
+        json["stock"] = stock;
+
         return json;
     }
 
@@ -50,10 +44,10 @@ public:
     {
         categoria = json["categoria"].toString();
         id = json["id"].toInt();
+        codigo = json["codigo"].toString();   // vacío si el JSON es anterior al código
         nombre = json["nombre"].toString();
         precio = json["precio"].toDouble();
-		stock = json["stock"].toInt();
-		
+        stock = json["stock"].toInt();
     }
 };
 

@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
+﻿<?xml version="1.0" encoding="UTF-8"?>
 <ui version="4.0">
  <class>inicioClass</class>
  <widget class="QMainWindow" name="inicioClass">
@@ -350,7 +350,6 @@ QLabel#lblError { color: #92918B; font-size: 11px; margin-top: 8px; }
            </property>
           </widget>
          </item>
-<<<<<<< Updated upstream
          <item>
           <spacer name="spacerBoton">
            <property name="orientation">
@@ -367,30 +366,7 @@ QLabel#lblError { color: #92918B; font-size: 11px; margin-top: 8px; }
            </property>
           </spacer>
          </item>
-         <item>
-          <widget class="QPushButton" name="btnRegistrarse">
-           <property name="text">
-            <string>¿No tienes cuenta? Crea una aquí</string>
-           </property>
-           <property name="flat">
-            <bool>true</bool>
-           </property>
-          </widget>
-         </item>
-         <item>
-          <widget class="QPushButton" name="btnCuentaAdmin">
-           <property name="text">
-            <string>Cuenta admin</string>
-           </property>
-           <property name="flat">
-            <bool>true</bool>
-           </property>
-          </widget>
-         </item>
-         <item>
-=======
-                   <item>
->>>>>>> Stashed changes
+<item>
           <widget class="QLabel" name="lblError">
            <property name="text">
             <string/>

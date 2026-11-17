@@ -1,17 +1,2 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<ui version="4.0">
- <class>DialogoCuenta</class>
- <widget class="QDialog" name="DialogoCuenta">
-  <property name="windowTitle"><string>Editar cuenta</string></property>
-  <layout class="QFormLayout" name="formularioCuenta">
-   <item row="0" column="0"><widget class="QLabel" name="etiquetaNombre"><property name="text"><string>Nombre de usuario</string></property></widget></item>
-   <item row="0" column="1"><widget class="QLineEdit" name="nombreUsuario"/></item>
-   <item row="1" column="0"><widget class="QLabel" name="etiquetaContrasenna"><property name="text"><string>Contraseña</string></property></widget></item>
-   <item row="1" column="1"><widget class="QLineEdit" name="contrasennaUsuario"><property name="echoMode"><enum>QLineEdit::EchoMode::Password</enum></property></widget></item>
-   <item row="2" column="0" colspan="2"><widget class="QLabel" name="error"><property name="text"><string/></property></widget></item>
-   <item row="3" column="0" colspan="2"><widget class="QDialogButtonBox" name="botones"><property name="standardButtons"><set>QDialogButtonBox::StandardButton::Cancel|QDialogButtonBox::StandardButton::Save</set></property></widget></item>
-  </layout>
- </widget>
- <resources/>
- <connections/>
-</ui>
+<ui version="4.0"><class>DialogoCuenta</class><widget class="QDialog" name="DialogoCuenta"><property name="windowTitle"><string>Cuenta</string></property><layout class="QFormLayout" name="formulario"><item row="0" column="0"><widget class="QLabel" name="etiquetaNombre"><property name="text"><string>Usuario</string></property></widget></item><item row="0" column="1"><widget class="QLineEdit" name="nombreUsuario"/></item><item row="1" column="0"><widget class="QLabel" name="etiquetaContrasenna"><property name="text"><string>Contraseña</string></property></widget></item><item row="1" column="1"><widget class="QLineEdit" name="contrasennaUsuario"><property name="echoMode"><enum>QLineEdit::Password</enum></property></widget></item><item row="2" column="0" colspan="2"><widget class="QLabel" name="error"><property name="text"><string/></property></widget></item><item row="3" column="0" colspan="2"><widget class="QDialogButtonBox" name="botones"><property name="standardButtons"><set>QDialogButtonBox::Cancel|QDialogButtonBox::Save</set></property></widget></item></layout></widget><resources/><connections/></ui>

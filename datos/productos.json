@@ -1,487 +1,346 @@
 [
     {
-        "categoria": "Computación",
-<<<<<<< Updated upstream
-        "id": 1,
-        "nombre": "Laptop Lenovo IdeaPad 15",
-        "precio": 8499,
-        "stock": 12
+        "categoria":  "ComputaciÃ³n",
+        "codigo":  "001",
+        "id":  1,
+        "nombre":  "Laptop Lenovo IdeaPad 15",
+        "precio":  8499,
+        "stock":  5
     },
     {
-        "categoria": "Computación",
-=======
-        "codigo": "001",
-        "id": 1,
-        "nombre": "Laptop Lenovo IdeaPad 15",
-        "precio": 8499,
-        "stock": 0
+        "categoria":  "ComputaciÃ³n",
+        "codigo":  "002",
+        "id":  2,
+        "nombre":  "Laptop HP Pavilion 14",
+        "precio":  10999,
+        "stock":  4
     },
     {
-        "categoria": "Computación",
-        "codigo": "002",
->>>>>>> Stashed changes
-        "id": 2,
-        "nombre": "Laptop HP Pavilion 14",
-        "precio": 10999,
-        "stock": 7
+        "categoria":  "ComputaciÃ³n",
+        "codigo":  "003",
+        "id":  3,
+        "nombre":  "Monitor Samsung 24 pulgadas",
+        "precio":  2899,
+        "stock":  18
     },
     {
-        "categoria": "Computación",
-<<<<<<< Updated upstream
-=======
-        "codigo": "003",
->>>>>>> Stashed changes
-        "id": 3,
-        "nombre": "Monitor Samsung 24 pulgadas",
-        "precio": 2899,
-        "stock": 20
+        "categoria":  "ComputaciÃ³n",
+        "codigo":  "004",
+        "id":  4,
+        "nombre":  "Teclado mecÃ¡nico Redragon",
+        "precio":  699,
+        "stock":  31
     },
     {
-        "categoria": "Computación",
-<<<<<<< Updated upstream
-        "id": 4,
-        "nombre": "Teclado mecánico Redragon",
-        "precio": 699,
-        "stock": 35
+        "categoria":  "ComputaciÃ³n",
+        "codigo":  "005",
+        "id":  5,
+        "nombre":  "Mouse inalÃ¡mbrico Logitech",
+        "precio":  349,
+        "stock":  44
     },
     {
-        "categoria": "Computación",
-=======
-        "codigo": "004",
-        "id": 4,
-        "nombre": "Teclado mecánico Redragon",
-        "precio": 699,
-        "stock": 30
+        "categoria":  "ComputaciÃ³n",
+        "codigo":  "006",
+        "id":  6,
+        "nombre":  "Disco SSD 1TB Kingston",
+        "precio":  1399,
+        "stock":  19
     },
     {
-        "categoria": "Computación",
-        "codigo": "005",
->>>>>>> Stashed changes
-        "id": 5,
-        "nombre": "Mouse inalámbrico Logitech",
-        "precio": 349,
-        "stock": 50
+        "categoria":  "ComputaciÃ³n",
+        "codigo":  "007",
+        "id":  7,
+        "nombre":  "Memoria RAM 16GB DDR4",
+        "precio":  899,
+        "stock":  29
     },
     {
-        "categoria": "Computación",
-<<<<<<< Updated upstream
-=======
-        "codigo": "006",
->>>>>>> Stashed changes
-        "id": 6,
-        "nombre": "Disco SSD 1TB Kingston",
-        "precio": 1399,
-        "stock": 25
+        "categoria":  "ComputaciÃ³n",
+        "codigo":  "008",
+        "id":  8,
+        "nombre":  "Webcam Full HD",
+        "precio":  549,
+        "stock":  17
     },
     {
-        "categoria": "Computación",
-<<<<<<< Updated upstream
-=======
-        "codigo": "007",
->>>>>>> Stashed changes
-        "id": 7,
-        "nombre": "Memoria RAM 16GB DDR4",
-        "precio": 899,
-        "stock": 30
+        "categoria":  "Celulares",
+        "codigo":  "009",
+        "id":  9,
+        "nombre":  "Samsung Galaxy A54",
+        "precio":  6499,
+        "stock":  15
     },
     {
-        "categoria": "Computación",
-<<<<<<< Updated upstream
-        "id": 8,
-        "nombre": "Webcam Full HD",
-        "precio": 549,
-        "stock": 18
+        "categoria":  "Celulares",
+        "codigo":  "010",
+        "id":  10,
+        "nombre":  "iPhone 13 128GB",
+        "precio":  12999,
+        "stock":  9
     },
     {
-        "categoria": "Celulares",
-=======
-        "codigo": "008",
-        "id": 8,
-        "nombre": "Webcam Full HD",
-        "precio": 549,
-        "stock": 16
+        "categoria":  "Celulares",
+        "codigo":  "011",
+        "id":  11,
+        "nombre":  "Xiaomi Redmi Note 12",
+        "precio":  4299,
+        "stock":  22
     },
     {
-        "categoria": "Celulares",
-        "codigo": "009",
->>>>>>> Stashed changes
-        "id": 9,
-        "nombre": "Samsung Galaxy A54",
-        "precio": 6499,
-        "stock": 15
+        "categoria":  "Celulares",
+        "codigo":  "012",
+        "id":  12,
+        "nombre":  "Motorola Moto G73",
+        "precio":  3799,
+        "stock":  17
     },
     {
-        "categoria": "Celulares",
-<<<<<<< Updated upstream
-=======
-        "codigo": "010",
->>>>>>> Stashed changes
-        "id": 10,
-        "nombre": "iPhone 13 128GB",
-        "precio": 12999,
-        "stock": 9
+        "categoria":  "Celulares",
+        "codigo":  "013",
+        "id":  13,
+        "nombre":  "Cargador rÃ¡pido 33W",
+        "precio":  249,
+        "stock":  60
     },
     {
-        "categoria": "Celulares",
-<<<<<<< Updated upstream
-=======
-        "codigo": "011",
->>>>>>> Stashed changes
-        "id": 11,
-        "nombre": "Xiaomi Redmi Note 12",
-        "precio": 4299,
-        "stock": 22
+        "categoria":  "Celulares",
+        "codigo":  "014",
+        "id":  14,
+        "nombre":  "Funda protectora universal",
+        "precio":  129,
+        "stock":  80
     },
     {
-        "categoria": "Celulares",
-<<<<<<< Updated upstream
-=======
-        "codigo": "012",
->>>>>>> Stashed changes
-        "id": 12,
-        "nombre": "Motorola Moto G73",
-        "precio": 3799,
-        "stock": 17
+        "categoria":  "Celulares",
+        "codigo":  "015",
+        "id":  15,
+        "nombre":  "Protector de pantalla vidrio",
+        "precio":  99,
+        "stock":  100
     },
     {
-        "categoria": "Celulares",
-<<<<<<< Updated upstream
-=======
-        "codigo": "013",
->>>>>>> Stashed changes
-        "id": 13,
-        "nombre": "Cargador rápido 33W",
-        "precio": 249,
-        "stock": 60
+        "categoria":  "Celulares",
+        "codigo":  "016",
+        "id":  16,
+        "nombre":  "Power bank 20000mAh",
+        "precio":  499,
+        "stock":  40
     },
     {
-        "categoria": "Celulares",
-<<<<<<< Updated upstream
-=======
-        "codigo": "014",
->>>>>>> Stashed changes
-        "id": 14,
-        "nombre": "Funda protectora universal",
-        "precio": 129,
-        "stock": 80
+        "categoria":  "Audio",
+        "codigo":  "017",
+        "id":  17,
+        "nombre":  "AudÃ­fonos Sony WH-1000XM4",
+        "precio":  5499,
+        "stock":  8
     },
     {
-        "categoria": "Celulares",
-<<<<<<< Updated upstream
-=======
-        "codigo": "015",
->>>>>>> Stashed changes
-        "id": 15,
-        "nombre": "Protector de pantalla vidrio",
-        "precio": 99,
-        "stock": 100
+        "categoria":  "Audio",
+        "codigo":  "018",
+        "id":  18,
+        "nombre":  "AudÃ­fonos JBL Tune 510BT",
+        "precio":  899,
+        "stock":  28
     },
     {
-        "categoria": "Celulares",
-<<<<<<< Updated upstream
-=======
-        "codigo": "016",
->>>>>>> Stashed changes
-        "id": 16,
-        "nombre": "Power bank 20000mAh",
-        "precio": 499,
-        "stock": 40
+        "categoria":  "Audio",
+        "codigo":  "019",
+        "id":  19,
+        "nombre":  "Bocina Bluetooth JBL Flip 6",
+        "precio":  2499,
+        "stock":  14
     },
     {
-        "categoria": "Audio",
-<<<<<<< Updated upstream
-=======
-        "codigo": "017",
->>>>>>> Stashed changes
-        "id": 17,
-        "nombre": "Audífonos Sony WH-1000XM4",
-        "precio": 5499,
-        "stock": 8
+        "categoria":  "Audio",
+        "codigo":  "020",
+        "id":  20,
+        "nombre":  "Barra de sonido Samsung",
+        "precio":  3999,
+        "stock":  6
     },
     {
-        "categoria": "Audio",
-<<<<<<< Updated upstream
-=======
-        "codigo": "018",
->>>>>>> Stashed changes
-        "id": 18,
-        "nombre": "Audífonos JBL Tune 510BT",
-        "precio": 899,
-        "stock": 28
+        "categoria":  "Audio",
+        "codigo":  "021",
+        "id":  21,
+        "nombre":  "MicrÃ³fono USB Blue Yeti",
+        "precio":  2299,
+        "stock":  10
     },
     {
-        "categoria": "Audio",
-<<<<<<< Updated upstream
-=======
-        "codigo": "019",
->>>>>>> Stashed changes
-        "id": 19,
-        "nombre": "Bocina Bluetooth JBL Flip 6",
-        "precio": 2499,
-        "stock": 14
+        "categoria":  "Audio",
+        "codigo":  "022",
+        "id":  22,
+        "nombre":  "AudÃ­fonos in-ear Xiaomi",
+        "precio":  299,
+        "stock":  45
     },
     {
-        "categoria": "Audio",
-<<<<<<< Updated upstream
-=======
-        "codigo": "020",
->>>>>>> Stashed changes
-        "id": 20,
-        "nombre": "Barra de sonido Samsung",
-        "precio": 3999,
-        "stock": 6
+        "categoria":  "Audio",
+        "codigo":  "023",
+        "id":  23,
+        "nombre":  "Bocina Amazon Echo Dot",
+        "precio":  1199,
+        "stock":  19
     },
     {
-        "categoria": "Audio",
-<<<<<<< Updated upstream
-=======
-        "codigo": "021",
->>>>>>> Stashed changes
-        "id": 21,
-        "nombre": "Micrófono USB Blue Yeti",
-        "precio": 2299,
-        "stock": 10
+        "categoria":  "Audio",
+        "codigo":  "024",
+        "id":  24,
+        "nombre":  "AudÃ­fonos gamer HyperX",
+        "precio":  1499,
+        "stock":  16
     },
     {
-        "categoria": "Audio",
-<<<<<<< Updated upstream
-=======
-        "codigo": "022",
->>>>>>> Stashed changes
-        "id": 22,
-        "nombre": "Audífonos in-ear Xiaomi",
-        "precio": 299,
-        "stock": 45
+        "categoria":  "Hogar",
+        "codigo":  "025",
+        "id":  25,
+        "nombre":  "Licuadora Oster 600W",
+        "precio":  999,
+        "stock":  21
     },
     {
-        "categoria": "Audio",
-<<<<<<< Updated upstream
-=======
-        "codigo": "023",
->>>>>>> Stashed changes
-        "id": 23,
-        "nombre": "Bocina Amazon Echo Dot",
-        "precio": 1199,
-        "stock": 19
+        "categoria":  "Hogar",
+        "codigo":  "026",
+        "id":  26,
+        "nombre":  "Cafetera Oster 12 tazas",
+        "precio":  799,
+        "stock":  13
     },
     {
-        "categoria": "Audio",
-<<<<<<< Updated upstream
-=======
-        "codigo": "024",
->>>>>>> Stashed changes
-        "id": 24,
-        "nombre": "Audífonos gamer HyperX",
-        "precio": 1499,
-        "stock": 16
+        "categoria":  "Hogar",
+        "codigo":  "027",
+        "id":  27,
+        "nombre":  "Aspiradora Xiaomi robot",
+        "precio":  4999,
+        "stock":  5
     },
     {
-        "categoria": "Hogar",
-<<<<<<< Updated upstream
-=======
-        "codigo": "025",
->>>>>>> Stashed changes
-        "id": 25,
-        "nombre": "Licuadora Oster 600W",
-        "precio": 999,
-        "stock": 21
+        "categoria":  "Hogar",
+        "codigo":  "028",
+        "id":  28,
+        "nombre":  "Freidora de aire 4L",
+        "precio":  1599,
+        "stock":  24
     },
     {
-        "categoria": "Hogar",
-<<<<<<< Updated upstream
-=======
-        "codigo": "026",
->>>>>>> Stashed changes
-        "id": 26,
-        "nombre": "Cafetera Oster 12 tazas",
-        "precio": 799,
-        "stock": 13
+        "categoria":  "Hogar",
+        "codigo":  "029",
+        "id":  29,
+        "nombre":  "Ventilador de torre",
+        "precio":  1299,
+        "stock":  11
     },
     {
-        "categoria": "Hogar",
-<<<<<<< Updated upstream
-=======
-        "codigo": "027",
->>>>>>> Stashed changes
-        "id": 27,
-        "nombre": "Aspiradora Xiaomi robot",
-        "precio": 4999,
-        "stock": 5
+        "categoria":  "Hogar",
+        "codigo":  "030",
+        "id":  30,
+        "nombre":  "Microondas Mabe 20L",
+        "precio":  1799,
+        "stock":  9
     },
     {
-        "categoria": "Hogar",
-<<<<<<< Updated upstream
-=======
-        "codigo": "028",
->>>>>>> Stashed changes
-        "id": 28,
-        "nombre": "Freidora de aire 4L",
-        "precio": 1599,
-        "stock": 24
+        "categoria":  "Hogar",
+        "codigo":  "031",
+        "id":  31,
+        "nombre":  "Plancha de vapor Philips",
+        "precio":  649,
+        "stock":  26
     },
     {
-        "categoria": "Hogar",
-<<<<<<< Updated upstream
-=======
-        "codigo": "029",
->>>>>>> Stashed changes
-        "id": 29,
-        "nombre": "Ventilador de torre",
-        "precio": 1299,
-        "stock": 11
+        "categoria":  "Hogar",
+        "codigo":  "032",
+        "id":  32,
+        "nombre":  "LÃ¡mpara LED inteligente",
+        "precio":  299,
+        "stock":  55
     },
     {
-        "categoria": "Hogar",
-<<<<<<< Updated upstream
-=======
-        "codigo": "030",
->>>>>>> Stashed changes
-        "id": 30,
-        "nombre": "Microondas Mabe 20L",
-        "precio": 1799,
-        "stock": 9
+        "categoria":  "Gaming",
+        "codigo":  "033",
+        "id":  33,
+        "nombre":  "Consola PlayStation 5",
+        "precio":  11999,
+        "stock":  4
     },
     {
-        "categoria": "Hogar",
-<<<<<<< Updated upstream
-=======
-        "codigo": "031",
->>>>>>> Stashed changes
-        "id": 31,
-        "nombre": "Plancha de vapor Philips",
-        "precio": 649,
-        "stock": 26
+        "categoria":  "Gaming",
+        "codigo":  "034",
+        "id":  34,
+        "nombre":  "Consola Xbox Series S",
+        "precio":  6999,
+        "stock":  7
     },
     {
-        "categoria": "Hogar",
-<<<<<<< Updated upstream
-=======
-        "codigo": "032",
->>>>>>> Stashed changes
-        "id": 32,
-        "nombre": "Lámpara LED inteligente",
-        "precio": 299,
-        "stock": 55
+        "categoria":  "Gaming",
+        "codigo":  "035",
+        "id":  35,
+        "nombre":  "Nintendo Switch OLED",
+        "precio":  7499,
+        "stock":  10
     },
     {
-        "categoria": "Gaming",
-<<<<<<< Updated upstream
-=======
-        "codigo": "033",
->>>>>>> Stashed changes
-        "id": 33,
-        "nombre": "Consola PlayStation 5",
-        "precio": 11999,
-        "stock": 4
+        "categoria":  "Gaming",
+        "codigo":  "036",
+        "id":  36,
+        "nombre":  "Control inalÃ¡mbrico DualSense",
+        "precio":  1799,
+        "stock":  23
     },
     {
-        "categoria": "Gaming",
-<<<<<<< Updated upstream
-=======
-        "codigo": "034",
->>>>>>> Stashed changes
-        "id": 34,
-        "nombre": "Consola Xbox Series S",
-        "precio": 6999,
-        "stock": 7
+        "categoria":  "Gaming",
+        "codigo":  "037",
+        "id":  37,
+        "nombre":  "Silla gamer ergonÃ³mica",
+        "precio":  3499,
+        "stock":  8
     },
     {
-        "categoria": "Gaming",
-<<<<<<< Updated upstream
-=======
-        "codigo": "035",
->>>>>>> Stashed changes
-        "id": 35,
-        "nombre": "Nintendo Switch OLED",
-        "precio": 7499,
-        "stock": 10
+        "categoria":  "Gaming",
+        "codigo":  "038",
+        "id":  38,
+        "nombre":  "Mousepad XL RGB",
+        "precio":  399,
+        "stock":  38
     },
     {
-        "categoria": "Gaming",
-<<<<<<< Updated upstream
-=======
-        "codigo": "036",
->>>>>>> Stashed changes
-        "id": 36,
-        "nombre": "Control inalámbrico DualSense",
-        "precio": 1799,
-        "stock": 23
+        "categoria":  "Gaming",
+        "codigo":  "039",
+        "id":  39,
+        "nombre":  "Tarjeta de video RTX 4060",
+        "precio":  8999,
+        "stock":  5
     },
     {
-        "categoria": "Gaming",
-<<<<<<< Updated upstream
-=======
-        "codigo": "037",
->>>>>>> Stashed changes
-        "id": 37,
-        "nombre": "Silla gamer ergonómica",
-        "precio": 3499,
-        "stock": 8
+        "categoria":  "Gaming",
+        "codigo":  "040",
+        "id":  40,
+        "nombre":  "Volante Logitech G29",
+        "precio":  5999,
+        "stock":  3
     },
     {
-        "categoria": "Gaming",
-<<<<<<< Updated upstream
-=======
-        "codigo": "038",
->>>>>>> Stashed changes
-        "id": 38,
-        "nombre": "Mousepad XL RGB",
-        "precio": 399,
-        "stock": 38
+        "categoria":  "Gaming",
+        "codigo":  "041",
+        "id":  41,
+        "nombre":  "Control Xbox inalÃ¡mbrico",
+        "precio":  1399,
+        "stock":  27
     },
     {
-        "categoria": "Gaming",
-<<<<<<< Updated upstream
-=======
-        "codigo": "039",
->>>>>>> Stashed changes
-        "id": 39,
-        "nombre": "Tarjeta de video RTX 4060",
-        "precio": 8999,
-        "stock": 5
+        "categoria":  "Gaming",
+        "codigo":  "042",
+        "id":  42,
+        "nombre":  "Headset gamer Razer Kraken",
+        "precio":  1699,
+        "stock":  12
     },
     {
-        "categoria": "Gaming",
-<<<<<<< Updated upstream
-=======
-        "codigo": "040",
->>>>>>> Stashed changes
-        "id": 40,
-        "nombre": "Volante Logitech G29",
-        "precio": 5999,
-        "stock": 3
-    },
-    {
-        "categoria": "Gaming",
-<<<<<<< Updated upstream
-=======
-        "codigo": "041",
->>>>>>> Stashed changes
-        "id": 41,
-        "nombre": "Control Xbox inalámbrico",
-        "precio": 1399,
-        "stock": 27
-    },
-    {
-        "categoria": "Gaming",
-<<<<<<< Updated upstream
-=======
-        "codigo": "042",
->>>>>>> Stashed changes
-        "id": 42,
-        "nombre": "Headset gamer Razer Kraken",
-        "precio": 1699,
-        "stock": 12
-    },
-    {
-        "categoria": "Gaming",
-<<<<<<< Updated upstream
-=======
-        "codigo": "043",
->>>>>>> Stashed changes
-        "id": 43,
-        "nombre": "Teclado gamer RGB 60%",
-        "precio": 899,
-        "stock": 20
+        "categoria":  "Gaming",
+        "codigo":  "043",
+        "id":  43,
+        "nombre":  "Teclado gamer RGB 60%",
+        "precio":  899,
+        "stock":  20
     }
 ]

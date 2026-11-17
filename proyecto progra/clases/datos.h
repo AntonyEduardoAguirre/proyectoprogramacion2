@@ -1,18 +1,15 @@
-<<<<<<< Updated upstream
-=======
-﻿#pragma once
->>>>>>> Stashed changes
+#pragma once
 #pragma once
 #include <QList>
+#include <QSet>
 #include <QFile>
 #include <QJsonArray>
 #include <QJsonDocument>
 #include <QJsonObject>
 #include <QStandardPaths>
 #include <QDir>
+#include <QDateTime>
 #include <QCoreApplication>
-<<<<<<< Updated upstream
-=======
 #include <QPointer>
 #include <QObject>
 #include <QRandomGenerator>
@@ -20,12 +17,14 @@
 #include <QJsonParseError>
 #include <functional>
 #include <utility>
->>>>>>> Stashed changes
 #include "Cliente.h"
 #include "Producto.h"
+#include "compra.h"
 
 inline QList<Cliente> clientes;
 inline QList<Producto> productos;
+inline QList<Compra> historialCompras;   // compras de todos los clientes
+inline QList<ItemCompra> carrito;        // carrito de compras del usuario actual
 inline Cliente usuarioActual;  // variable global para almacenar el usuario actual
 
 struct ObservadorActualizacionPagos
@@ -136,18 +135,12 @@ inline void cargarClientes() { cargarLista(clientes, "clientes.json"); }
 inline void guardarProductos() { guardarLista(productos, "productos.json"); }
 inline void cargarProductos() { cargarLista(productos, "productos.json"); }
 
-<<<<<<< Updated upstream
-
-// Opcional: para guardar/cargar todo de una vez
-inline void guardarTodo() { guardarClientes(); guardarProductos(); }
-inline void cargarTodo() { cargarClientes();  cargarProductos(); }
-=======
 inline void guardarHistorial() { guardarLista(historialCompras, "historial.json"); }
 inline void cargarHistorial() { cargarLista(historialCompras, "historial.json"); }
+
 inline bool cargarRegistrosCuotas(QJsonArray& registros, QString* error = nullptr)
 {
-    const QString ruta = rutaArchivo(QStringLiteral("cuotas.json"));
-    QFile archivo(ruta);
+    QFile archivo(rutaArchivo(QStringLiteral("cuotas.json")));
     if (!archivo.exists()) {
         registros = QJsonArray();
         return true;
@@ -157,7 +150,6 @@ inline bool cargarRegistrosCuotas(QJsonArray& registros, QString* error = nullpt
             *error = archivo.errorString();
         return false;
     }
-
     QJsonParseError errorJson;
     const QJsonDocument documento = QJsonDocument::fromJson(archivo.readAll(), &errorJson);
     archivo.close();
@@ -411,10 +403,10 @@ inline bool pagarCarritoEfectivo(double efectivoRecibido, double* vuelto = nullp
 }
 
 // ---------------------------------------------------------------
-// Códigos de producto (al menos 3 dígitos, únicos)
+// Códigos de producto (6 dígitos, únicos)
 // ---------------------------------------------------------------
 
-// Devuelve un código de 6 dígitos que puede comenzar en 0.
+// Devuelve un código de 6 dígitos que puede comenzar con cero.
 inline QString generarCodigoUnico(const QSet<QString>& usados)
 {
     QString codigo;
@@ -460,4 +452,3 @@ inline bool asegurarCodigos()
 
     return !pendientes.isEmpty();
 }
->>>>>>> Stashed changes

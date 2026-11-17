@@ -1,8 +1,6 @@
 #include "clases/Inicio.h"
-#include "clases/Registro.h"
 #include "clases/cliente.h"
 #include "clases/datos.h"
-#include "clases/Cuenta.h"
 #include "clases/MenuPrincipal.h"
 #include "clases/Administracion.h"
 
@@ -31,23 +29,6 @@ inicio::inicio(QWidget* parent)
 
     connect(ui.btnIniciarSesion, &QPushButton::clicked,
         this, &inicio::validarSesion);
-<<<<<<< Updated upstream
-
-    connect(ui.btnRegistrarse, &QPushButton::clicked, this, [this]() {
-        registro* ventanaRegistro = new registro();
-        ventanaRegistro->setAttribute(Qt::WA_DeleteOnClose);
-        ventanaRegistro->show();
-        this->close();
-        });
-
-    connect(ui.btnCuentaAdmin, &QPushButton::clicked, this, [this]() {
-        auto* ventanaAdmin = new AccesoAdmin();
-        ventanaAdmin->setAttribute(Qt::WA_DeleteOnClose);
-        ventanaAdmin->show();
-        close();
-        });
-=======
->>>>>>> Stashed changes
 
     connect(ui.btnSalir, &QPushButton::clicked, this, [this]() {
         this->close();
@@ -66,17 +47,14 @@ string convertirMinuscula(string texto) {//FUNCION AUXILIAR
 }
 
 void inicio::validarSesion() {//FUNCION AUXILIAR
-    const QString nombreIngresado = ui.txtNombre->text();
+    const QString nombreIngresado = ui.txtNombre->text().trimmed();
     const QString contrasennaIngresada = ui.txtContrasenna->text();
-    if (nombreIngresado.compare(QStringLiteral("admin"), Qt::CaseInsensitive) == 0) {
-        if (contrasennaIngresada == QStringLiteral("admin123")) {
-            auto* ventanaAdmin = new Administracion();
-            ventanaAdmin->setAttribute(Qt::WA_DeleteOnClose);
-            ventanaAdmin->show();
-            close();
-            return;
-        }
-        ui.lblError->setText("El nombre o la contraseña son incorrectos");
+    if (nombreIngresado.compare(QStringLiteral("admin"), Qt::CaseInsensitive) == 0
+        && contrasennaIngresada == QStringLiteral("admin123")) {
+        auto* ventanaAdmin = new Administracion();
+        ventanaAdmin->setAttribute(Qt::WA_DeleteOnClose);
+        ventanaAdmin->show();
+        close();
         return;
     }
 
@@ -86,6 +64,7 @@ void inicio::validarSesion() {//FUNCION AUXILIAR
     for (const auto& usuario : clientes) {
         if (convertirMinuscula(usuario.getNombre()) == convertirMinuscula(nombre) && contrasenna == usuario.getContrasenna()) {
             usuarioActual = usuario; // Almacena el usuario actual en la variable global
+            // TODO: cambiar según el rol del usuario cuando se implemente la validación de administradores.
             MenuPrincipal* ventanaMenu = new MenuPrincipal(usuarioActual.nombre, false);
             ventanaMenu->setAttribute(Qt::WA_DeleteOnClose); // libera memoria al cerrarla
             ventanaMenu->show();

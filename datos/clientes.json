@@ -1,6 +1,5 @@
 [
     {
-<<<<<<< Updated upstream
         "contrasenna": "123456",
         "id": 1,
         "nombre": "anderson",
@@ -10,23 +9,6 @@
         "contrasenna": "Diego12345",
         "id": 2,
         "nombre": "Diego",
-=======
-        "contrasenna": "1",
-        "id": 1,
-        "nombre": "Cajero1",
-        "saldo": 0
-    },
-    {
-        "contrasenna": "2",
-        "id": 2,
-        "nombre": "Cajero2",
-        "saldo": 0
-    },
-    {
-        "contrasenna": "3",
-        "id": 3,
-        "nombre": "Cajero3",
->>>>>>> Stashed changes
         "saldo": 0
     }
 ]

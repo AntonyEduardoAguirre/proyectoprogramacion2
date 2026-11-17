@@ -1,13 +1,2 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<ui version="4.0">
- <class>AdminCobros</class>
- <widget class="QWidget" name="AdminCobros">
-  <layout class="QVBoxLayout" name="contenidoCobros">
-   <item><widget class="QLabel" name="tituloCobros"><property name="objectName"><string notr="true">titulo</string></property><property name="text"><string>Cobros por usuario</string></property></widget></item>
-   <item><widget class="QScrollArea" name="scrollCobros"><property name="widgetResizable"><bool>true</bool></property><widget class="QWidget" name="contenidoListaCobros"><layout class="QVBoxLayout" name="listaCobrosLayout"><property name="alignment"><set>Qt::AlignmentFlag::AlignTop</set></property></layout></widget></widget></item>
-   <item><widget class="QLabel" name="errorCobros"><property name="text"><string/></property></widget></item>
-  </layout>
- </widget>
- <resources/>
- <connections/>
-</ui>
+<ui version="4.0"><class>AdminCobros</class><widget class="QWidget" name="AdminCobros"><layout class="QVBoxLayout" name="layoutCobros"><item><widget class="QLabel" name="tituloCobros"><property name="text"><string>Cobros por usuario</string></property></widget></item><item><widget class="QScrollArea" name="scrollCobros"><property name="widgetResizable"><bool>true</bool></property><widget class="QWidget" name="contenidoListaCobros"><layout class="QVBoxLayout" name="listaCobrosLayout"/></widget></widget></item><item><widget class="QLabel" name="errorCobros"><property name="text"><string/></property></widget></item></layout></widget><resources/><connections/></ui>

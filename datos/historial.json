@@ -1,80 +1,18 @@
 [
     {
         "clienteId": 4,
-        "cuotaMensual": 303.8233333333333,
-        "fecha": "16/11/2026 22:19",
+        "cuotaMensual": 396.62000000000006,
+        "fecha": "16/11/2026 16:38",
         "items": [
             {
                 "cantidad": 1,
-                "idProducto": 8,
-                "nombre": "Webcam Full HD",
-                "precio": 549
-            },
-            {
-                "cantidad": 1,
-                "idProducto": 5,
-                "nombre": "Mouse inalámbrico Logitech",
-                "precio": 349
-            }
-        ],
-        "meses": 3,
-        "metodo": "Tarjeta (cuotas)",
-        "total": 911.4699999999999
-    },
-    {
-        "clienteId": 4,
-        "cuotaMensual": 181.67333333333337,
-        "fecha": "16/11/2026 22:23",
-        "items": [
-            {
-                "cantidad": 2,
-                "idProducto": 8,
-                "nombre": "Webcam Full HD",
-                "precio": 549
-            },
-            {
-                "cantidad": 2,
-                "idProducto": 5,
-                "nombre": "Mouse inalámbrico Logitech",
-                "precio": 349
-            },
-            {
-                "cantidad": 3,
-                "idProducto": 4,
-                "nombre": "Teclado mecánico Redragon",
-                "precio": 699
-            }
-        ],
-        "meses": 24,
-        "metodo": "Tarjeta (cuotas)",
-        "total": 4360.160000000001
-    },
-    {
-        "clienteId": 4,
-        "cuotaMensual": 3466.6366666666668,
-        "fecha": "16/11/2026 22:23",
-        "items": [
-            {
-                "cantidad": 2,
-                "idProducto": 7,
-                "nombre": "Memoria RAM 16GB DDR4",
-                "precio": 899
-            },
-            {
-                "cantidad": 2,
-                "idProducto": 4,
-                "nombre": "Teclado mecánico Redragon",
-                "precio": 699
-            },
-            {
-                "cantidad": 2,
                 "idProducto": 1,
                 "nombre": "Laptop Lenovo IdeaPad 15",
                 "precio": 8499
             }
         ],
-        "meses": 6,
+        "meses": 24,
         "metodo": "Tarjeta (cuotas)",
-        "total": 20799.82
+        "total": 9518.880000000001
     }
 ]

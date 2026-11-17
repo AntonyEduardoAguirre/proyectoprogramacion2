@@ -5,28 +5,15 @@
 
 #include <QComboBox>
 #include <QDateTime>
-#include <QFile>
 #include <QFrame>
 #include <QGraphicsDropShadowEffect>
 #include <QHBoxLayout>
-#include <QJsonArray>
-#include <QJsonDocument>
-#include <QJsonObject>
 #include <QLabel>
 #include <QLineEdit>
 #include <QMessageBox>
 #include <QPushButton>
 #include <QVBoxLayout>
 #include <QWidget>
-
-namespace {
-
-bool guardarRegistroCuotas(const QJsonObject& registro, QString* error)
-{
-    return agregarRegistroCuotas(registro, error);
-}
-
-} // namespace
 
 PagoCuotas::PagoCuotas(double totalSinAumento, int mesesIniciales, QWidget* parent)
     : QWidget(parent)

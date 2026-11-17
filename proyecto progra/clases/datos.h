@@ -8,13 +8,17 @@
 #include <QJsonObject>
 #include <QStandardPaths>
 #include <QDir>
+#include <QDateTime>
 #include <QCoreApplication>
 #include <QRandomGenerator>
 #include "Cliente.h"
 #include "Producto.h"
+#include "compra.h"
 
 inline QList<Cliente> clientes;
 inline QList<Producto> productos;
+inline QList<Compra> historialCompras;   // compras de todos los clientes
+inline QList<ItemCompra> carrito;        // carrito de compras del usuario actual
 inline Cliente usuarioActual;  // variable global para almacenar el usuario actual
 
 inline QString carpetaDatos()
@@ -89,10 +93,213 @@ inline void cargarClientes() { cargarLista(clientes, "clientes.json"); }
 inline void guardarProductos() { guardarLista(productos, "productos.json"); }
 inline void cargarProductos() { cargarLista(productos, "productos.json"); }
 
+inline void guardarHistorial() { guardarLista(historialCompras, "historial.json"); }
+inline void cargarHistorial() { cargarLista(historialCompras, "historial.json"); }
 
 // Opcional: para guardar/cargar todo de una vez
-inline void guardarTodo() { guardarClientes(); guardarProductos(); }
-inline void cargarTodo() { cargarClientes();  cargarProductos(); }
+inline void guardarTodo() { guardarClientes(); guardarProductos(); guardarHistorial(); }
+inline void cargarTodo() { cargarClientes();  cargarProductos(); cargarHistorial(); }
+
+// ---------------------------------------------------------------
+// Carrito de compras (sesión, no se guarda en disco)
+// ---------------------------------------------------------------
+inline int cantidadEnCarrito(int idProducto)
+{
+    int cantidad = 0;
+    for (const ItemCompra& item : carrito)
+        if (item.idProducto == idProducto)
+            cantidad += item.cantidad;
+    return cantidad;
+}
+
+inline bool agregarAlCarrito(int idProducto, int cantidad)
+{
+    if (cantidad <= 0)
+        return false;
+
+    const Producto* producto = nullptr;
+    for (const Producto& p : productos) {
+        if (p.id == idProducto) { producto = &p; break; }
+    }
+    if (!producto)
+        return false;
+
+    if (producto->stock < cantidadEnCarrito(idProducto) + cantidad)
+        return false;   // no hay stock suficiente
+
+    // si ya está, suma cantidades; si no, agrega la línea
+    for (ItemCompra& item : carrito) {
+        if (item.idProducto == idProducto) {
+            item.cantidad += cantidad;
+            return true;
+        }
+    }
+
+    ItemCompra item;
+    item.idProducto = idProducto;
+    item.nombre = producto->nombre;
+    item.precio = producto->precio;
+    item.cantidad = cantidad;
+    carrito.append(item);
+    return true;
+}
+
+inline bool quitarDelCarrito(int idProducto)
+{
+    for (int i = 0; i < carrito.size(); ++i) {
+        if (carrito[i].idProducto == idProducto) {
+            carrito.removeAt(i);
+            return true;
+        }
+    }
+    return false;
+}
+
+inline double carritoTotal()
+{
+    double total = 0.0;
+    for (const ItemCompra& item : carrito)
+        total += item.precio * item.cantidad;
+    return total;
+}
+
+inline int carritoCantidadTotal()
+{
+    int cantidad = 0;
+    for (const ItemCompra& item : carrito)
+        cantidad += item.cantidad;
+    return cantidad;
+}
+
+inline void vaciarCarrito() { carrito.clear(); }
+
+// meses del plazo según el índice del combo de método de pago del carrito
+inline int mesesDelMetodo(int indiceMetodo)
+{
+    switch (indiceMetodo) {
+    case 2: return 3;
+    case 3: return 6;
+    case 4: return 12;
+    case 5: return 24;
+    default: return 0;
+    }
+}
+
+// total a pagar con el recargo del 0.5% por cada mes de plazo
+// sobre el precio original (3 meses = 1.5% más, 12 meses = 6% más...)
+inline double totalConInteres(double total, int meses)
+{
+    return (meses > 0) ? total * (1.0 + 0.005 * meses) : total;
+}
+
+// sincroniza usuarioActual con la lista de clientes para que el saldo
+// mostrado y cobrado esté siempre al día (p. ej. tras un depósito)
+inline void refrescarUsuarioActual()
+{
+    for (const Cliente& cliente : clientes) {
+        if (cliente.getId() == usuarioActual.getId()) {
+            usuarioActual = cliente;
+            break;
+        }
+    }
+}
+
+// agrega dinero ficticio al saldo del usuario actual y lo guarda en clientes.json
+inline bool depositarSaldo(double monto)
+{
+    if (monto <= 0.0)
+        return false;
+
+    usuarioActual.saldo += static_cast<float>(monto);
+    for (Cliente& cliente : clientes) {
+        if (cliente.getId() == usuarioActual.getId()) {
+            cliente.setSaldo(usuarioActual.saldo);
+            break;
+        }
+    }
+    guardarClientes();
+    return true;
+}
+
+// cierra la compra: descuenta stock, guarda el historial y vacía el
+// carrito (no toca el saldo del usuario). Devuelve la compra registrada.
+inline Compra finalizarCompra(double total, int meses, const QString& metodo)
+{
+    // descuenta el stock de cada producto
+    for (const ItemCompra& item : carrito) {
+        for (Producto& p : productos) {
+            if (p.id == item.idProducto) {
+                p.stock -= item.cantidad;
+                break;
+            }
+        }
+    }
+    guardarProductos();
+
+    // registra la compra en el historial
+    Compra compra;
+    compra.clienteId = usuarioActual.getId();
+    compra.fecha = QDateTime::currentDateTime().toString("dd/MM/yyyy hh:mm");
+    compra.total = total;
+    compra.meses = (meses > 0) ? meses : 0;
+    compra.cuotaMensual = (meses > 0) ? total / meses : 0.0;
+    compra.metodo = metodo;
+    compra.items = carrito;
+    historialCompras.append(compra);
+    guardarHistorial();
+
+    vaciarCarrito();
+    return compra;
+}
+
+// pago con tarjeta (de contado o a plazos): el pago es inmediato.
+// si meses > 0, la compra se hace a plazos (3, 6, 12 o 24 meses):
+//   el precio sube 0.5% por cada mes de plazo y se cobra la primera
+//   cuota (total con aumento / meses) el día de la compra
+// si recibo != nullptr, devuelve la compra registrada para mostrarla en el recibo
+inline bool pagarCarrito(int meses = 0, Compra* recibo = nullptr)
+{
+    if (carrito.isEmpty())
+        return false;
+
+    const double total = carritoTotal();
+    const double totalFinal = totalConInteres(total, meses);
+
+    QString metodo = (meses > 0) ? "Tarjeta (cuotas)" : "Tarjeta";
+
+    if (recibo)
+        *recibo = finalizarCompra(totalFinal, meses, metodo);
+    else
+        finalizarCompra(totalFinal, meses, metodo);
+    return true;
+}
+
+// pago en efectivo: el cliente entrega dinero físico y se calcula el
+// vuelto (efectivo dado - total). No usa el saldo de la cuenta.
+// devuelve false si el efectivo no alcanza (saldo insuficiente).
+// si recibo != nullptr, devuelve la compra registrada para mostrarla en el recibo
+inline bool pagarCarritoEfectivo(double efectivoRecibido, double* vuelto = nullptr, Compra* recibo = nullptr)
+{
+    if (carrito.isEmpty())
+        return false;
+    if (vuelto)
+        *vuelto = 0.0;
+
+    const double total = carritoTotal();
+    const qint64 diferencia = qRound64(efectivoRecibido * 100.0) - qRound64(total * 100.0);
+
+    if (diferencia < 0)
+        return false;   // efectivo insuficiente
+
+    if (vuelto)
+        *vuelto = diferencia / 100.0;
+
+    if (recibo)
+        *recibo = finalizarCompra(total, 0, "Efectivo");
+    else
+        finalizarCompra(total, 0, "Efectivo");
+    return true;
+}
 
 // ---------------------------------------------------------------
 // Códigos de producto (6 dígitos, únicos)

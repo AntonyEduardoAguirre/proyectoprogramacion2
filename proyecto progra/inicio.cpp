@@ -1,8 +1,6 @@
 #include "clases/Inicio.h"
-#include "clases/Registro.h"
 #include "clases/cliente.h"
 #include "clases/datos.h"
-#include "clases/Cuenta.h"
 #include "clases/MenuPrincipal.h"
 #include "clases/Administracion.h"
 
@@ -31,14 +29,6 @@ inicio::inicio(QWidget* parent)
 
     connect(ui.btnIniciarSesion, &QPushButton::clicked,
         this, &inicio::validarSesion);
-
-    connect(ui.btnRegistrarse, &QPushButton::clicked, this, [this]() {
-        registro* ventanaRegistro = new registro();
-        ventanaRegistro->setAttribute(Qt::WA_DeleteOnClose);
-        ventanaRegistro->show();
-        this->close();
-        });
-
     connect(ui.btnCuentaAdmin, &QPushButton::clicked, this, [this]() {
         auto* ventanaAdmin = new AccesoAdmin();
         ventanaAdmin->setAttribute(Qt::WA_DeleteOnClose);

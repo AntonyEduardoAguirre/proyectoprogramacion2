@@ -1,26 +1,26 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ui version="4.0">
- <class>cuentaClass</class>
- <widget class="QWidget" name="cuentaClass">
+ <class>carritoClass</class>
+ <widget class="QWidget" name="carritoClass">
   <property name="geometry">
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>1000</width>
+    <width>520</width>
     <height>700</height>
    </rect>
   </property>
   <property name="minimumSize">
    <size>
-    <width>760</width>
-    <height>560</height>
+    <width>480</width>
+    <height>620</height>
    </size>
   </property>
   <property name="windowTitle">
-   <string>Cuenta</string>
+   <string>Carrito</string>
   </property>
   <property name="styleSheet">
-   <string notr="true">#cuentaClass {
+   <string notr="true">#carritoClass {
 	background-color: #F5F3EE;
 }
 #softCard {
@@ -44,7 +44,12 @@ QLabel#subtitle, QLabel#copyright {
 	font-family: &quot;Segoe UI&quot;;
 	font-size: 12px;
 }
-QLabel#lblUsuario, QLabel#lblSaldo, QLabel#lblId {
+QLabel#lblMensaje {
+	color: #A9503F;
+	font-family: &quot;Segoe UI&quot;;
+	font-size: 12px;
+}
+QLabel#lblItem {
 	color: #292A28;
 	background: #FAFAF8;
 	border: 1px solid #EAE8E2;
@@ -52,7 +57,16 @@ QLabel#lblUsuario, QLabel#lblSaldo, QLabel#lblId {
 	padding: 14px;
 	font-size: 13px;
 }
-QPushButton#btnHistorial, QPushButton#btnCambiar {
+QLabel#lblTotal {
+	color: #292A28;
+	background: #FAFAF8;
+	border: 1px solid #EAE8E2;
+	border-radius: 8px;
+	padding: 14px;
+	font-size: 14px;
+	font-weight: 600;
+}
+QPushButton#btnPagar {
 	background: #899B83;
 	color: #FFFFFF;
 	border: none;
@@ -60,10 +74,10 @@ QPushButton#btnHistorial, QPushButton#btnCambiar {
 	min-height: 43px;
 	font-weight: 600;
 }
-QPushButton#btnHistorial:hover, QPushButton#btnCambiar:hover {
+QPushButton#btnPagar:hover {
 	background: #788B72;
 }
-QPushButton#btnDesactivar {
+QPushButton#btnQuitar {
 	background: #92918B;
 	color: #FFFFFF;
 	border: none;
@@ -71,7 +85,7 @@ QPushButton#btnDesactivar {
 	min-height: 43px;
 	font-weight: 600;
 }
-QPushButton#btnDesactivar:hover {
+QPushButton#btnQuitar:hover {
 	background: #7D7C77;
 }
 QPushButton#btnRegresar {
@@ -82,6 +96,76 @@ QPushButton#btnRegresar {
 }
 QPushButton#btnRegresar:hover {
 	color: #788B72;
+}
+QPushButton#btnFlecha {
+	background: transparent;
+	border: none;
+	color: #292A28;
+	font-family: &quot;Segoe UI&quot;;
+	font-size: 20px;
+	font-weight: 600;
+	padding: 2px 8px;
+	border-radius: 8px;
+}
+QPushButton#btnFlecha:hover {
+	background: #EAE8E2;
+}
+QLabel#lblFormaPago, QLabel#lblMetodo {
+	color: #292A28;
+	font-family: &quot;Segoe UI&quot;;
+	font-size: 12px;
+	font-weight: 600;
+}
+QComboBox#cmbCuotas, QComboBox#cmbMetodo {
+	background: #FAFAF8;
+	border: 1px solid #EAE8E2;
+	border-radius: 8px;
+	padding: 8px 12px;
+	font-size: 12px;
+	color: #292A28;
+}
+QComboBox#cmbCuotas::drop-down, QComboBox#cmbMetodo::drop-down {
+	border: none;
+}
+QComboBox#cmbCuotas:disabled, QComboBox#cmbMetodo:disabled {
+	color: #92918B;
+	background: #F5F3EE;
+}
+QComboBox QAbstractItemView {
+	background: #FFFFFF;
+	color: #292A28;
+	selection-background-color: #E5EAE2;
+	selection-color: #292A28;
+}
+QScrollArea {
+	background: transparent;
+	border: none;
+}
+QScrollArea > QWidget > QWidget {
+	background: transparent;
+}
+QScrollBar:vertical {
+	background: transparent;
+	width: 8px;
+	margin: 0;
+}
+QScrollBar::handle:vertical {
+	background: #D8DED5;
+	border-radius: 4px;
+	min-height: 30px;
+}
+QScrollBar::handle:vertical:hover {
+	background: #B9C2B4;
+}
+QScrollBar::add-line:vertical, QScrollBar::sub-line:vertical {
+	height: 0;
+}
+QScrollBar::add-page:vertical, QScrollBar::sub-page:vertical {
+	background: transparent;
+}
+QScrollBar:horizontal {
+	background: transparent;
+	height: 0;
 }
 </string>
   </property>
@@ -131,13 +215,13 @@ QPushButton#btnRegresar:hover {
        <property name="minimumSize">
         <size>
          <width>460</width>
-         <height>520</height>
+         <height>560</height>
         </size>
        </property>
        <property name="maximumSize">
         <size>
          <width>520</width>
-         <height>560</height>
+         <height>620</height>
         </size>
        </property>
        <property name="frameShape">
@@ -160,9 +244,33 @@ QPushButton#btnRegresar:hover {
          <number>30</number>
         </property>
         <item>
+         <layout class="QHBoxLayout" name="layoutFlecha">
+          <item>
+           <widget class="QPushButton" name="btnFlecha">
+            <property name="text">
+             <string>←</string>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <spacer name="spacerFlecha">
+            <property name="orientation">
+             <enum>Qt::Orientation::Horizontal</enum>
+            </property>
+            <property name="sizeHint" stdset="0">
+             <size>
+              <width>40</width>
+              <height>20</height>
+             </size>
+            </property>
+           </spacer>
+          </item>
+         </layout>
+        </item>
+        <item>
          <widget class="QLabel" name="eyebrow">
           <property name="text">
-           <string>CUENTA</string>
+           <string>CARRITO</string>
           </property>
          </widget>
         </item>
@@ -185,14 +293,14 @@ QPushButton#btnRegresar:hover {
         <item>
          <widget class="QLabel" name="title">
           <property name="text">
-           <string>Tu cuenta.</string>
+           <string>Tu carrito.</string>
           </property>
          </widget>
         </item>
         <item>
          <widget class="QLabel" name="subtitle">
           <property name="text">
-           <string>Un resumen de los datos de tu cuenta.</string>
+           <string>Revisa tus productos antes de pagar.</string>
           </property>
          </widget>
         </item>
@@ -207,20 +315,50 @@ QPushButton#btnRegresar:hover {
           <property name="sizeHint" stdset="0">
            <size>
             <width>20</width>
-            <height>30</height>
+            <height>26</height>
            </size>
           </property>
          </spacer>
         </item>
         <item>
-         <widget class="QLabel" name="lblUsuario">
-          <property name="text">
-           <string>Usuario:</string>
+         <widget class="QScrollArea" name="scrollItems">
+          <property name="widgetResizable">
+           <bool>true</bool>
           </property>
+          <property name="frameShape">
+           <enum>QFrame::Shape::NoFrame</enum>
+          </property>
+          <widget class="QWidget" name="areaItems">
+           <property name="geometry">
+            <rect>
+             <x>0</x>
+             <y>0</y>
+             <width>376</width>
+             <height>260</height>
+            </rect>
+           </property>
+           <layout class="QVBoxLayout" name="layoutItems">
+            <property name="spacing">
+             <number>10</number>
+            </property>
+            <property name="leftMargin">
+             <number>0</number>
+            </property>
+            <property name="topMargin">
+             <number>0</number>
+            </property>
+            <property name="rightMargin">
+             <number>6</number>
+            </property>
+            <property name="bottomMargin">
+             <number>0</number>
+            </property>
+           </layout>
+          </widget>
          </widget>
         </item>
         <item>
-         <spacer name="spacerUsuario">
+         <spacer name="spacerItems">
           <property name="orientation">
            <enum>Qt::Orientation::Vertical</enum>
           </property>
@@ -236,37 +374,24 @@ QPushButton#btnRegresar:hover {
          </spacer>
         </item>
         <item>
-         <widget class="QLabel" name="lblSaldo">
+         <widget class="QLabel" name="lblMensaje">
           <property name="text">
-           <string>Saldo:</string>
+           <string/>
+          </property>
+          <property name="wordWrap">
+           <bool>true</bool>
           </property>
          </widget>
         </item>
         <item>
-         <spacer name="spacerSaldo">
-          <property name="orientation">
-           <enum>Qt::Orientation::Vertical</enum>
-          </property>
-          <property name="sizeType">
-           <enum>QSizePolicy::Policy::Fixed</enum>
-          </property>
-          <property name="sizeHint" stdset="0">
-           <size>
-            <width>20</width>
-            <height>14</height>
-           </size>
-          </property>
-         </spacer>
-        </item>
-        <item>
-         <widget class="QLabel" name="lblId">
+         <widget class="QLabel" name="lblTotal">
           <property name="text">
-           <string>ID:</string>
+           <string>Total: $0.00</string>
           </property>
          </widget>
         </item>
         <item>
-         <spacer name="spacerId">
+         <spacer name="spacerTotal">
           <property name="orientation">
            <enum>Qt::Orientation::Vertical</enum>
           </property>
@@ -282,14 +407,55 @@ QPushButton#btnRegresar:hover {
          </spacer>
         </item>
         <item>
-         <widget class="QPushButton" name="btnHistorial">
-          <property name="text">
-           <string>Ver historial de compras</string>
+         <layout class="QHBoxLayout" name="layoutMetodo">
+          <property name="spacing">
+           <number>10</number>
           </property>
-         </widget>
+          <item>
+           <widget class="QLabel" name="lblMetodo">
+            <property name="text">
+             <string>Método de pago:</string>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QComboBox" name="cmbMetodo">
+            <item>
+             <property name="text">
+              <string>Efectivo (de contado)</string>
+             </property>
+            </item>
+            <item>
+             <property name="text">
+              <string>Tarjeta (de contado)</string>
+             </property>
+            </item>
+            <item>
+             <property name="text">
+              <string>3 cuotas</string>
+             </property>
+            </item>
+            <item>
+             <property name="text">
+              <string>6 cuotas</string>
+             </property>
+            </item>
+            <item>
+             <property name="text">
+              <string>12 cuotas</string>
+             </property>
+            </item>
+            <item>
+             <property name="text">
+              <string>24 cuotas</string>
+             </property>
+            </item>
+           </widget>
+          </item>
+         </layout>
         </item>
         <item>
-         <spacer name="spacerHistorial">
+         <spacer name="spacerMetodo">
           <property name="orientation">
            <enum>Qt::Orientation::Vertical</enum>
           </property>
@@ -305,34 +471,25 @@ QPushButton#btnRegresar:hover {
          </spacer>
         </item>
         <item>
-         <widget class="QPushButton" name="btnCambiar">
-          <property name="text">
-           <string>Cambiar contraseña</string>
+         <layout class="QHBoxLayout" name="layoutBotones">
+          <property name="spacing">
+           <number>10</number>
           </property>
-         </widget>
-        </item>
-        <item>
-         <spacer name="spacerCambiar">
-          <property name="orientation">
-           <enum>Qt::Orientation::Vertical</enum>
-          </property>
-          <property name="sizeType">
-           <enum>QSizePolicy::Policy::Fixed</enum>
-          </property>
-          <property name="sizeHint" stdset="0">
-           <size>
-            <width>20</width>
-            <height>10</height>
-           </size>
-          </property>
-         </spacer>
-        </item>
-        <item>
-         <widget class="QPushButton" name="btnDesactivar">
-          <property name="text">
-           <string>Desactivar cuenta</string>
-          </property>
-         </widget>
+          <item>
+           <widget class="QPushButton" name="btnQuitar">
+            <property name="text">
+             <string>Quitar último</string>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QPushButton" name="btnPagar">
+            <property name="text">
+             <string>Pagar ahora</string>
+            </property>
+           </widget>
+          </item>
+         </layout>
         </item>
         <item>
          <spacer name="spacerInferior">
@@ -350,7 +507,7 @@ QPushButton#btnRegresar:hover {
         <item>
          <widget class="QPushButton" name="btnRegresar">
           <property name="text">
-           <string>Volver a iniciar sesión</string>
+           <string>Volver al catálogo</string>
           </property>
          </widget>
         </item>

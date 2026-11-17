@@ -367,16 +367,6 @@ QLabel#lblError { color: #92918B; font-size: 11px; margin-top: 8px; }
           </spacer>
          </item>
          <item>
-          <widget class="QPushButton" name="btnRegistrarse">
-           <property name="text">
-            <string>¿No tienes cuenta? Crea una aquí</string>
-           </property>
-           <property name="flat">
-            <bool>true</bool>
-           </property>
-          </widget>
-         </item>
-         <item>
           <widget class="QPushButton" name="btnCuentaAdmin">
            <property name="text">
             <string>Cuenta admin</string>

@@ -10,13 +10,6 @@ class QPushButton;
 
 namespace Ui { class MenuPaginacion; }
 
-// Una línea del carrito: el producto se identifica por su código de 6 dígitos.
-struct ItemCarrito
-{
-    QString codigo;
-    int cantidad = 0;
-};
-
 // MENÚ DE PAGINACIÓN (ventana de catálogo + carrito).
 // Muestra 9 productos por página (3x3), con dos buscadores encima del catálogo:
 //  - nombre: filtra el catálogo;
@@ -47,6 +40,7 @@ private:
     void cambiarCantidad(const QString& codigo, int delta);
     void quitarDelCarrito(const QString& codigo);
     int  indiceDeCodigo(const QString& codigo) const;   // posición en "productos" o -1
+    int  indiceDeId(int idProducto) const;              // posición en "productos" o -1
 
     // Los 9 botones de producto y las etiquetas que llevan dentro
     struct BotonProducto
@@ -66,6 +60,7 @@ private:
     QList<BotonProducto> botones;       // los 9 botones de la página
     int paginaActual = 0;
 
-    QList<ItemCarrito> carrito;
+    // El carrito vive en datos.h (variable global "carrito", líneas ItemCompra) para que
+    // lo comparta con la ventana Carrito, que es la que cobra.
     QList<QFrame*> filasCarrito;        // widgets de las filas actuales del carrito
 };

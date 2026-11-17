@@ -1,6 +1,7 @@
 #include "clases/menuPaginacion.h"
 #include "ui_menuPaginacion.h"  // generado por uic a partir de menuPaginacion.ui
 #include "clases/datos.h"
+#include "Carrito.h"          // ventana que cobra (efectivo, tarjeta y cuotas)
 
 #include <QFrame>
 #include <QHBoxLayout>
@@ -99,6 +100,14 @@ void MenuPaginacion::actualizarCatalogo()
     reconstruirCarrito();       // quita del carrito lo que ya no exista o no tenga stock
 }
 
+int MenuPaginacion::indiceDeId(int idProducto) const
+{
+    for (int i = 0; i < productos.size(); ++i)
+        if (productos[i].id == idProducto)
+            return i;
+    return -1;
+}
+
 int MenuPaginacion::indiceDeCodigo(const QString& codigo) const
 {
     for (int i = 0; i < productos.size(); ++i)
@@ -190,54 +199,57 @@ void MenuPaginacion::paginaSiguiente() { ++paginaActual; mostrarPagina(); }
 // Carrito
 // ---------------------------------------------------------------
 
+// OJO: los métodos de esta clase se llaman igual que las funciones de datos.h, por eso
+// las globales se invocan con "::" (agregarAlCarrito, quitarDelCarrito, vaciarCarrito).
+
 void MenuPaginacion::agregarAlCarrito(int indiceProducto)
 {
     const Producto& p = productos[indiceProducto];
     if (p.stock <= 0)
         return;
 
-    for (ItemCarrito& it : carrito) {
-        if (it.codigo == p.codigo) {
-            if (it.cantidad < p.stock)      // no se puede pedir más de lo que hay
-                ++it.cantidad;
-            reconstruirCarrito();
-            return;
-        }
-    }
-
-    carrito.append(ItemCarrito{ p.codigo, 1 });
+    ::agregarAlCarrito(p.id, 1);    // devuelve false si ya hay en el carrito todo el stock
     reconstruirCarrito();
 }
 
 void MenuPaginacion::cambiarCantidad(const QString& codigo, int delta)
 {
-    for (ItemCarrito& it : carrito) {
-        if (it.codigo != codigo) continue;
+    const int idx = indiceDeCodigo(codigo);
+    if (idx < 0) {
+        reconstruirCarrito();
+        return;
+    }
 
-        it.cantidad += delta;
-        if (it.cantidad <= 0) {
-            quitarDelCarrito(codigo);
-            return;
+    const int id = productos[idx].id;
+    if (delta > 0) {
+        ::agregarAlCarrito(id, delta);
+    }
+    else {
+        for (ItemCompra& it : carrito) {
+            if (it.idProducto != id) continue;
+
+            it.cantidad += delta;
+            if (it.cantidad <= 0) {
+                quitarDelCarrito(codigo);
+                return;
+            }
+            break;
         }
-        break;
     }
     reconstruirCarrito();   // también ajusta la cantidad al stock disponible
 }
 
 void MenuPaginacion::quitarDelCarrito(const QString& codigo)
 {
-    for (int k = 0; k < carrito.size(); ++k) {
-        if (carrito[k].codigo == codigo) {
-            carrito.removeAt(k);
-            break;
-        }
-    }
+    const int idx = indiceDeCodigo(codigo);
+    if (idx >= 0)
+        ::quitarDelCarrito(productos[idx].id);
     reconstruirCarrito();
 }
 
 void MenuPaginacion::vaciarCarrito()
 {
-    carrito.clear();
+    ::vaciarCarrito();
     reconstruirCarrito();
 }
 
@@ -246,7 +258,7 @@ void MenuPaginacion::reconstruirCarrito()
 {
     // 1) Depurar: fuera lo que ya no existe o no tiene stock; cantidades al máximo disponible
     for (int k = carrito.size() - 1; k >= 0; --k) {
-        const int idx = indiceDeCodigo(carrito[k].codigo);
+        const int idx = indiceDeId(carrito[k].idProducto);
         if (idx < 0 || productos[idx].stock <= 0) {
             carrito.removeAt(k);
             continue;
@@ -265,9 +277,9 @@ void MenuPaginacion::reconstruirCarrito()
     // 3) Crear una fila por producto del carrito
     double total = 0.0;
 
-    for (const ItemCarrito& it : carrito) {
-        const Producto& p = productos[indiceDeCodigo(it.codigo)];
-        const double subtotal = p.precio * it.cantidad;
+    for (const ItemCompra& it : carrito) {
+        const Producto& p = productos[indiceDeId(it.idProducto)];
+        const double subtotal = it.precio * it.cantidad;   // precio copiado al agregar, igual que al cobrar
         total += subtotal;
 
         auto* fila = new QFrame(ui->contenedorCarrito);
@@ -320,7 +332,7 @@ void MenuPaginacion::reconstruirCarrito()
         vertical->addLayout(arriba);
         vertical->addLayout(abajo);
 
-        const QString codigo = it.codigo;
+        const QString codigo = p.codigo;
         connect(btnMenos, &QPushButton::clicked, this, [this, codigo] { cambiarCantidad(codigo, -1); });
         connect(btnMas, &QPushButton::clicked, this, [this, codigo] { cambiarCantidad(codigo, +1); });
         connect(btnQuitar, &QPushButton::clicked, this, [this, codigo] { quitarDelCarrito(codigo); });
@@ -336,46 +348,27 @@ void MenuPaginacion::reconstruirCarrito()
     ui->btnPagar->setEnabled(!carrito.isEmpty());
 }
 
+// "Pagar" abre la ventana Carrito, que cobra (efectivo, tarjeta o cuotas), descuenta el
+// stock, guarda la compra en el historial y muestra el recibo.
 void MenuPaginacion::pagar()
 {
     if (carrito.isEmpty())
         return;
 
-    double total = 0.0;
-    int unidades = 0;
-    for (const ItemCarrito& it : carrito) {
-        const int idx = indiceDeCodigo(it.codigo);
-        if (idx < 0) continue;
-        total += productos[idx].precio * it.cantidad;
-        unidades += it.cantidad;
-    }
+    Carrito* ventana = new Carrito();
+    ventana->setAttribute(Qt::WA_DeleteOnClose);
 
-    const auto respuesta = QMessageBox::question(
-        this, tr("Confirmar compra"),
-        tr("Vas a pagar $%1 por %2 artículo(s). ¿Continuar?")
-        .arg(total, 0, 'f', 2).arg(unidades),
-        QMessageBox::Yes | QMessageBox::No);
+    // Tras pagar (o quitar algo en la ventana): refrescar catálogo y panel sin perder la página
+    connect(ventana, &Carrito::carritoModificado, this, [this]() {
+        const int pagina = paginaActual;
+        aplicarFiltros();
+        paginaActual = pagina;
+        mostrarPagina();
+        reconstruirCarrito();
+    });
+    // Al cerrar la ventana el panel debe reflejar el carrito tal como quedó
+    connect(ventana, &QObject::destroyed, this, [this]() { reconstruirCarrito(); });
 
-    if (respuesta != QMessageBox::Yes)
-        return;
-
-    // Descontar del inventario lo que se compró y guardar
-    for (const ItemCarrito& it : carrito) {
-        const int idx = indiceDeCodigo(it.codigo);
-        if (idx >= 0)
-            productos[idx].stock = qMax(0, productos[idx].stock - it.cantidad);
-    }
-    guardarProductos();
-
-    carrito.clear();
-
-    QMessageBox::information(this, tr("Compra realizada"), tr("¡Gracias por tu compra!"));
-
-    // Refrescar el catálogo (los productos agotados desaparecen) sin perder la página
-    const int pagina = paginaActual;
-    aplicarFiltros();
-    paginaActual = pagina;
-    mostrarPagina();
-
-    reconstruirCarrito();
+    ventana->setWindowModality(Qt::ApplicationModal);
+    ventana->show();
 }

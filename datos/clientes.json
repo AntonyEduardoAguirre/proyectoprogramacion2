@@ -16,5 +16,11 @@
         "id": 3,
         "nombre": "Cajero3",
         "saldo": 0
+    },
+    {
+        "contrasenna": "4",
+        "id": 4,
+        "nombre": "Cajero4",
+        "saldo": 0
     }
 ]

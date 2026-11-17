@@ -118,8 +118,15 @@
     <ClCompile Include="clases\producto.h" />
     <ClCompile Include="Administracion.cpp" />
     <QtRcc Include="practicaproyecto.qrc" />
+    <QtUic Include="AdminCobros.ui" />
+    <QtUic Include="AdminCuentas.ui" />
+    <QtUic Include="AdminCuotas.ui" />
     <QtUic Include="Administracion.ui" />
+    <QtUic Include="AdminProductos.ui" />
     <QtUic Include="carrito.ui" />
+    <QtUic Include="DetalleCobros.ui" />
+    <QtUic Include="DialogoCuenta.ui" />
+    <QtUic Include="DialogoProducto.ui" />
     <QtUic Include="historial.ui" />
     <QtUic Include="inicio.ui" />
     <QtMoc Include="clases\Inicio.h" />
@@ -129,6 +136,7 @@
     <QtUic Include="MenuPrincipal.ui" />
     <QtUic Include="Saldo.ui" />
     <QtUic Include="CuotaCompletada.ui" />
+    <QtUic Include="Widget.ui" />
   </ItemGroup>
   <ItemGroup>
     <QtMoc Include="Carrito.h" />

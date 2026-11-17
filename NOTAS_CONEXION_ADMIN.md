@@ -263,3 +263,21 @@ Estado actual de esta rama:
 El orden de seguridad del Cierre (generar → respaldar → guardar → releer/verificar →
 limpiar/marcar) se conserva intacto: `bitacora.json` sigue siendo la bandeja de entrega
 que ahora consume el menú admin.
+
+---
+
+## 8) Reglas de subida al admin (ajuste final)
+
+1. **Cobros por usuario** (`recolectarCobros()`): muestra **únicamente Efectivo y Tarjeta**,
+   y solo los que ya fueron enviados por el Cierre (lee `bitacora.json`). No aparecen
+   cuotas ni facturas aquí. Antes del Cierre no se muestra ningún cobro de contado,
+   aunque esté en `historial.json`.
+2. **Cuotas activas**: no se suben hasta que el cajero pulse **Cierre**. El Cierre envía
+   sus pagos (`tipo = Cuotas`) y los marca con `enviado_admin = true`. La pestaña Cuotas
+   del admin solo muestra un plan activo cuando tiene algún pago con esa marca.
+3. **Cuotas completadas**: se suben **al instante de completarse**. Al generar la factura
+   se guarda con `enviada_admin = true` y `fecha_envio_admin` (`VentanaDetalleCuota` y
+   `RepositorioCuotas::completar()` ya no la fuerzan a `false`). `FuenteCuotas` dejó de
+   enviar el tipo `Cuota completada`, así que el Cierre no las reenvía.
+4. Los datos de prueba (`datos/cuotas.json`) tienen sus 3 facturas marcadas como
+   `enviada_admin: true` para reflejar esta regla.

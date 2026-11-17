@@ -321,8 +321,7 @@ bool RepositorioCuotas::completar(int indice, const FacturaCuota& factura,
     Cuota& cuota = cuotas[indice];
     cuota.completada = true;
     cuota.mesesRestantes = 0;
-    cuota.factura = factura;
-    cuota.factura.enviadaAdmin = false;   // pendiente de confirmación del admin
+    cuota.factura = factura;   // enviadaAdmin ya viene marcada al completarse
 
     return guardar(cuotas, error);        // QSaveFile, antes de intentar el envío
 }

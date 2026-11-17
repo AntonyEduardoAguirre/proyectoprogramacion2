@@ -292,11 +292,11 @@ void MenuPrincipal::realizarCierre()
 	}
 	resumen += QStringLiteral("\nTotal general: $%1")
 				   .arg(QString::number(cierre.totalGeneral, 'f', 2));
-	resumen += QStringLiteral("\n\nSe enviarán al menú de administración: los pagos de tarjeta y "
-							 "efectivo a 'Cobros por usuario' y las facturas de cuotas completadas "
-							 "también a 'Cobros por usuario'. Los planes de cuotas quedan en la "
-							 "pestaña 'Cuotas' del admin. Se borrarán los datos locales de tarjeta y "
-							 "efectivo; las cuotas se conservan en el menú de cuotas.");
+	resumen += QStringLiteral("\n\nCon el Cierre se enviarán al menú de administración los pagos "
+							 "de tarjeta y efectivo a 'Cobros por usuario', y los pagos de los "
+							 "planes de cuotas activos a la pestaña 'Cuotas'. Las cuotas "
+							 "completadas ya se subieron al momento de completarse y no se "
+							 "reenvían. Se borrarán los datos locales de tarjeta y efectivo.");
 
 	QMessageBox confirmacion(this);
 	confirmacion.setWindowTitle(QStringLiteral("Cierre del día"));

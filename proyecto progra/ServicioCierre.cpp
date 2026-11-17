@@ -23,8 +23,7 @@ bool ServicioCierre::generar(const QDate& fecha, const QString& caja,
 
     const QStringList tipos = { QStringLiteral("Efectivo"),
                                 QStringLiteral("Tarjeta"),
-                                QStringLiteral("Cuotas"),
-                                QStringLiteral("Cuota completada") };
+                                QStringLiteral("Cuotas") };
     for (const QString& tipo : tipos) {
         ResumenTipo resumen;
         resumen.tipo = tipo;

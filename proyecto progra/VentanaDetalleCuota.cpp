@@ -223,7 +223,8 @@ void VentanaDetalleCuota::completarPago()
         factura.totalConAumento = cuota_.totalConAumento;
         factura.totalPagado = cuota_.totalPagado();
         factura.pagos = cuota_.pagos;
-        factura.enviadaAdmin = false;   // pendiente de confirmación del admin
+        factura.enviadaAdmin = true;    // la cuota completada se sube de inmediato
+        factura.fechaEnvioAdmin = fecha;
 
         if (!repositorio.completar(indice_, factura, &error)) {
             mostrarEstado(error, true);
@@ -250,7 +251,8 @@ void VentanaDetalleCuota::completarPago()
         aplicarEstiloMensaje(&exito);
         exito.exec();
 
-        // La cuota NO se envía al admin aquí: se enviará en el Cierre.
+        // La cuota completada ya quedó marcada como enviada al admin: se sube
+        // en este momento y no espera al botón Cierre.
         close();   // vuelve a la lista de VentanaCuotas
         return;
     }

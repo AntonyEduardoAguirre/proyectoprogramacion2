@@ -52,22 +52,9 @@ bool FuenteCuotas::ventasDelDia(const QDate& fecha, const QString& caja,
             ventas->append(venta);
         }
 
-        // Las cuotas completadas con factura pendiente se envían como
-        // "Cuota completada", también aunque sus pagos ya estén marcados.
-        if (cuota.factura.numero > 0 && !cuota.factura.enviadaAdmin) {
-            const QDateTime cuando = QDateTime::fromString(
-                cuota.factura.fechaFinalizacion, QStringLiteral("dd/MM/yyyy hh:mm:ss"));
-            if (cuando.isValid() && cuando.date() == fecha) {
-                VentaDia venta;
-                venta.tipo = QStringLiteral("Cuota completada");
-                venta.caja = cuota.factura.caja.isEmpty() ? caja : cuota.factura.caja;
-                venta.fecha = cuota.factura.fechaFinalizacion;
-                venta.cliente = cuota.cliente;
-                venta.monto = cuota.factura.totalPagado;
-                venta.referencia = cuota.factura.numeroTexto();
-                ventas->append(venta);
-            }
-        }
+        // Las cuotas completadas NO viajan en el Cierre: su factura se sube al
+        // instante en que se completan (enviada_admin = true). Aquí solo se
+        // envían los pagos de los planes que siguen activos.
     }
 
     return true;

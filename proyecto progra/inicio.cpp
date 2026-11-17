@@ -1,4 +1,4 @@
-﻿#include "clases/Inicio.h"
+#include "clases/Inicio.h"
 #include "clases/cliente.h"
 #include "clases/datos.h"
 #include "clases/MenuPrincipal.h"
@@ -67,17 +67,6 @@ void inicio::validarSesion() {//FUNCION AUXILIAR
             // TODO: cambiar según el rol del usuario cuando se implemente la validación de administradores.
             MenuPrincipal* ventanaMenu = new MenuPrincipal(usuarioActual.nombre, false);
             ventanaMenu->setAttribute(Qt::WA_DeleteOnClose); // libera memoria al cerrarla
-
-            // "Salir" no cierra el programa: limpia la sesión y muestra un login
-            // nuevo ANTES de que se cierre el menú (salir() emite y luego cierra).
-            // El contexto es el propio menú: esta ventana puede ya estar cerrada.
-            connect(ventanaMenu, &MenuPrincipal::sesionCerrada, ventanaMenu, []() {
-                usuarioActual = Cliente();              // sesión limpia
-                auto* nuevoInicio = new inicio();       // campos vacíos
-                nuevoInicio->setAttribute(Qt::WA_DeleteOnClose);
-                nuevoInicio->show();                    // primero el login
-            });
-
             ventanaMenu->show();
             this->close();   // cierra inicio
             return;

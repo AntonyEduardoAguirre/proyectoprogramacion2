@@ -1,38 +1,26 @@
 [
     {
-        "contrasenna": "123456789xd",
+        "contrasenna": "1",
         "id": 1,
-        "nombre": "ivan",
+        "nombre": "Cajero1",
         "saldo": 0
     },
     {
-        "contrasenna": "123456789sexoxd",
+        "contrasenna": "2",
         "id": 2,
-        "nombre": "ivan ",
+        "nombre": "Cajero2",
         "saldo": 0
     },
     {
-        "contrasenna": "123456",
+        "contrasenna": "3",
         "id": 3,
-        "nombre": "ivans",
+        "nombre": "Cajero3",
         "saldo": 0
     },
     {
-        "contrasenna": "123456",
+        "contrasenna": "4",
         "id": 4,
-        "nombre": "anderson",
+        "nombre": "Cajero4",
         "saldo": 0
-    },
-    {
-        "contrasenna": "Diego12345",
-        "id": 5,
-        "nombre": "Diego",
-        "saldo": 0
-    },
-    {
-        "contrasenna": "123456",
-        "id": 6,
-        "nombre": "ivan1",
-        "saldo": 123260456
     }
 ]

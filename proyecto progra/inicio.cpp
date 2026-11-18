@@ -21,6 +21,7 @@ inicio::inicio(QWidget* parent)
     : QMainWindow(parent)
 {
     ui.setupUi(this);
+    setWindowState(Qt::WindowMaximized);
     auto* sombra = new QGraphicsDropShadowEffect(ui.loginCard);
     sombra->setBlurRadius(28);
     sombra->setOffset(0, 8);

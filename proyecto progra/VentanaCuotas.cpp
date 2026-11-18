@@ -35,6 +35,7 @@ VentanaCuotas::VentanaCuotas(QWidget* parent)
     : QWidget(parent)
 {
     ui.setupUi(this);
+    setWindowState(Qt::WindowMaximized);
     cargarHistorial();
 
     connect(ui.txtBuscar, &QLineEdit::textChanged, this, &VentanaCuotas::filtrar);

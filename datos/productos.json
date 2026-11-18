@@ -1,346 +1,346 @@
 [
     {
-        "categoria":  "ComputaciÃ³n",
-        "codigo":  "001",
-        "id":  1,
-        "nombre":  "Laptop Lenovo IdeaPad 15",
-        "precio":  8499,
-        "stock":  5
+        "categoria": "ComputaciÃ³n",
+        "codigo": "001",
+        "id": 1,
+        "nombre": "Laptop Lenovo IdeaPad 15",
+        "precio": 8500,
+        "stock": 5
     },
     {
-        "categoria":  "ComputaciÃ³n",
-        "codigo":  "002",
-        "id":  2,
-        "nombre":  "Laptop HP Pavilion 14",
-        "precio":  10999,
-        "stock":  4
+        "categoria": "ComputaciÃ³n",
+        "codigo": "002",
+        "id": 2,
+        "nombre": "Laptop HP Pavilion 14",
+        "precio": 10999,
+        "stock": 4
     },
     {
-        "categoria":  "ComputaciÃ³n",
-        "codigo":  "003",
-        "id":  3,
-        "nombre":  "Monitor Samsung 24 pulgadas",
-        "precio":  2899,
-        "stock":  18
+        "categoria": "ComputaciÃ³n",
+        "codigo": "003",
+        "id": 3,
+        "nombre": "Monitor Samsung 24 pulgadas",
+        "precio": 2899,
+        "stock": 18
     },
     {
-        "categoria":  "ComputaciÃ³n",
-        "codigo":  "004",
-        "id":  4,
-        "nombre":  "Teclado mecÃ¡nico Redragon",
-        "precio":  699,
-        "stock":  31
+        "categoria": "ComputaciÃ³n",
+        "codigo": "004",
+        "id": 4,
+        "nombre": "Teclado mecÃ¡nico Redragon",
+        "precio": 699,
+        "stock": 29
     },
     {
-        "categoria":  "ComputaciÃ³n",
-        "codigo":  "005",
-        "id":  5,
-        "nombre":  "Mouse inalÃ¡mbrico Logitech",
-        "precio":  349,
-        "stock":  44
+        "categoria": "ComputaciÃ³n",
+        "codigo": "005",
+        "id": 5,
+        "nombre": "Mouse inalÃ¡mbrico Logitech",
+        "precio": 349,
+        "stock": 44
     },
     {
-        "categoria":  "ComputaciÃ³n",
-        "codigo":  "006",
-        "id":  6,
-        "nombre":  "Disco SSD 1TB Kingston",
-        "precio":  1399,
-        "stock":  19
+        "categoria": "ComputaciÃ³n",
+        "codigo": "006",
+        "id": 6,
+        "nombre": "Disco SSD 1TB Kingston",
+        "precio": 1399,
+        "stock": 19
     },
     {
-        "categoria":  "ComputaciÃ³n",
-        "codigo":  "007",
-        "id":  7,
-        "nombre":  "Memoria RAM 16GB DDR4",
-        "precio":  899,
-        "stock":  29
+        "categoria": "ComputaciÃ³n",
+        "codigo": "007",
+        "id": 7,
+        "nombre": "Memoria RAM 16GB DDR4",
+        "precio": 899,
+        "stock": 29
     },
     {
-        "categoria":  "ComputaciÃ³n",
-        "codigo":  "008",
-        "id":  8,
-        "nombre":  "Webcam Full HD",
-        "precio":  549,
-        "stock":  17
+        "categoria": "ComputaciÃ³n",
+        "codigo": "008",
+        "id": 8,
+        "nombre": "Webcam Full HD",
+        "precio": 549,
+        "stock": 17
     },
     {
-        "categoria":  "Celulares",
-        "codigo":  "009",
-        "id":  9,
-        "nombre":  "Samsung Galaxy A54",
-        "precio":  6499,
-        "stock":  15
+        "categoria": "Celulares",
+        "codigo": "009",
+        "id": 9,
+        "nombre": "Samsung Galaxy A54",
+        "precio": 6499,
+        "stock": 15
     },
     {
-        "categoria":  "Celulares",
-        "codigo":  "010",
-        "id":  10,
-        "nombre":  "iPhone 13 128GB",
-        "precio":  12999,
-        "stock":  9
+        "categoria": "Celulares",
+        "codigo": "010",
+        "id": 10,
+        "nombre": "iPhone 13 128GB",
+        "precio": 12999,
+        "stock": 9
     },
     {
-        "categoria":  "Celulares",
-        "codigo":  "011",
-        "id":  11,
-        "nombre":  "Xiaomi Redmi Note 12",
-        "precio":  4299,
-        "stock":  22
+        "categoria": "Celulares",
+        "codigo": "011",
+        "id": 11,
+        "nombre": "Xiaomi Redmi Note 12",
+        "precio": 4299,
+        "stock": 22
     },
     {
-        "categoria":  "Celulares",
-        "codigo":  "012",
-        "id":  12,
-        "nombre":  "Motorola Moto G73",
-        "precio":  3799,
-        "stock":  17
+        "categoria": "Celulares",
+        "codigo": "012",
+        "id": 12,
+        "nombre": "Motorola Moto G73",
+        "precio": 3799,
+        "stock": 17
     },
     {
-        "categoria":  "Celulares",
-        "codigo":  "013",
-        "id":  13,
-        "nombre":  "Cargador rÃ¡pido 33W",
-        "precio":  249,
-        "stock":  60
+        "categoria": "Celulares",
+        "codigo": "013",
+        "id": 13,
+        "nombre": "Cargador rÃ¡pido 33W",
+        "precio": 249,
+        "stock": 60
     },
     {
-        "categoria":  "Celulares",
-        "codigo":  "014",
-        "id":  14,
-        "nombre":  "Funda protectora universal",
-        "precio":  129,
-        "stock":  80
+        "categoria": "Celulares",
+        "codigo": "014",
+        "id": 14,
+        "nombre": "Funda protectora universal",
+        "precio": 129,
+        "stock": 80
     },
     {
-        "categoria":  "Celulares",
-        "codigo":  "015",
-        "id":  15,
-        "nombre":  "Protector de pantalla vidrio",
-        "precio":  99,
-        "stock":  100
+        "categoria": "Celulares",
+        "codigo": "015",
+        "id": 15,
+        "nombre": "Protector de pantalla vidrio",
+        "precio": 99,
+        "stock": 100
     },
     {
-        "categoria":  "Celulares",
-        "codigo":  "016",
-        "id":  16,
-        "nombre":  "Power bank 20000mAh",
-        "precio":  499,
-        "stock":  40
+        "categoria": "Celulares",
+        "codigo": "016",
+        "id": 16,
+        "nombre": "Power bank 20000mAh",
+        "precio": 499,
+        "stock": 40
     },
     {
-        "categoria":  "Audio",
-        "codigo":  "017",
-        "id":  17,
-        "nombre":  "AudÃ­fonos Sony WH-1000XM4",
-        "precio":  5499,
-        "stock":  8
+        "categoria": "Audio",
+        "codigo": "017",
+        "id": 17,
+        "nombre": "AudÃ­fonos Sony WH-1000XM4",
+        "precio": 5499,
+        "stock": 8
     },
     {
-        "categoria":  "Audio",
-        "codigo":  "018",
-        "id":  18,
-        "nombre":  "AudÃ­fonos JBL Tune 510BT",
-        "precio":  899,
-        "stock":  28
+        "categoria": "Audio",
+        "codigo": "018",
+        "id": 18,
+        "nombre": "AudÃ­fonos JBL Tune 510BT",
+        "precio": 899,
+        "stock": 28
     },
     {
-        "categoria":  "Audio",
-        "codigo":  "019",
-        "id":  19,
-        "nombre":  "Bocina Bluetooth JBL Flip 6",
-        "precio":  2499,
-        "stock":  14
+        "categoria": "Audio",
+        "codigo": "019",
+        "id": 19,
+        "nombre": "Bocina Bluetooth JBL Flip 6",
+        "precio": 2499,
+        "stock": 14
     },
     {
-        "categoria":  "Audio",
-        "codigo":  "020",
-        "id":  20,
-        "nombre":  "Barra de sonido Samsung",
-        "precio":  3999,
-        "stock":  6
+        "categoria": "Audio",
+        "codigo": "020",
+        "id": 20,
+        "nombre": "Barra de sonido Samsung",
+        "precio": 3999,
+        "stock": 6
     },
     {
-        "categoria":  "Audio",
-        "codigo":  "021",
-        "id":  21,
-        "nombre":  "MicrÃ³fono USB Blue Yeti",
-        "precio":  2299,
-        "stock":  10
+        "categoria": "Audio",
+        "codigo": "021",
+        "id": 21,
+        "nombre": "MicrÃ³fono USB Blue Yeti",
+        "precio": 2299,
+        "stock": 10
     },
     {
-        "categoria":  "Audio",
-        "codigo":  "022",
-        "id":  22,
-        "nombre":  "AudÃ­fonos in-ear Xiaomi",
-        "precio":  299,
-        "stock":  45
+        "categoria": "Audio",
+        "codigo": "022",
+        "id": 22,
+        "nombre": "AudÃ­fonos in-ear Xiaomi",
+        "precio": 299,
+        "stock": 45
     },
     {
-        "categoria":  "Audio",
-        "codigo":  "023",
-        "id":  23,
-        "nombre":  "Bocina Amazon Echo Dot",
-        "precio":  1199,
-        "stock":  19
+        "categoria": "Audio",
+        "codigo": "023",
+        "id": 23,
+        "nombre": "Bocina Amazon Echo Dot",
+        "precio": 1199,
+        "stock": 19
     },
     {
-        "categoria":  "Audio",
-        "codigo":  "024",
-        "id":  24,
-        "nombre":  "AudÃ­fonos gamer HyperX",
-        "precio":  1499,
-        "stock":  16
+        "categoria": "Audio",
+        "codigo": "024",
+        "id": 24,
+        "nombre": "AudÃ­fonos gamer HyperX",
+        "precio": 1499,
+        "stock": 16
     },
     {
-        "categoria":  "Hogar",
-        "codigo":  "025",
-        "id":  25,
-        "nombre":  "Licuadora Oster 600W",
-        "precio":  999,
-        "stock":  21
+        "categoria": "Hogar",
+        "codigo": "025",
+        "id": 25,
+        "nombre": "Licuadora Oster 600W",
+        "precio": 999,
+        "stock": 21
     },
     {
-        "categoria":  "Hogar",
-        "codigo":  "026",
-        "id":  26,
-        "nombre":  "Cafetera Oster 12 tazas",
-        "precio":  799,
-        "stock":  13
+        "categoria": "Hogar",
+        "codigo": "026",
+        "id": 26,
+        "nombre": "Cafetera Oster 12 tazas",
+        "precio": 799,
+        "stock": 13
     },
     {
-        "categoria":  "Hogar",
-        "codigo":  "027",
-        "id":  27,
-        "nombre":  "Aspiradora Xiaomi robot",
-        "precio":  4999,
-        "stock":  5
+        "categoria": "Hogar",
+        "codigo": "027",
+        "id": 27,
+        "nombre": "Aspiradora Xiaomi robot",
+        "precio": 4999,
+        "stock": 5
     },
     {
-        "categoria":  "Hogar",
-        "codigo":  "028",
-        "id":  28,
-        "nombre":  "Freidora de aire 4L",
-        "precio":  1599,
-        "stock":  24
+        "categoria": "Hogar",
+        "codigo": "028",
+        "id": 28,
+        "nombre": "Freidora de aire 4L",
+        "precio": 1599,
+        "stock": 24
     },
     {
-        "categoria":  "Hogar",
-        "codigo":  "029",
-        "id":  29,
-        "nombre":  "Ventilador de torre",
-        "precio":  1299,
-        "stock":  11
+        "categoria": "Hogar",
+        "codigo": "029",
+        "id": 29,
+        "nombre": "Ventilador de torre",
+        "precio": 1299,
+        "stock": 11
     },
     {
-        "categoria":  "Hogar",
-        "codigo":  "030",
-        "id":  30,
-        "nombre":  "Microondas Mabe 20L",
-        "precio":  1799,
-        "stock":  9
+        "categoria": "Hogar",
+        "codigo": "030",
+        "id": 30,
+        "nombre": "Microondas Mabe 20L",
+        "precio": 1799,
+        "stock": 9
     },
     {
-        "categoria":  "Hogar",
-        "codigo":  "031",
-        "id":  31,
-        "nombre":  "Plancha de vapor Philips",
-        "precio":  649,
-        "stock":  26
+        "categoria": "Hogar",
+        "codigo": "031",
+        "id": 31,
+        "nombre": "Plancha de vapor Philips",
+        "precio": 649,
+        "stock": 26
     },
     {
-        "categoria":  "Hogar",
-        "codigo":  "032",
-        "id":  32,
-        "nombre":  "LÃ¡mpara LED inteligente",
-        "precio":  299,
-        "stock":  55
+        "categoria": "Hogar",
+        "codigo": "032",
+        "id": 32,
+        "nombre": "LÃ¡mpara LED inteligente",
+        "precio": 299,
+        "stock": 55
     },
     {
-        "categoria":  "Gaming",
-        "codigo":  "033",
-        "id":  33,
-        "nombre":  "Consola PlayStation 5",
-        "precio":  11999,
-        "stock":  4
+        "categoria": "Gaming",
+        "codigo": "033",
+        "id": 33,
+        "nombre": "Consola PlayStation 5",
+        "precio": 11999,
+        "stock": 4
     },
     {
-        "categoria":  "Gaming",
-        "codigo":  "034",
-        "id":  34,
-        "nombre":  "Consola Xbox Series S",
-        "precio":  6999,
-        "stock":  7
+        "categoria": "Gaming",
+        "codigo": "034",
+        "id": 34,
+        "nombre": "Consola Xbox Series S",
+        "precio": 6999,
+        "stock": 7
     },
     {
-        "categoria":  "Gaming",
-        "codigo":  "035",
-        "id":  35,
-        "nombre":  "Nintendo Switch OLED",
-        "precio":  7499,
-        "stock":  10
+        "categoria": "Gaming",
+        "codigo": "035",
+        "id": 35,
+        "nombre": "Nintendo Switch OLED",
+        "precio": 7499,
+        "stock": 10
     },
     {
-        "categoria":  "Gaming",
-        "codigo":  "036",
-        "id":  36,
-        "nombre":  "Control inalÃ¡mbrico DualSense",
-        "precio":  1799,
-        "stock":  23
+        "categoria": "Gaming",
+        "codigo": "036",
+        "id": 36,
+        "nombre": "Control inalÃ¡mbrico DualSense",
+        "precio": 1799,
+        "stock": 23
     },
     {
-        "categoria":  "Gaming",
-        "codigo":  "037",
-        "id":  37,
-        "nombre":  "Silla gamer ergonÃ³mica",
-        "precio":  3499,
-        "stock":  8
+        "categoria": "Gaming",
+        "codigo": "037",
+        "id": 37,
+        "nombre": "Silla gamer ergonÃ³mica",
+        "precio": 3499,
+        "stock": 8
     },
     {
-        "categoria":  "Gaming",
-        "codigo":  "038",
-        "id":  38,
-        "nombre":  "Mousepad XL RGB",
-        "precio":  399,
-        "stock":  38
+        "categoria": "Gaming",
+        "codigo": "038",
+        "id": 38,
+        "nombre": "Mousepad XL RGB",
+        "precio": 399,
+        "stock": 38
     },
     {
-        "categoria":  "Gaming",
-        "codigo":  "039",
-        "id":  39,
-        "nombre":  "Tarjeta de video RTX 4060",
-        "precio":  8999,
-        "stock":  5
+        "categoria": "Gaming",
+        "codigo": "039",
+        "id": 39,
+        "nombre": "Tarjeta de video RTX 4060",
+        "precio": 8999,
+        "stock": 5
     },
     {
-        "categoria":  "Gaming",
-        "codigo":  "040",
-        "id":  40,
-        "nombre":  "Volante Logitech G29",
-        "precio":  5999,
-        "stock":  3
+        "categoria": "Gaming",
+        "codigo": "040",
+        "id": 40,
+        "nombre": "Volante Logitech G29",
+        "precio": 5999,
+        "stock": 3
     },
     {
-        "categoria":  "Gaming",
-        "codigo":  "041",
-        "id":  41,
-        "nombre":  "Control Xbox inalÃ¡mbrico",
-        "precio":  1399,
-        "stock":  27
+        "categoria": "Gaming",
+        "codigo": "041",
+        "id": 41,
+        "nombre": "Control Xbox inalÃ¡mbrico",
+        "precio": 1399,
+        "stock": 27
     },
     {
-        "categoria":  "Gaming",
-        "codigo":  "042",
-        "id":  42,
-        "nombre":  "Headset gamer Razer Kraken",
-        "precio":  1699,
-        "stock":  12
+        "categoria": "Gaming",
+        "codigo": "042",
+        "id": 42,
+        "nombre": "Headset gamer Razer Kraken",
+        "precio": 1699,
+        "stock": 12
     },
     {
-        "categoria":  "Gaming",
-        "codigo":  "043",
-        "id":  43,
-        "nombre":  "Teclado gamer RGB 60%",
-        "precio":  899,
-        "stock":  20
+        "categoria": "Gaming",
+        "codigo": "043",
+        "id": 43,
+        "nombre": "Teclado gamer RGB 60%",
+        "precio": 899,
+        "stock": 20
     }
 ]

@@ -14,5 +14,21 @@
         "meses": 24,
         "metodo": "Tarjeta (cuotas)",
         "total": 9518.880000000001
+    },
+    {
+        "clienteId": 1,
+        "cuotaMensual": 0,
+        "fecha": "17/11/2026 18:05",
+        "items": [
+            {
+                "cantidad": 2,
+                "idProducto": 4,
+                "nombre": "Teclado mecÃ¡nico Redragon",
+                "precio": 699
+            }
+        ],
+        "meses": 0,
+        "metodo": "Tarjeta",
+        "total": 1398
     }
 ]

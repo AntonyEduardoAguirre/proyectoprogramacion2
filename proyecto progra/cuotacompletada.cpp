@@ -9,6 +9,7 @@ CuotaCompletada::CuotaCompletada(const Compra& compra, const QString& cliente, c
     : QWidget(parent)
 {
     ui.setupUi(this);
+    setWindowState(Qt::WindowMaximized);
 
     // ticket con los productos comprados, como en el recibo
     for (const ItemCompra& item : compra.items) {

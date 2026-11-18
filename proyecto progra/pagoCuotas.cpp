@@ -30,6 +30,7 @@ PagoCuotas::PagoCuotas(double totalSinAumento, int mesesIniciales, QWidget* pare
     : QWidget(parent)
 {
     setWindowTitle(QStringLiteral("Pago a cuotas"));
+    setWindowState(Qt::WindowMaximized);
     setMinimumSize(460, 560);
     setObjectName(QStringLiteral("ventanaPagoCuotas"));
     setStyleSheet(QStringLiteral(R"(

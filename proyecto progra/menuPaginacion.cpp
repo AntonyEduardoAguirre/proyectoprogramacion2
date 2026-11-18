@@ -16,6 +16,7 @@ MenuPaginacion::MenuPaginacion(QWidget* parent)
     : QMainWindow(parent), ui(new Ui::MenuPaginacion)
 {
     ui->setupUi(this);
+    setWindowState(Qt::WindowMaximized);
 
     // La cuadrícula de productos ocupa todo el espacio libre de la tarjeta
     ui->layoutCatalogo->setStretchFactor(ui->gridProductos, 1);

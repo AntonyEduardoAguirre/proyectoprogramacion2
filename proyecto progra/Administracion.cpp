@@ -72,6 +72,18 @@ QString claveCobro(const CobroRegistro& cobro)
         .arg(cobro.factura);
 }
 
+bool convertirPrecio(const QString& texto, double* precio)
+{
+    QString normalizado = texto.trimmed();
+    normalizado.replace(',', '.');
+    bool valido = false;
+    const double valor = normalizado.toDouble(&valido);
+    if (!valido || valor <= 0.0)
+        return false;
+    *precio = valor;
+    return true;
+}
+
 QSet<int> cuotasPagadas(const QJsonObject& registro)
 {
     QSet<int> pagadas;
@@ -216,9 +228,8 @@ QDialog* dialogoProducto(QWidget* parent, int indice, QString& codigo, QString& 
                     return;
                 }
             }
-            bool valido = false;
-            const double valor = precioEdit->text().toDouble(&valido);
-            if (nombreEdit->text().trimmed().isEmpty() || !valido || valor <= 0) {
+            double valor = 0.0;
+            if (nombreEdit->text().trimmed().isEmpty() || !convertirPrecio(precioEdit->text(), &valor)) {
                 error->setText(QStringLiteral("El nombre no puede estar vacío y el precio debe ser mayor que 0."));
                 return;
             }
@@ -237,6 +248,7 @@ Administracion::Administracion(QWidget* parent)
       listaProductos_(nullptr), listaCuentas_(nullptr), listaCuotas_(nullptr), listaCobros_(nullptr)
 {
     ui->setupUi(this);
+    setWindowState(Qt::WindowMaximized);
     setStyleSheet(estilo);
     ui->titulo->setObjectName(QStringLiteral("titulo"));
     ui->regresar->setProperty("flat", true);
@@ -278,8 +290,8 @@ QWidget* Administracion::crearProductos()
         const QString codigo = uiProductos_->codigoProducto->text().trimmed();
         if (!Producto::codigoValido(codigo)) { uiProductos_->errorProductos->setText(QStringLiteral("El código debe contener al menos 3 dígitos.")); return; }
         for (const Producto& existente : productos) if (existente.codigo == codigo) { uiProductos_->errorProductos->setText(QStringLiteral("El código ya está asignado a otro producto.")); return; }
-        bool valido = false;
-        const double precio = uiProductos_->precioProducto->text().toDouble(&valido);
+        double precio = 0.0;
+        const bool valido = convertirPrecio(uiProductos_->precioProducto->text(), &precio);
         const QString nombre = uiProductos_->nombreProducto->text().trimmed();
         if (nombre.isEmpty() || !valido || precio <= 0) { uiProductos_->errorProductos->setText(QStringLiteral("El nombre no puede estar vacío y el precio debe ser mayor que 0.")); return; }
         Producto producto;

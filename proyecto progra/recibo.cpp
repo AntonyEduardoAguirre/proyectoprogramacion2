@@ -12,6 +12,7 @@ Recibo::Recibo(const Compra& compra, double efectivoRecibido,
     : QWidget(parent)
 {
     setWindowTitle(QStringLiteral("Recibo de compra"));
+    setWindowState(Qt::WindowMaximized);
     setMinimumSize(460, 560);
     setObjectName(QStringLiteral("ventanaRecibo"));
     setStyleSheet(QStringLiteral(R"(

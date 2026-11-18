@@ -33,6 +33,7 @@ VentanaDetalleCuota::VentanaDetalleCuota(const Cuota& cuota, int indice,
       soloLectura_(soloLectura)
 {
     ui.setupUi(this);
+    setWindowState(Qt::WindowMaximized);
 
     connect(ui.btnCompletarPago, &QPushButton::clicked,
             this, &VentanaDetalleCuota::completarPago);

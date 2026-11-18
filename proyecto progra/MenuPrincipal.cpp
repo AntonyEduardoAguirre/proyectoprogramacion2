@@ -207,6 +207,7 @@ MenuPrincipal::MenuPrincipal(const QString& usuario, bool esAdmin, QWidget* pare
 	  ui(new Ui::MenuPrincipalClass)
 {
 	ui->setupUi(this);
+	setWindowState(Qt::WindowMaximized);
 	Q_UNUSED(esAdmin);
 	// TODO: usar esAdmin para mostrar el botón de administrador.
 

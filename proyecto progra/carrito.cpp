@@ -17,6 +17,7 @@ Carrito::Carrito(QWidget* parent)
     : QWidget(parent)
 {
     ui.setupUi(this);
+    setWindowState(Qt::WindowMaximized);
     setAttribute(Qt::WA_StyledBackground, true); // para que el QSS pinte el fondo
 
     // La sombra suave no se puede definir en el .ui

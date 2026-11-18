@@ -20,6 +20,7 @@ PagoEfectivo::PagoEfectivo(double total, const QList<ItemCompra>& items, QWidget
     : QWidget(parent)
 {
     setWindowTitle(QStringLiteral("Cobro en efectivo"));
+    setWindowState(Qt::WindowMaximized);
     setMinimumSize(460, 620);
     setObjectName(QStringLiteral("ventanaPagoEfectivo"));
     setStyleSheet(QStringLiteral(R"(
